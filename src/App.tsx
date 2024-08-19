@@ -1,6 +1,5 @@
 import {
   createBrowserRouter,
-  Navigate,
   RouterProvider,
 } from 'react-router-dom';
 import AuthLayout from './modules/Shared/components/AuthLayout/AuthLayout';
@@ -11,11 +10,12 @@ import ResetPassword from './modules/Auth/components/ResetPassword/ResetPassword
 import MasterLayout from './modules/Shared/components/MasterLayout/MasterLayout';
 import Home from './modules/Home/components/Home/Home';
 import NotFound from './modules/Shared/components/NotFound/NotFound';
+import LandingPage from './modules/Shared/components/LandingPage/LandingPage';
 function App() {
   const routes = createBrowserRouter([
     {
       path: '/',
-      element: <Navigate to="/auth" replace />,
+      element: <LandingPage />,
     },
     {
       path: '/auth',
