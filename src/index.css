@@ -34,6 +34,15 @@ a {
   height: 100vh;
   background-size: cover;
   background-position: center;
+  a {
+    text-decoration: none;
+    color: white;
+
+    transition: 0.3s all;
+  }
+  a:hover {
+    color: #ef9b28 !important;
+  }
 }
 
 .form-layout-card {
@@ -67,12 +76,12 @@ a {
 .form-layout-button {
   display: block;
   width: 100%;
-  padding: 15px;
-  background-color: #ef9b28;
+  padding: 15px 0px !important;
+  background-color: #ef9b28 !important;
   color: #fff;
   text-decoration: none;
-  border-radius: 25px;
-  border: none;
+  border-radius: 25px !important;
+  border: none !important;
   cursor: pointer;
   margin-top: 20px;
   font-size: 18px;

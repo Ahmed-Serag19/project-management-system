@@ -12,7 +12,7 @@ const FormLayout: React.FC<FormLayoutProps> = ({
   title,
   description,
   backgroundImage,
-  buttonText,
+
   children,
 }) => {
   return (
@@ -29,9 +29,6 @@ const FormLayout: React.FC<FormLayoutProps> = ({
             <p className="form-layout-description">{description}</p>
             <h2 className="form-layout-title">{title}</h2>
             {children}
-            <button className="form-layout-button">
-              {buttonText}
-            </button>
           </div>
         </div>
       </div>
