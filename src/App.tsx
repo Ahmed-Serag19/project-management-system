@@ -1,35 +1,56 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from 'react-router-dom';
+import AuthLayout from './modules/Shared/components/AuthLayout/AuthLayout';
+import Login from './modules/Auth/components/Login/Login';
+import Register from './modules/Auth/components/Register/Register';
+import ForgotPassword from './modules/Auth/components/ForgotPassword/ForgotPassword';
+import ResetPassword from './modules/Auth/components/ResetPassword/ResetPassword';
+import MasterLayout from './modules/Shared/components/MasterLayout/MasterLayout';
+import Home from './modules/Home/components/Home/Home';
+import NotFound from './modules/Shared/components/NotFound/NotFound';
 function App() {
-  const [count, setCount] = useState(0)
+  const routes = createBrowserRouter([
+    {
+      path: '/',
+      element: <Navigate to="/auth" replace />,
+    },
+    {
+      path: '/auth',
+      element: <AuthLayout />,
+      errorElement: <NotFound />,
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+      children: [
+        {
+          index: true,
+          element: <Login />,
+        },
+        { path: 'login', element: <Login /> },
+        { path: 'register', element: <Register /> },
+        { path: 'forgot-password', element: <ForgotPassword /> },
+        { path: 'reset-password', element: <ResetPassword /> },
+      ],
+    },
+    {
+      path: 'dashboard',
+      element: <MasterLayout />,
+      errorElement: <NotFound />,
+
+      children: [
+        {
+          index: true,
+          element: <Home />,
+        },
+        {
+          path: 'home',
+          element: <Home />,
+        },
+      ],
+    },
+  ]);
+  return <RouterProvider router={routes} />;
 }
 
-export default App
+export default App;
