@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Form } from 'react-bootstrap';
+import { Form, InputGroup } from 'react-bootstrap';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import FormLayout from '../../../Shared/components/FormLayout/FormLayout';
 import LoginBg from '../../../../assets/login-bg.png';
 import FormButton from '../../../Shared/components/FormButton/FormButton';
@@ -15,7 +16,13 @@ const LoginForm: React.FC = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginFormInputs>({ mode: 'onTouched' });
+  } = useForm<LoginFormInputs>({ mode: 'onSubmit' });
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   const onSubmit = (data: LoginFormInputs) => {
     console.log(data);
@@ -30,8 +37,11 @@ const LoginForm: React.FC = () => {
       buttonText="Login"
     >
       <Form onSubmit={handleSubmit(onSubmit)} className="pt-5">
-        <Form.Group controlId="formEmail" className="mb-4">
-          <Form.Label className="text-warning">E-mail</Form.Label>
+        <Form.Group
+          controlId="formEmail"
+          className="mb-4 input-section"
+        >
+          <Form.Label>E-mail</Form.Label>
           <Form.Control
             type="email"
             placeholder="Enter your E-mail"
@@ -50,24 +60,32 @@ const LoginForm: React.FC = () => {
           </Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group controlId="formPassword" className="mb-4">
-          <Form.Label className="text-warning">Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Enter your password"
-            {...register('password', {
-              required: 'Password is required',
-              pattern: {
-                value: /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,}$/,
-                message:
-                  'Password must be at least 6 characters long and include at least one uppercase letter and one number',
-              },
-            })}
-            isInvalid={!!errors.password}
-          />
-          <Form.Control.Feedback type="invalid">
-            {errors.password?.message}
-          </Form.Control.Feedback>
+        <Form.Group
+          controlId="formPassword"
+          className="mb-4 input-section"
+        >
+          <Form.Label>Password</Form.Label>
+          <InputGroup>
+            <Form.Control
+              type={showPassword ? 'text' : 'password'}
+              placeholder="Enter your password"
+              {...register('password', {
+                required: 'Password is required',
+                pattern: {
+                  value: /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,}$/,
+                  message:
+                    'Password must be at least 6 characters long and include at least one uppercase letter and one number',
+                },
+              })}
+              isInvalid={!!errors.password}
+            />
+            <InputGroup.Text onClick={togglePasswordVisibility}>
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </InputGroup.Text>
+            <Form.Control.Feedback type="invalid">
+              {errors.password?.message}
+            </Form.Control.Feedback>
+          </InputGroup>
         </Form.Group>
 
         <div className="d-flex justify-content-between mb-4">
