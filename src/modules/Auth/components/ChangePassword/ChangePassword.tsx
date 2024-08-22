@@ -6,6 +6,10 @@ import FormButton from "../../../Shared/components/FormButton/FormButton";
 import ChangePassBG from '../../../../assets/change-password-bg.png'
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import axios from "axios";
+import { User_URls } from "../../../../constants/End_Points";
+import { PasswordValidation } from '../../../../constants/Validations';
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 type ChangePasswordFormInputs = {
   oldPassword: string,
@@ -14,6 +18,7 @@ type ChangePasswordFormInputs = {
 };
 
 const ChangePassword = () => {
+  const navigate = useNavigate();
   const { register, handleSubmit, formState: { errors }, watch } = useForm<ChangePasswordFormInputs>({ mode: 'onSubmit' });
   const [showOldPassword, setShowOldPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
@@ -33,10 +38,43 @@ const ChangePassword = () => {
 
   const onSubmit = async (data: ChangePasswordFormInputs) => {
     try {
-      const res = await axios.put('https://upskilling-egypt.com:3003/api/v1/Users/ChangePassword', data)
-      console.log(res.data)
+      const res = await axios.put(User_URls.ChangePassword, data, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
+      toast.success(res.data.message, {
+        position: 'top-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      navigate('/dashboard');
     } catch (error) {
-      console.log(error);
+      if (axios.isAxiosError(error)) {
+        toast.error(error.response?.data?.message, {
+          position: 'top-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        }
+        );
+      } else {
+        toast.error(
+          'An unexpected error occurred. Please try again.',
+          {
+            position: 'top-right',
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          }
+        );
+      }
     }
   };
 
@@ -58,14 +96,7 @@ const ChangePassword = () => {
             <Form.Control
               type={showOldPassword ? 'text' : 'password'}
               placeholder="Enter your Old Password"
-              {...register('oldPassword', {
-                required: 'old Password is required',
-                pattern: {
-                  value: /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,}$/,
-                  message:
-                    'Old Password must be at least 6 characters long and include at least one uppercase letter and one number',
-                },
-              })}
+              {...register('oldPassword', PasswordValidation)}
               isInvalid={!!errors.oldPassword}
             />
             <InputGroup.Text onClick={toggleOldPasswordVisibility}>
@@ -86,14 +117,7 @@ const ChangePassword = () => {
             <Form.Control
               type={showNewPassword ? 'text' : 'password'}
               placeholder="Enter your New Password"
-              {...register('newPassword', {
-                required: 'New Password is required',
-                pattern: {
-                  value: /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,}$/,
-                  message:
-                    'New Password must be at least 6 characters long and include at least one uppercase letter and one number',
-                },
-              })}
+              {...register('newPassword', PasswordValidation)}
               isInvalid={!!errors.newPassword}
             />
             <InputGroup.Text onClick={toggleNewPasswordVisibility}>
