@@ -1,5 +1,6 @@
 import React from 'react';
 import Logo from '../../../../assets/pms-logo.png';
+
 type FormLayoutProps = {
   title: string;
   description: string;
@@ -12,7 +13,6 @@ const FormLayout: React.FC<FormLayoutProps> = ({
   title,
   description,
   backgroundImage,
-
   children,
 }) => {
   return (
