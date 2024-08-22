@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { Form, InputGroup } from 'react-bootstrap';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
@@ -13,6 +13,10 @@ import {
   EmailValidation,
   PasswordValidation,
 } from '../../../../constants/Validations';
+import {
+  AuthContext,
+  AuthContextType,
+} from '../../../../context/AuthContext';
 
 type LoginFormInputs = {
   email: string;
@@ -21,6 +25,10 @@ type LoginFormInputs = {
 
 const LoginForm: React.FC = () => {
   const navigate = useNavigate();
+  const authContext = useContext(AuthContext);
+
+  const { saveToken } = authContext as AuthContextType;
+
   const {
     register,
     handleSubmit,
@@ -46,7 +54,7 @@ const LoginForm: React.FC = () => {
         draggable: true,
         progress: undefined,
       });
-
+      saveToken(response.data.token);
       localStorage.setItem('token', response.data.token);
 
       navigate('/dashboard');
