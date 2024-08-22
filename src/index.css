@@ -39,7 +39,6 @@ a {
     color: white;
 
     transition: 0.3s all;
-
   }
   a:hover {
     color: #ef9b28 !important;
@@ -48,7 +47,7 @@ a {
 /* padding size change  */
 .form-layout-card {
   background-color: rgba(49, 89, 81, 0.9);
- padding: 35px 70px !important;
+  padding: 35px 70px !important;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   color: #fff;
@@ -56,7 +55,7 @@ a {
 }
 /* font size change  */
 .form-layout-title {
-  font-size: 24px;     
+  font-size: 24px;
   color: #ef9b28;
   position: relative;
 }
@@ -102,7 +101,6 @@ a {
   color: white !important;
   border-radius: 0px !important;
   font-size: 15px !important;
-
 }
 .form-control:focus {
   box-shadow: none !important;
@@ -127,7 +125,17 @@ a {
   color: white !important;
 }
 /*New size*/
-.logo-form-container img{
-width: 200px !important;
-
+.logo-form-container img {
+  width: 200px !important;
+}
+/* Style fix for auto complete inputs */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
+  -webkit-text-fill-color: #ffffff !important;
+  border-radius: 8px; /* Adjust as needed */
+  transition: background-color 5000s ease-in-out 0s;
+  background-color: transparent !important;
 }

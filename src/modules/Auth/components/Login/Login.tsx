@@ -7,6 +7,8 @@ import LoginBg from '../../../../assets/login-bg.png';
 import FormButton from '../../../Shared/components/FormButton/FormButton';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { toast } from 'react-toastify';
+import { User_URls } from '../../../../constants/End_Points';
 
 type LoginFormInputs = {
   email: string;
@@ -27,9 +29,53 @@ const LoginForm: React.FC = () => {
     setShowPassword(!showPassword);
   };
 
-  const onSubmit = (data: LoginFormInputs) => {
-    axios.post('https://example.com/login', data);
-    navigate('/dashboard');
+  const onSubmit = async (data: LoginFormInputs) => {
+    try {
+      const response = await axios.post(User_URls.login, data);
+
+      toast.success('Logged in successfully!', {
+        position: 'top-center',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+
+      localStorage.setItem('token', response.data.token);
+
+      navigate('/dashboard');
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        toast.error(
+          error.response?.data?.message ||
+            'Login failed. Please try again.',
+          {
+            position: 'top-right',
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          }
+        );
+      } else {
+        toast.error(
+          'An unexpected error occurred. Please try again.',
+          {
+            position: 'top-right',
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          }
+        );
+      }
+    }
   };
 
   return (
@@ -75,9 +121,10 @@ const LoginForm: React.FC = () => {
               {...register('password', {
                 required: 'Password is required',
                 pattern: {
-                  value: /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,}$/,
+                  value:
+                    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/,
                   message:
-                    'Password must be at least 6 characters long and include at least one uppercase letter and one number',
+                    'Password must be at least 6 characters long, and include at least one uppercase letter, one lowercase letter, one number, and one special character',
                 },
               })}
               isInvalid={!!errors.password}
