@@ -11,26 +11,35 @@ export default function ForgotPassword() {
   type ForgetFormInputs = {
     email: string;
   };
-  let navigate = useNavigate();
-  let {
+
+  const navigate = useNavigate();
+  const {
     register,
     handleSubmit,
     formState: { errors, isDirty, isValid, isSubmitting },
   } = useForm<ForgetFormInputs>({ mode: 'onChange' });
 
-  let onSubmit = async (data: ForgetFormInputs) => {
+  const onSubmit = async (data: ForgetFormInputs) => {
     try {
-      let response = await axios.post(User_URls.resetRequest, data);
+      const response = await axios.post(User_URls.resetRequest, data);
       toast.success(
         response?.data?.message || 'OTP Send Successfully'
       );
       console.log(response);
       navigate('/auth/reset-password');
     } catch (error) {
-      toast.error(error?.response?.data?.message);
-      console.log(error?.response?.data?.message);
+      if (axios.isAxiosError(error)) {
+        toast.error(
+          error.response?.data?.message || 'An error occurred'
+        );
+        console.log(error.response?.data?.message);
+      } else {
+        toast.error('An unexpected error occurred');
+        console.log('An unexpected error occurred:', error);
+      }
     }
   };
+
   return (
     <div>
       <FormLayout
