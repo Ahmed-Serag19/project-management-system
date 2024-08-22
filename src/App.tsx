@@ -11,6 +11,8 @@ import MasterLayout from './modules/Shared/components/MasterLayout/MasterLayout'
 import Home from './modules/Home/components/Home/Home';
 import NotFound from './modules/Shared/components/NotFound/NotFound';
 import LandingPage from './modules/Shared/components/LandingPage/LandingPage';
+import ChangePassword from './modules/Auth/components/ChangePassword/ChangePassword';
+
 function App() {
   const routes = createBrowserRouter([
     {
@@ -31,6 +33,7 @@ function App() {
         { path: 'register', element: <Register /> },
         { path: 'forgot-password', element: <ForgotPassword /> },
         { path: 'reset-password', element: <ResetPassword /> },
+        { path: 'change-password', element: <ChangePassword /> },
       ],
     },
     {
