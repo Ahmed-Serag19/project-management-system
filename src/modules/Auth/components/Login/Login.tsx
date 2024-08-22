@@ -5,6 +5,8 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import FormLayout from '../../../Shared/components/FormLayout/FormLayout';
 import LoginBg from '../../../../assets/login-bg.png';
 import FormButton from '../../../Shared/components/FormButton/FormButton';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 type LoginFormInputs = {
   email: string;
@@ -12,11 +14,12 @@ type LoginFormInputs = {
 };
 
 const LoginForm: React.FC = () => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginFormInputs>({ mode: 'onSubmit' });
+  } = useForm<LoginFormInputs>({ mode: 'onChange' });
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -25,8 +28,8 @@ const LoginForm: React.FC = () => {
   };
 
   const onSubmit = (data: LoginFormInputs) => {
-    console.log(data);
-    // Handle form submission
+    axios.post('https://example.com/login', data);
+    navigate('/dashboard');
   };
 
   return (
@@ -89,10 +92,10 @@ const LoginForm: React.FC = () => {
         </Form.Group>
 
         <div className="d-flex justify-content-between mb-4">
-          <a href="/register" className="text-white">
+          <a href="/auth/register" className="text-white">
             Register Now ?
           </a>
-          <a href="/forgot-password" className="text-white">
+          <a href="/auth/forgot-password" className="text-white">
             Forget Password ?
           </a>
         </div>
