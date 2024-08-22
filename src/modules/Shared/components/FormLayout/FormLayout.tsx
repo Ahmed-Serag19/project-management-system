@@ -20,8 +20,8 @@ const FormLayout: React.FC<FormLayoutProps> = ({
       className="form-layout-container"
       style={{ backgroundImage: `url(${backgroundImage})` }}
     >
-      <div className="container">
-        <div className="row d-flex justify-content-center align-content-center gap-3">
+      <div className="container ">
+        <div className="row d-flex justify-content-center align-content-center gap-2 ">
           <div className="logo-form-container text-center">
             <img src={Logo} alt="project management system logo" />
           </div>
