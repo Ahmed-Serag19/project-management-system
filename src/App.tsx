@@ -12,8 +12,12 @@ import MasterLayout from './modules/Shared/components/MasterLayout/MasterLayout'
 import Home from './modules/Home/components/Home/Home';
 import NotFound from './modules/Shared/components/NotFound/NotFound';
 import LandingPage from './modules/Shared/components/LandingPage/LandingPage';
+import Users from './modules/Users/Componant/Users';
+import Projects from './modules/Projects/Componant/Projects';
+import Tasks from './modules/Tasks/Componant/Tasks';
 import ChangePassword from './modules/Auth/components/ChangePassword/ChangePassword';
 import VerifyEmail from './modules/Auth/components/VerifyEmail/VerifyEmail';
+
 
 function App() {
   const routes = createHashRouter([
@@ -54,6 +58,20 @@ function App() {
           path: 'home',
           element: <Home />,
         },
+        {
+          path:'users',
+          element:<Users/>
+        },
+        {
+          path:'projects',
+          element:<Projects/>
+        },
+        {
+          path:'tasks',
+          element:<Tasks/>
+        },
+        
+
       ],
     },
   ]);
