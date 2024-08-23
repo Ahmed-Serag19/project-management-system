@@ -38,7 +38,7 @@ const Register = () => {
         toast.success(
           `Account created successfully, Verify your email`,
           {
-            position: 'top-center',
+            position: 'top-right',
             autoClose: 2000,
             hideProgressBar: false,
             closeOnClick: true,
@@ -48,7 +48,7 @@ const Register = () => {
             theme: 'light',
             transition: Bounce,
             style: {
-              textAlign: 'center',
+              textAlign: 'left',
             },
           }
         );
@@ -59,7 +59,7 @@ const Register = () => {
       })
       .catch((err) => {
         toast.error(`${err.response.data.message}`, {
-          position: 'top-center',
+          position: 'top-right',
           autoClose: 2000,
           hideProgressBar: false,
           closeOnClick: true,
@@ -69,7 +69,7 @@ const Register = () => {
           theme: 'light',
           transition: Bounce,
           style: {
-            textAlign: 'center',
+            textAlign: 'left',
           },
         });
       });
