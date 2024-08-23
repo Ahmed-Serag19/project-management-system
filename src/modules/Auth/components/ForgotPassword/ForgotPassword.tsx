@@ -46,14 +46,17 @@ export default function ForgotPassword() {
               type="email"
               placeholder="Enter your E-mail"
               {...register("email", EmailValidation)}
+              isInvalid={!!errors.email}
 
             />
-
-            {errors.email && (
+         <Form.Control.Feedback type="invalid">
+            {errors.email?.message}
+          </Form.Control.Feedback>
+            {/* {errors.email && (
               <p className="text-danger text-center mt-1">
                 {errors.email?.message}
               </p>
-            )}
+            )} */}
           </Form.Group>
 
           <button
