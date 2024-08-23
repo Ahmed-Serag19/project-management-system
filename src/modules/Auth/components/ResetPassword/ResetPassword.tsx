@@ -75,7 +75,7 @@ export default function ResetPassword() {
               {...register('email', EmailValidation)}
             />
             {errors.email && (
-              <p className="text-danger my-0 text-center">
+              <p className="text-danger my-0 text-left">
                 {errors.email?.message}
               </p>
             )}
@@ -99,7 +99,7 @@ export default function ResetPassword() {
               })}
             />
             {errors.seed && (
-              <p className="text-danger my-0 text-center">
+              <p className="text-danger my-0 text-left">
                 {errors.seed?.message}
               </p>
             )}
@@ -122,7 +122,7 @@ export default function ResetPassword() {
               </InputGroup.Text>
             </InputGroup>
             {errors.password && (
-              <p className="text-danger my-0 text-center">
+              <p className="text-danger my-0 text-left">
                 {errors.password?.message}
               </p>
             )}
@@ -150,7 +150,7 @@ export default function ResetPassword() {
               </InputGroup.Text>
             </InputGroup>
             {errors.confirmPassword && (
-              <p className="text-danger my-0 text-center ">
+              <p className="text-danger my-0 text-left ">
                 {errors.confirmPassword?.message}
               </p>
             )}
