@@ -158,6 +158,25 @@ a {
   background-color: rgba(239, 155, 40, 1) !important;
 }
 
+
+.side .side-bar-container .ps-sidebar-container {
+  background: #0E382F!important;
+  height: 100vh;
+  font-size: large;
+ 
+}
+.side .side-bar-container .ps-menu-button{
+  color: white;
+  
+}
+.side .side-bar-container .ps-menu-button:hover{
+  color: #ef9b28;
+  background-color: #ad8618;
+
+}
+/* .side .side-bar-container .ps-menuitem-root 
+ */
+
 /*New size*/
 .logo-form-container img {
   width: 200px !important;
@@ -173,4 +192,5 @@ input:-webkit-autofill:active {
   transition: background-color 5000s ease-in-out 0s;
   background-color: transparent !important;
 }
+
 
