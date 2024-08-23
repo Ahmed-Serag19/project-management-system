@@ -33,10 +33,17 @@ export default function ResetPassword() {
       let response = await axios.post(User_URls.reset, data);
       toast.success(response?.data?.message || "Password Changed");
       console.log(response);
-      navigate("/auth");
+      navigate("/auth/login");
     } catch (error) {
-      toast.error(error?.response?.data.message);
-      console.log(error?.response?.data?.message);
+      if (axios.isAxiosError(error)) {
+        toast.error(
+          error.response?.data?.message || 'An error occurred'
+        );
+        console.log(error.response?.data?.message);
+      } else {
+        toast.error('An unexpected error occurred');
+        console.log('An unexpected error occurred:', error);
+      }
     }
   };
 
@@ -65,14 +72,12 @@ export default function ResetPassword() {
               type="email"
               placeholder="Enter your E-mail"
               {...register("email", EmailValidation)}
-              // isInvalid={!!errors.email}
+              isInvalid={!!errors.email}
             />
 
-            {errors.email && (
-              <p className="text-danger my-0 text-center">
-                {errors.email?.message}
-              </p>
-            )}
+<Form.Control.Feedback type="invalid">
+            {errors.email?.message}
+          </Form.Control.Feedback>
           </Form.Group>
 
           {/* Otp*/}
@@ -89,13 +94,12 @@ export default function ResetPassword() {
                   message: "OTP must have at least 4 characters",
                 },
               })}
+              isInvalid={!!errors.seed}
             />
-
-            {errors.seed && (
-              <p className="text-danger my-0 text-center">
-                {errors.seed?.message}
-              </p>
-            )}
+     <Form.Control.Feedback type="invalid">
+            {errors.seed?.message}
+          </Form.Control.Feedback>
+          
           </Form.Group>
 
           {/* password */}
@@ -107,16 +111,19 @@ export default function ResetPassword() {
                 type={showPassword ? "text" : "password"}
                 placeholder="Enter your New password"
                 {...register("password", PasswordValidation)}
+                isInvalid={!!errors.password}
+
               />
               <InputGroup.Text onClick={togglePasswordVisibility}>
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
               </InputGroup.Text>
+              <Form.Control.Feedback type="invalid">
+            {errors.password?.message}
+              </Form.Control.Feedback>
+
             </InputGroup>
-            {errors.password && (
-              <p className="text-danger my-0 text-center">
-                {errors.password?.message}
-              </p>
-            )}
+            
+    
           </Form.Group>
 
 
@@ -134,17 +141,21 @@ export default function ResetPassword() {
                   validate: (value) =>
                     value === watch("password") || "Passwords do not match",
                 })}
+                isInvalid={!!errors.confirmPassword}
               />
               <InputGroup.Text onClick={togglePasswordVisibility}>
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
               </InputGroup.Text>
+              <Form.Control.Feedback type="invalid">
+            {errors.confirmPassword?.message}
+             </Form.Control.Feedback>
+
+                    
+
             </InputGroup>
 
-            {errors.confirmPassword && (
-              <p className="text-danger my-0 text-center ">
-                {errors.confirmPassword?.message}
-              </p>
-            )}
+         
+    
           </Form.Group>
 
           <button
