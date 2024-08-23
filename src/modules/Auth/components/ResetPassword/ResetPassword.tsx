@@ -33,10 +33,17 @@ export default function ResetPassword() {
       let response = await axios.post(User_URls.reset, data);
       toast.success(response?.data?.message || "Password Changed");
       console.log(response);
-      navigate("/auth");
+      navigate("/auth/login");
     } catch (error) {
-      toast.error(error?.response?.data.message);
-      console.log(error?.response?.data?.message);
+      if (axios.isAxiosError(error)) {
+        toast.error(
+          error.response?.data?.message || 'An error occurred'
+        );
+        console.log(error.response?.data?.message);
+      } else {
+        toast.error('An unexpected error occurred');
+        console.log('An unexpected error occurred:', error);
+      }
     }
   };
 
