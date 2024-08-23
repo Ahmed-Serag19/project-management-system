@@ -39,14 +39,12 @@ export default function ResetPassword() {
         // Type guard to ensure error is AxiosError
         toast.error(
           error.response?.data.message || 'An error occurred'
-
         );
         console.log(error.response?.data?.message);
       } else {
         toast.error('An unexpected error occurred');
 
         console.error(error);
-
       }
     }
   };
@@ -76,7 +74,6 @@ export default function ResetPassword() {
             <Form.Control
               type="email"
               placeholder="Enter your E-mail"
-
               {...register('email', EmailValidation)}
             />
             {errors.email && (
@@ -84,7 +81,6 @@ export default function ResetPassword() {
                 {errors.email?.message}
               </p>
             )}
-
           </Form.Group>
 
           {/* Otp */}
@@ -111,7 +107,6 @@ export default function ResetPassword() {
                 {errors.seed?.message}
               </p>
             )}
-
           </Form.Group>
 
           {/* password */}
@@ -125,15 +120,13 @@ export default function ResetPassword() {
                 type={showPassword ? 'text' : 'password'}
                 placeholder="Enter your New password"
                 {...register('password', PasswordValidation)}
-
               />
               <InputGroup.Text onClick={togglePasswordVisibility}>
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
               </InputGroup.Text>
               <Form.Control.Feedback type="invalid">
-            {errors.password?.message}
+                {errors.password?.message}
               </Form.Control.Feedback>
-
             </InputGroup>
 
             {errors.password && (
@@ -141,7 +134,6 @@ export default function ResetPassword() {
                 {errors.password?.message}
               </p>
             )}
-
           </Form.Group>
 
           {/* password-confirm */}
@@ -166,11 +158,8 @@ export default function ResetPassword() {
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
               </InputGroup.Text>
               <Form.Control.Feedback type="invalid">
-            {errors.confirmPassword?.message}
-             </Form.Control.Feedback>
-
-                    
-
+                {errors.confirmPassword?.message}
+              </Form.Control.Feedback>
             </InputGroup>
 
             {errors.confirmPassword && (
@@ -178,7 +167,6 @@ export default function ResetPassword() {
                 {errors.confirmPassword?.message}
               </p>
             )}
-
           </Form.Group>
 
           <button
