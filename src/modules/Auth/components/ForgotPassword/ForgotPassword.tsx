@@ -1,36 +1,45 @@
-import FormLayout from "../../../Shared/components/FormLayout/FormLayout";
-import ForgetBg from "../../../../assets/forgot-password-bg.png";
-import { Form} from "react-bootstrap";
-import { EmailValidation } from "../../../../constants/Validations";
-import { useForm } from "react-hook-form";
-import axios from "axios";
-import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
-import { User_URls } from "../../../../constants/End_Points";
+import FormLayout from '../../../Shared/components/FormLayout/FormLayout';
+import ForgetBg from '../../../../assets/forgot-password-bg.png';
+import { Form } from 'react-bootstrap';
+import { EmailValidation } from '../../../../constants/Validations';
+import { useForm } from 'react-hook-form';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+import { User_URls } from '../../../../constants/End_Points';
 export default function ForgotPassword() {
-
   type ForgetFormInputs = {
     email: string;
-
   };
-  let navigate = useNavigate();
-  let {
+
+  const navigate = useNavigate();
+  const {
     register,
     handleSubmit,
     formState: { errors, isDirty, isValid, isSubmitting },
-  } = useForm<ForgetFormInputs>({ mode: "onChange" });
+  } = useForm<ForgetFormInputs>({ mode: 'onChange' });
 
-  let onSubmit = async (data: ForgetFormInputs) => {
+  const onSubmit = async (data: ForgetFormInputs) => {
     try {
-      let response = await axios.post(User_URls.resetRequest, data);
-      toast.success(response?.data?.message || "OTP Send Successfully");
+      const response = await axios.post(User_URls.resetRequest, data);
+      toast.success(
+        response?.data?.message || 'OTP Send Successfully'
+      );
       console.log(response);
-      navigate("/auth/reset-password");
+      navigate('/auth/reset-password');
     } catch (error) {
-      toast.error(error?.response?.data?.message);
-      console.log(error?.response?.data?.message);
+      if (axios.isAxiosError(error)) {
+        toast.error(
+          error.response?.data?.message || 'An error occurred'
+        );
+        console.log(error.response?.data?.message);
+      } else {
+        toast.error('An unexpected error occurred');
+        console.log('An unexpected error occurred:', error);
+      }
     }
   };
+
   return (
     <div>
       <FormLayout
@@ -40,13 +49,15 @@ export default function ForgotPassword() {
         buttonText="Verify"
       >
         <Form onSubmit={handleSubmit(onSubmit)} className="pt-5">
-          <Form.Group controlId="formEmail" className="mb-4 input-section">
+          <Form.Group
+            controlId="formEmail"
+            className="mb-4 input-section"
+          >
             <Form.Label>E-mail</Form.Label>
             <Form.Control
               type="email"
               placeholder="Enter your E-mail"
-              {...register("email", EmailValidation)}
-
+              {...register('email', EmailValidation)}
             />
 
             {errors.email && (
