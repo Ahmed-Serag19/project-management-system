@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
-import Logo from '../../../../assets/landing-page-logo.png';
+import { Link } from "react-router-dom";
+import Logo from "../../../../assets/landing-page-logo.png";
 
 const LandingPage = () => {
   return (
@@ -9,7 +9,7 @@ const LandingPage = () => {
       </div>
       <div className="landing-page-text d-flex gap-4">
         <Link to="auth/login">Login</Link>
-        <Link to="auth/register">Register</Link>
+        <Link to="/auth/register">Register</Link>
       </div>
     </section>
   );

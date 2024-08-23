@@ -3,11 +3,13 @@
   margin: 0;
   box-sizing: border-box;
 }
+
 a {
   text-decoration: none;
   color: white;
   transition: 0.3s all;
 }
+
 .landing-page {
   height: 100vh;
   background-image: url('./assets/first-page.png');
@@ -21,12 +23,14 @@ a {
     font-size: 24px;
     transition: 0.3s all;
   }
+
   a:hover {
     text-decoration: none;
     color: #ef9b28;
     font-size: 24px;
   }
 }
+
 .form-layout-container {
   display: flex;
   justify-content: center;
@@ -34,12 +38,14 @@ a {
   height: 100vh;
   background-size: cover;
   background-position: center;
+
   a {
     text-decoration: none;
     color: white;
 
     transition: 0.3s all;
   }
+
   a:hover {
     color: #ef9b28 !important;
   }
@@ -59,6 +65,7 @@ a {
   color: #ef9b28;
   position: relative;
 }
+
 .form-layout-title::after {
   content: '';
   position: absolute;
@@ -88,9 +95,11 @@ a {
   text-align: center;
   transition: 0.3s all;
 }
+
 .form-layout-button:hover {
   background-color: #df860a !important;
 }
+
 .form-control {
   border: none !important;
   background-color: transparent !important;
@@ -98,23 +107,44 @@ a {
   color: white !important;
   border-radius: 0px !important;
 }
+
 .form-control:focus {
   box-shadow: none !important;
   border-color: transparent !important;
   outline: none !important;
 }
+
 .input-section {
   border-bottom: 1px solid gray !important;
   padding: 0px 0px 15px 0px;
 }
+
 .form-control::placeholder {
   color: white !important;
 }
+
 .form-label {
   color: #ef9b28 !important;
 }
+
 .input-group-text {
   background-color: transparent !important;
   border: none !important;
   color: white !important;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.bg-main {
+  background-color: rgba(239, 155, 40, 1) !important;
 }
