@@ -136,10 +136,10 @@ const LoginForm: React.FC = () => {
         </Form.Group>
 
         <div className="d-flex justify-content-between mb-4">
-          <Link to="auth/register" className="text-white">
+          <Link to="/auth/register" className="text-white">
             Register Now ?
           </Link>
-          <Link to="auth/forgot-password" className="text-white">
+          <Link to="/auth/forgot-password" className="text-white">
             Forget Password ?
           </Link>
         </div>
