@@ -1,14 +1,20 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import AuthLayout from "./modules/Shared/components/AuthLayout/AuthLayout";
-import Login from "./modules/Auth/components/Login/Login";
-import Register from "./modules/Auth/components/Register/Register";
-import ForgotPassword from "./modules/Auth/components/ForgotPassword/ForgotPassword";
-import ResetPassword from "./modules/Auth/components/ResetPassword/ResetPassword";
-import MasterLayout from "./modules/Shared/components/MasterLayout/MasterLayout";
-import Home from "./modules/Home/components/Home/Home";
-import NotFound from "./modules/Shared/components/NotFound/NotFound";
-import LandingPage from "./modules/Shared/components/LandingPage/LandingPage";
-import VerifyEmail from "./modules/Auth/components/VerifyEmail/VerifyEmail";
+
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from 'react-router-dom';
+import AuthLayout from './modules/Shared/components/AuthLayout/AuthLayout';
+import Login from './modules/Auth/components/Login/Login';
+import Register from './modules/Auth/components/Register/Register';
+import ForgotPassword from './modules/Auth/components/ForgotPassword/ForgotPassword';
+import ResetPassword from './modules/Auth/components/ResetPassword/ResetPassword';
+import MasterLayout from './modules/Shared/components/MasterLayout/MasterLayout';
+import Home from './modules/Home/components/Home/Home';
+import NotFound from './modules/Shared/components/NotFound/NotFound';
+import LandingPage from './modules/Shared/components/LandingPage/LandingPage';
+import ChangePassword from './modules/Auth/components/ChangePassword/ChangePassword';
+
+
 function App() {
   const routes = createBrowserRouter([
     {
@@ -25,11 +31,13 @@ function App() {
           index: true,
           element: <Login />,
         },
-        { path: "login", element: <Login /> },
-        { path: "register", element: <Register /> },
-        { path: "forgot-password", element: <ForgotPassword /> },
-        { path: "reset-password", element: <ResetPassword /> },
-        { path: "verify-email", element: <VerifyEmail /> },
+
+        { path: 'login', element: <Login /> },
+        { path: 'register', element: <Register /> },
+        { path: 'forgot-password', element: <ForgotPassword /> },
+        { path: 'reset-password', element: <ResetPassword /> },
+        { path: 'change-password', element: <ChangePassword /> },
+
       ],
     },
     {

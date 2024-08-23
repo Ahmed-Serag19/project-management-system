@@ -50,18 +50,18 @@ a {
     color: #ef9b28 !important;
   }
 }
-
+/* padding size change  */
 .form-layout-card {
   background-color: rgba(49, 89, 81, 0.9);
-  padding: 50px 70px !important;
+  padding: 35px 70px !important;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   color: #fff;
   width: 100%;
 }
-
+/* font size change  */
 .form-layout-title {
-  font-size: 32px;
+  font-size: 24px;
   color: #ef9b28;
   position: relative;
 }
@@ -75,9 +75,10 @@ a {
   height: 5px;
   width: 18px;
 }
-
+/*font size change*/
 .form-layout-description {
   margin-bottom: 0 !important;
+  font-size: 15px;
 }
 
 .form-layout-button {
@@ -100,12 +101,16 @@ a {
   background-color: #df860a !important;
 }
 
+
+/* font size change */
+
 .form-control {
   border: none !important;
   background-color: transparent !important;
   padding: 0px !important;
   color: white !important;
   border-radius: 0px !important;
+  font-size: 15px !important;
 }
 
 .form-control:focus {
@@ -114,9 +119,12 @@ a {
   outline: none !important;
 }
 
+
+/* padding  change */
+
 .input-section {
   border-bottom: 1px solid gray !important;
-  padding: 0px 0px 15px 0px;
+  padding: 0px 0px 5px 0px;
 }
 
 .form-control::placeholder {
@@ -133,6 +141,7 @@ a {
   color: white !important;
 }
 
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -148,3 +157,20 @@ a {
 .bg-main {
   background-color: rgba(239, 155, 40, 1) !important;
 }
+
+/*New size*/
+.logo-form-container img {
+  width: 200px !important;
+}
+/* Style fix for auto complete inputs */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
+  -webkit-text-fill-color: #ffffff !important;
+  border-radius: 8px; /* Adjust as needed */
+  transition: background-color 5000s ease-in-out 0s;
+  background-color: transparent !important;
+}
+
