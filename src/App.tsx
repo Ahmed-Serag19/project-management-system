@@ -1,3 +1,4 @@
+
 import {
   createBrowserRouter,
   RouterProvider,
@@ -13,14 +14,15 @@ import NotFound from './modules/Shared/components/NotFound/NotFound';
 import LandingPage from './modules/Shared/components/LandingPage/LandingPage';
 import ChangePassword from './modules/Auth/components/ChangePassword/ChangePassword';
 
+
 function App() {
   const routes = createBrowserRouter([
     {
-      path: '/',
+      path: "/",
       element: <LandingPage />,
     },
     {
-      path: '/auth',
+      path: "/auth",
       element: <AuthLayout />,
       errorElement: <NotFound />,
 
@@ -29,15 +31,17 @@ function App() {
           index: true,
           element: <Login />,
         },
+
         { path: 'login', element: <Login /> },
         { path: 'register', element: <Register /> },
         { path: 'forgot-password', element: <ForgotPassword /> },
         { path: 'reset-password', element: <ResetPassword /> },
         { path: 'change-password', element: <ChangePassword /> },
+
       ],
     },
     {
-      path: 'dashboard',
+      path: "dashboard",
       element: <MasterLayout />,
       errorElement: <NotFound />,
 
@@ -47,7 +51,7 @@ function App() {
           element: <Home />,
         },
         {
-          path: 'home',
+          path: "home",
           element: <Home />,
         },
       ],
