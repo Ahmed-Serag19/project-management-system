@@ -1,6 +1,6 @@
 import {
-  createBrowserRouter,
-  // createHashRouter,
+  // createBrowserRouter,
+  createHashRouter,
   RouterProvider,
 } from 'react-router-dom';
 import AuthLayout from './modules/Shared/components/AuthLayout/AuthLayout';
@@ -16,7 +16,7 @@ import ChangePassword from './modules/Auth/components/ChangePassword/ChangePassw
 import VerifyEmail from './modules/Auth/components/VerifyEmail/VerifyEmail';
 
 function App() {
-  const routes = createBrowserRouter([
+  const routes = createHashRouter([
     {
       path: '/',
       element: <LandingPage />,
