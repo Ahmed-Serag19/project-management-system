@@ -1,6 +1,6 @@
-
 import {
-  createBrowserRouter,
+  // createBrowserRouter,
+  createHashRouter,
   RouterProvider,
 } from 'react-router-dom';
 import AuthLayout from './modules/Shared/components/AuthLayout/AuthLayout';
@@ -16,17 +16,17 @@ import Users from './modules/Users/Componant/Users';
 import Projects from './modules/Projects/Componant/Projects';
 import Tasks from './modules/Tasks/Componant/Tasks';
 import ChangePassword from './modules/Auth/components/ChangePassword/ChangePassword';
-
+import VerifyEmail from './modules/Auth/components/VerifyEmail/VerifyEmail';
 
 
 function App() {
-  const routes = createBrowserRouter([
+  const routes = createHashRouter([
     {
-      path: "/",
+      path: '/',
       element: <LandingPage />,
     },
     {
-      path: "/auth",
+      path: '/auth',
       element: <AuthLayout />,
       errorElement: <NotFound />,
 
@@ -41,11 +41,11 @@ function App() {
         { path: 'forgot-password', element: <ForgotPassword /> },
         { path: 'reset-password', element: <ResetPassword /> },
         { path: 'change-password', element: <ChangePassword /> },
-
+        { path: 'verify-email', element: <VerifyEmail /> },
       ],
     },
     {
-      path: "dashboard",
+      path: 'dashboard',
       element: <MasterLayout />,
       errorElement: <NotFound />,
 
@@ -55,7 +55,7 @@ function App() {
           element: <Home />,
         },
         {
-          path: "home",
+          path: 'home',
           element: <Home />,
         },
         {

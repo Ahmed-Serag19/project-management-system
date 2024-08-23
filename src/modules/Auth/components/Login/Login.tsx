@@ -5,7 +5,7 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import FormLayout from '../../../Shared/components/FormLayout/FormLayout';
 import LoginBg from '../../../../assets/login-bg.png';
 import FormButton from '../../../Shared/components/FormButton/FormButton';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { User_URls } from '../../../../constants/End_Points';
@@ -136,12 +136,12 @@ const LoginForm: React.FC = () => {
         </Form.Group>
 
         <div className="d-flex justify-content-between mb-4">
-          <a href="/auth/register" className="text-white">
+          <Link to="/auth/register" className="text-white">
             Register Now ?
-          </a>
-          <a href="/auth/forgot-password" className="text-white">
+          </Link>
+          <Link to="/auth/forgot-password" className="text-white">
             Forget Password ?
-          </a>
+          </Link>
         </div>
 
         <FormButton buttonText="Login" />

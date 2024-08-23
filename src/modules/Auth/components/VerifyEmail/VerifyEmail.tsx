@@ -1,10 +1,10 @@
-import FormLayout from "../../../Shared/components/FormLayout/FormLayout";
-import VerifyBg from "../../../../assets/verify-bg.png";
-import { useForm } from "react-hook-form";
-import axios from "axios";
-import { toast, Bounce } from "react-toastify";
-import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import FormLayout from '../../../Shared/components/FormLayout/FormLayout';
+import VerifyBg from '../../../../assets/verify-bg.png';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import axios from 'axios';
+import { toast, Bounce } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 type VerifyFormInputs = {
   email: string;
@@ -12,62 +12,68 @@ type VerifyFormInputs = {
 };
 
 const VerifyEmail = () => {
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState('');
   const Navigator = useNavigate();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm<VerifyFormInputs>(); // Correctly typed useForm
 
-  const onSubmit = async (data: VerifyFormInputs) => {
+  const onSubmit: SubmitHandler<VerifyFormInputs> = async (data) => {
     return await axios
-      .put(`https://upskilling-egypt.com:3003/api/v1/Users/verify`, data)
+      .put(
+        `https://upskilling-egypt.com:3003/api/v1/Users/verify`,
+        data
+      )
       .then((res) => {
         console.log(res);
-        toast.success(`Account Verifyed successfully`, {
-          position: "top-center",
+        toast.success(`Account Verified successfully`, {
+          position: 'top-center',
           autoClose: 2000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: "light",
+          theme: 'light',
           transition: Bounce,
           style: {
-            textAlign: "center",
+            textAlign: 'center',
           },
         });
-        localStorage.removeItem("email");
+        localStorage.removeItem('email');
         setTimeout(() => {
-          Navigator("/auth/login");
+          Navigator('/auth/login');
         }, 2000);
       })
       .catch((err) => {
-        toast.error(`${err.response.data.message}`, {
-          position: "top-center",
+        toast.error(`${err.response?.data?.message}`, {
+          position: 'top-center',
           autoClose: 2000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: "light",
+          theme: 'light',
           transition: Bounce,
           style: {
-            textAlign: "center",
+            textAlign: 'center',
           },
         });
       });
   };
 
   const getEmail = async () => {
-    setEmail(await JSON.parse(localStorage.getItem("email")));
+    const savedEmail = localStorage.getItem('email');
+    if (savedEmail) {
+      setEmail(JSON.parse(savedEmail));
+    }
   };
 
-  useEffect(function () {
+  useEffect(() => {
     getEmail();
   }, []);
 
@@ -81,42 +87,45 @@ const VerifyEmail = () => {
       >
         <form onSubmit={handleSubmit(onSubmit)} className="pt-3">
           <div className="mb-3">
-            <label htmlFor="" className="form-label mb-0">
-              User Name
+            <label htmlFor="email" className="form-label mb-0">
+              Email
             </label>
             <input
               type="text"
               className="form-control bg-transparent border-bottom pb-2"
               placeholder="Enter your Email"
               value={email}
-              {...register("email", {
-                required: "userName is required",
+              {...register('email', {
+                required: 'Email is required',
               })}
+              readOnly
             />
-            {errors.email && (
-              <p className="alert alert-danger p-1 my-1 ps-2 rounded-1 w-100">
-                {errors.email.message}
-              </p>
-            )}
+            {errors.email &&
+              typeof errors.email.message === 'string' && (
+                <p className="alert alert-danger p-1 my-1 ps-2 rounded-1 w-100">
+                  {errors.email.message}
+                </p>
+              )}
           </div>
 
           <div className="mb-3 ">
-            <label htmlFor="" className="form-label mb-0">
+            <label htmlFor="code" className="form-label mb-0">
               OTP Verification
             </label>
             <input
               type="text"
               className="form-control bg-transparent border-bottom pb-2"
-              placeholder="Enter Verification"
-              {...register("code", {
-                required: "OTP Verification is required",
+              placeholder="Enter Verification Code"
+              {...register('code', {
+                required: 'OTP Verification is required',
               })}
             />
-            {errors.code && (
-              <p className="alert alert-danger p-1 my-1 ps-2 rounded-1 w-100">
-                {errors.code.message}
-              </p>
-            )}
+            {errors.code &&
+              typeof errors.code.message === 'string' && (
+                <p className="alert alert-danger p-1 my-1 ps-2 rounded-1 w-100">
+                  {errors.code.message}
+                </p>
+              )}
           </div>
 
           <button
