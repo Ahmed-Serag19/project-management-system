@@ -40,7 +40,10 @@ const LoginForm: React.FC = () => {
 
   const onSubmit = async (data: LoginFormInputs) => {
     try {
-      const response = await axios.post(User_URls.login, data);
+      const response = await axios.post<{ token: string; expiresIn: string }>(
+        User_URls.login,
+        data
+      );
 
       toast.success("Logged in successfully!", {
         position: "top-right",
