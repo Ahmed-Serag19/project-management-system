@@ -1,14 +1,14 @@
-import React from 'react';
-import { Button } from 'react-bootstrap';
+import React from "react";
+import { Button } from "react-bootstrap";
 
 type FormButtonProps = {
   buttonText: string;
-  buttonType?: 'button' | 'submit' | 'reset';
+  buttonType?: "button" | "submit" | "reset";
 };
 
 const FormButton: React.FC<FormButtonProps> = ({
   buttonText,
-  buttonType = 'submit',
+  buttonType = "submit",
 }) => {
   return (
     <Button type={buttonType} className="form-layout-button w-100">
