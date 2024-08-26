@@ -12,7 +12,7 @@ a {
 
 .landing-page {
   height: 100vh;
-  background-image: url('./assets/first-page.png');
+  background-image: url("./assets/first-page.png");
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -67,7 +67,7 @@ a {
 }
 
 .form-layout-title::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -5px;
   left: 0;
@@ -101,7 +101,6 @@ a {
   background-color: #df860a !important;
 }
 
-
 /* font size change */
 
 .form-control {
@@ -119,7 +118,6 @@ a {
   outline: none !important;
 }
 
-
 /* padding  change */
 
 .input-section {
@@ -128,7 +126,7 @@ a {
 }
 
 .form-control::placeholder {
-  color: white !important;
+  color: rgb(165, 165, 165) !important;
 }
 
 .form-label {
@@ -140,7 +138,6 @@ a {
   border: none !important;
   color: white !important;
 }
-
 
 .sr-only {
   position: absolute;
@@ -158,21 +155,17 @@ a {
   background-color: rgba(239, 155, 40, 1) !important;
 }
 
-
 .side .side-bar-container .ps-sidebar-container {
-  background: #0E382F!important;
+  background: #0e382f !important;
   height: 100vh;
   font-size: large;
- 
 }
-.side .side-bar-container .ps-menu-button{
+.side .side-bar-container .ps-menu-button {
   color: white;
-  
 }
-.side .side-bar-container .ps-menu-button:hover{
+.side .side-bar-container .ps-menu-button:hover {
   color: #ef9b28;
   background-color: #ad8618;
-
 }
 /* .side .side-bar-container .ps-menuitem-root 
  */
@@ -192,5 +185,38 @@ input:-webkit-autofill:active {
   transition: background-color 5000s ease-in-out 0s;
   background-color: transparent !important;
 }
+
+
+button:disabled {
+  background-color: #e6b168 !important;
+  border-color: #e6b168 !important;
+}
+button:disabled:hover {
+  background-color: #e6b168 !important;
+  border-color: #e6b168 !important;
+}
+.sr_only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+.btn-eye {
+  color: white !important;
+  border: none;
+  background-color: transparent;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* .Toastify__toast-theme--dark {
+ 
+}
+.Toastify__close-button > svg {
 
 
