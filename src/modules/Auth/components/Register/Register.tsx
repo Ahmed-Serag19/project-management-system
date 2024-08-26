@@ -36,21 +36,7 @@ const Register = () => {
       .then((res) => {
         console.log(res);
         toast.success(
-          `Account created successfully, Verify your email`,
-          {
-            position: 'top-right',
-            autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: 'light',
-            transition: Bounce,
-            style: {
-              textAlign: 'left',
-            },
-          }
+          `Account created successfully, Verify your email`
         );
         localStorage.setItem('email', JSON.stringify(data.email));
         setTimeout(() => {
@@ -58,20 +44,7 @@ const Register = () => {
         }, 2000);
       })
       .catch((err) => {
-        toast.error(`${err.response.data.message}`, {
-          position: 'top-right',
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'light',
-          transition: Bounce,
-          style: {
-            textAlign: 'left',
-          },
-        });
+        toast.error(`${err.response.data.message}`);
       });
   };
 

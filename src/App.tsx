@@ -17,7 +17,7 @@ import Projects from './modules/Projects/Componant/Projects';
 import Tasks from './modules/Tasks/Componant/Tasks';
 import ChangePassword from './modules/Auth/components/ChangePassword/ChangePassword';
 import VerifyEmail from './modules/Auth/components/VerifyEmail/VerifyEmail';
-
+import { ToastContainer } from "react-toastify";
 
 function App() {
   const routes = createHashRouter([
@@ -75,7 +75,23 @@ function App() {
       ],
     },
   ]);
-  return <RouterProvider router={routes} />;
+  return(
+  <>
+  <RouterProvider router={routes} />;
+  <ToastContainer
+position="top-right"
+autoClose={3000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="dark"/>
+  
+  </>
+  ) 
 }
 
 export default App;
