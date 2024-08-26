@@ -39,15 +39,40 @@ const ChangePassword = () => {
   const onSubmit = async (data: ChangePasswordFormInputs) => {
     try {
       const res = await axios.put(User_URls.ChangePassword, data, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
-      toast.success(res.data.message);
+      toast.success(res.data.message, {
+        position: 'top-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
       navigate('/dashboard');
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        toast.error(error.response?.data?.message
+        toast.error(error.response?.data?.message, {
+          position: 'top-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        }
         );
       } else {
         toast.error(
-          'An unexpected error occurred. Please try again.'
+          'An unexpected error occurred. Please try again.',
+          {
+            position: 'top-right',
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          }
         );
       }
 
