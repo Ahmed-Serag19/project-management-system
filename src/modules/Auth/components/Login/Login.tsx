@@ -9,10 +9,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { User_URls } from "../../../../constants/End_Points";
-import {
-  EmailValidation,
-  PasswordValidation,
-} from "../../../../constants/Validations";
+import { EmailValidation } from "../../../../constants/Validations";
 import { AuthContext, AuthContextType } from "../../../../context/AuthContext";
 
 type LoginFormInputs = {
@@ -40,7 +37,6 @@ const LoginForm: React.FC = () => {
 
   const onSubmit = async (data: LoginFormInputs) => {
     try {
-
       const response = await axios.post<{ token: string; expiresIn: string }>(
         User_URls.login,
         data
@@ -52,7 +48,6 @@ const LoginForm: React.FC = () => {
     } catch (error) {
       if (axios.isAxiosError(error)) {
         toast.error(
-
           error.response?.data?.message || "Login failed. Please try again."
         );
       } else {
