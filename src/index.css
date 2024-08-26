@@ -186,6 +186,7 @@ input:-webkit-autofill:active {
   background-color: transparent !important;
 }
 
+
 button:disabled {
   background-color: #e6b168 !important;
   border-color: #e6b168 !important;
@@ -218,4 +219,4 @@ button:disabled:hover {
 }
 .Toastify__close-button > svg {
 
-} */
+

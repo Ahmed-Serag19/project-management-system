@@ -40,6 +40,7 @@ const LoginForm: React.FC = () => {
 
   const onSubmit = async (data: LoginFormInputs) => {
     try {
+
       const response = await axios.post<{ token: string; expiresIn: string }>(
         User_URls.login,
         data
@@ -47,11 +48,11 @@ const LoginForm: React.FC = () => {
       toast.success("Logged in successfully!");
       saveToken(response.data.token);
       localStorage.setItem("token", response.data.token);
-
       navigate("/dashboard");
     } catch (error) {
       if (axios.isAxiosError(error)) {
         toast.error(
+
           error.response?.data?.message || "Login failed. Please try again."
         );
       } else {
