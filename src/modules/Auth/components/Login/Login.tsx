@@ -44,7 +44,6 @@ const LoginForm: React.FC = () => {
       toast.success("Logged in successfully!");
       saveToken(response.data.token);
       localStorage.setItem("token", response.data.token);
-
       navigate("/dashboard");
     } catch (error) {
       if (axios.isAxiosError(error)) {
