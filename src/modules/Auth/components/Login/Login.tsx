@@ -42,8 +42,6 @@ const LoginForm: React.FC = () => {
         data
       );
       toast.success("Logged in successfully!");
-
-      toast.success("Logged in successfully!");
       saveToken(response.data.token);
       localStorage.setItem("token", response.data.token);
 
