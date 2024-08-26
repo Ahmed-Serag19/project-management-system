@@ -193,4 +193,36 @@ input:-webkit-autofill:active {
   background-color: transparent !important;
 }
 
+button:disabled {
+  background-color: #e6b168 !important;
+  border-color: #e6b168 !important;
+}
+button:disabled:hover {
+  background-color: #e6b168 !important;
+  border-color: #e6b168 !important;
+}
+.sr_only{
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+.btn-eye{
+  color: white !important;
+  border: none;
+background-color: transparent;
+padding: 0 !important;
+margin: 0 !important;
+}
 
+/* .Toastify__toast-theme--dark {
+ 
+}
+.Toastify__close-button > svg {
+
+} */
