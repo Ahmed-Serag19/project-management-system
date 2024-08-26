@@ -1,10 +1,10 @@
-import FormLayout from '../../../Shared/components/FormLayout/FormLayout';
-import VerifyBg from '../../../../assets/verify-bg.png';
-import { useForm, SubmitHandler } from 'react-hook-form';
-import axios from 'axios';
-import { toast, Bounce } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import FormLayout from "../../../Shared/components/FormLayout/FormLayout";
+import VerifyBg from "../../../../assets/verify-bg.png";
+import { useForm, SubmitHandler } from "react-hook-form";
+import axios from "axios";
+import { toast, Bounce } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 type VerifyFormInputs = {
   email: string;
@@ -12,8 +12,8 @@ type VerifyFormInputs = {
 };
 
 const VerifyEmail = () => {
-  const [email, setEmail] = useState('');
-  const Navigator = useNavigate();
+  const [email, setEmail] = useState("");
+  const navigate = useNavigate();
 
   const {
     register,
@@ -23,25 +23,48 @@ const VerifyEmail = () => {
 
   const onSubmit: SubmitHandler<VerifyFormInputs> = async (data) => {
     return await axios
-      .put(
-        `https://upskilling-egypt.com:3003/api/v1/Users/verify`,
-        data
-      )
+      .put(`https://upskilling-egypt.com:3003/api/v1/Users/verify`, data)
       .then((res) => {
         console.log(res);
-        toast.success(`Account Verified successfully`);
+        toast.success(`Account Verified successfully`, {
+          position: 'top-center',
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+          transition: Bounce,
+          style: {
+            textAlign: 'center',
+          },
+        });
         localStorage.removeItem('email');
         setTimeout(() => {
           Navigator('/auth/login');
         }, 2000);
       })
       .catch((err) => {
-        toast.error(`${err.response?.data?.message}`);
+        toast.error(`${err.response?.data?.message}`, {
+          position: 'top-center',
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+          transition: Bounce,
+          style: {
+            textAlign: 'center',
+          },
+        });
       });
   };
 
   const getEmail = async () => {
-    const savedEmail = localStorage.getItem('email');
+    const savedEmail = localStorage.getItem("email");
     if (savedEmail) {
       setEmail(JSON.parse(savedEmail));
     }
@@ -69,17 +92,16 @@ const VerifyEmail = () => {
               className="form-control bg-transparent border-bottom pb-2"
               placeholder="Enter your Email"
               value={email}
-              {...register('email', {
-                required: 'Email is required',
+              {...register("email", {
+                required: "Email is required",
               })}
               readOnly
             />
-            {errors.email &&
-              typeof errors.email.message === 'string' && (
-                <p className="alert alert-danger p-1 my-1 ps-2 rounded-1 w-100">
-                  {errors.email.message}
-                </p>
-              )}
+            {errors.email && typeof errors.email.message === "string" && (
+              <p className="alert alert-danger p-1 my-1 ps-2 rounded-1 w-100">
+                {errors.email.message}
+              </p>
+            )}
           </div>
 
           <div className="mb-3 ">
@@ -90,16 +112,15 @@ const VerifyEmail = () => {
               type="text"
               className="form-control bg-transparent border-bottom pb-2"
               placeholder="Enter Verification Code"
-              {...register('code', {
-                required: 'OTP Verification is required',
+              {...register("code", {
+                required: "OTP Verification is required",
               })}
             />
-            {errors.code &&
-              typeof errors.code.message === 'string' && (
-                <p className="alert alert-danger p-1 my-1 ps-2 rounded-1 w-100">
-                  {errors.code.message}
-                </p>
-              )}
+            {errors.code && typeof errors.code.message === "string" && (
+              <p className="alert alert-danger p-1 my-1 ps-2 rounded-1 w-100">
+                {errors.code.message}
+              </p>
+            )}
           </div>
 
           <button
