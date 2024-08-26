@@ -54,7 +54,7 @@ const Register = () => {
         );
         localStorage.setItem('email', JSON.stringify(data.email));
         setTimeout(() => {
-          Navigator('/auth/verify-email');
+          navigate('/auth/verify-email');
         }, 2000);
       })
       .catch((err) => {
