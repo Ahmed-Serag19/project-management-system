@@ -36,15 +36,42 @@ const Register = () => {
       .then((res) => {
         console.log(res);
         toast.success(
-          `Account created successfully, Verify your email`
+          `Account created successfully, Verify your email`,
+          {
+            position: 'top-right',
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'light',
+            transition: Bounce,
+            style: {
+              textAlign: 'left',
+            },
+          }
         );
         localStorage.setItem('email', JSON.stringify(data.email));
         setTimeout(() => {
-          Navigator('/auth/verify-email');
+          navigate('/auth/verify-email');
         }, 2000);
       })
       .catch((err) => {
-        toast.error(`${err.response.data.message}`);
+        toast.error(`${err.response.data.message}`, {
+          position: 'top-right',
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+          transition: Bounce,
+          style: {
+            textAlign: 'left',
+          },
+        });
       });
   };
 
