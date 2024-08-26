@@ -29,40 +29,14 @@ const VerifyEmail = () => {
       )
       .then((res) => {
         console.log(res);
-        toast.success(`Account Verified successfully`, {
-          position: 'top-center',
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'light',
-          transition: Bounce,
-          style: {
-            textAlign: 'center',
-          },
-        });
+        toast.success(`Account Verified successfully`);
         localStorage.removeItem('email');
         setTimeout(() => {
           Navigator('/auth/login');
         }, 2000);
       })
       .catch((err) => {
-        toast.error(`${err.response?.data?.message}`, {
-          position: 'top-center',
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'light',
-          transition: Bounce,
-          style: {
-            textAlign: 'center',
-          },
-        });
+        toast.error(`${err.response?.data?.message}`);
       });
   };
 

@@ -45,15 +45,7 @@ const LoginForm: React.FC = () => {
     try {
       const response = await axios.post(User_URls.login, data);
 
-      toast.success('Logged in successfully!', {
-        position: 'top-right',
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      toast.success('Logged in successfully!');
       saveToken(response.data.token);
       localStorage.setItem('token', response.data.token);
 
@@ -62,30 +54,10 @@ const LoginForm: React.FC = () => {
       if (axios.isAxiosError(error)) {
         toast.error(
           error.response?.data?.message ||
-            'Login failed. Please try again.',
-          {
-            position: 'top-right',
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          }
-        );
+            'Login failed. Please try again.');
       } else {
         toast.error(
-          'An unexpected error occurred. Please try again.',
-          {
-            position: 'top-right',
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          }
-        );
+          'An unexpected error occurred. Please try again.');
       }
     }
   };
