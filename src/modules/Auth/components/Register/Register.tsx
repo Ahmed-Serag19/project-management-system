@@ -1,14 +1,14 @@
-import FormLayout from '../../../Shared/components/FormLayout/FormLayout';
-import RegisterBg from '../../../../assets/register-bg.png';
-import { useForm } from 'react-hook-form';
-import axios from 'axios';
-import { toast, Bounce } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
-import { User_URls } from '../../../../constants/End_Points';
+import FormLayout from "../../../Shared/components/FormLayout/FormLayout";
+import RegisterBg from "../../../../assets/register-bg.png";
+import { useForm } from "react-hook-form";
+import axios from "axios";
+import { toast, Bounce } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { User_URls } from "../../../../constants/End_Points";
 import {
   EmailValidation,
   PasswordValidation,
-} from '../../../../constants/Validations';
+} from "../../../../constants/Validations";
 
 type RegisterFormInputs = {
   userName: string;
@@ -21,7 +21,7 @@ type RegisterFormInputs = {
 };
 
 const Register = () => {
-  const Navigator = useNavigate();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -83,10 +83,7 @@ const Register = () => {
         description="welcome to PMS"
         backgroundImage={RegisterBg}
       >
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="row flex-wrap pt-3"
-        >
+        <form onSubmit={handleSubmit(onSubmit)} className="row flex-wrap pt-3">
           <div className="col-md-6 mb-3">
             <label htmlFor="" className="form-label mb-0">
               User Name
@@ -95,12 +92,12 @@ const Register = () => {
               type="text"
               className="form-control bg-transparent border-bottom pb-2"
               placeholder="Enter your name"
-              {...register('userName', {
-                required: 'userName is required',
+              {...register("userName", {
+                required: "userName is required",
                 pattern: {
                   value: /^[a-zA-Z]+[a-zA-Z0-9]*\d+$/,
                   message:
-                    'The userName must be at least 4 characters & must contain characters and end with numbers without spaces',
+                    "The userName must be at least 4 characters & must contain characters and end with numbers without spaces",
                 },
               })}
             />
@@ -119,7 +116,7 @@ const Register = () => {
               type="email"
               className="form-control bg-transparent border-bottom pb-2"
               placeholder="Enter your E-mail"
-              {...register('email', EmailValidation)}
+              {...register("email", EmailValidation)}
             />
             {errors.email && (
               <p className="alert alert-danger p-1 my-1 ps-2 rounded-1 w-100">
@@ -136,8 +133,8 @@ const Register = () => {
               type="text"
               className="form-control bg-transparent border-bottom pb-2"
               placeholder="Enter your country"
-              {...register('country', {
-                required: 'country is required',
+              {...register("country", {
+                required: "country is required",
               })}
             />
             {errors.country && (
@@ -155,8 +152,8 @@ const Register = () => {
               type="text"
               className="form-control bg-transparent border-bottom pb-2"
               placeholder="Enter your phone number"
-              {...register('phoneNumber', {
-                required: 'Phone number is required',
+              {...register("phoneNumber", {
+                required: "Phone number is required",
               })}
             />
             {errors.phoneNumber && (
@@ -175,7 +172,7 @@ const Register = () => {
               type="password"
               className="form-control bg-transparent border-bottom pb-2"
               placeholder="Enter your password"
-              {...register('password', PasswordValidation)}
+              {...register("password", PasswordValidation)}
             />
             {errors.password && (
               <p className="alert alert-danger p-1 my-1 ps-2 rounded-1 w-100">
@@ -192,11 +189,10 @@ const Register = () => {
               type="password"
               className="form-control bg-transparent border-bottom pb-2"
               placeholder="Confirm New Password"
-              {...register('confirmPassword', {
-                required: 'Password is required',
+              {...register("confirmPassword", {
+                required: "Password is required",
                 validate: (value) =>
-                  value === watch('password') ||
-                  'The passwords do not match',
+                  value === watch("password") || "The passwords do not match",
               })}
             />
             {errors.confirmPassword && (
