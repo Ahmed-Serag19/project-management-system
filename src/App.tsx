@@ -42,10 +42,11 @@ function App() {
         { path: 'reset-password', element: <ResetPassword /> },
         { path: 'change-password', element: <ChangePassword /> },
         { path: 'verify-email', element: <VerifyEmail /> },
+        { path: '*', element: <NotFound /> }, // هذا السطر يضمن عرض NotFound لأي مسار غير صحيح داخل /auth
       ],
     },
     {
-      path: 'dashboard',
+      path: '/dashboard',
       element: <MasterLayout />,
       errorElement: <NotFound />,
 
@@ -70,7 +71,7 @@ function App() {
           path:'tasks',
           element:<Tasks/>
         },
-        
+        { path: '*', element: <NotFound /> }, // هذا السطر يضمن عرض NotFound لأي مسار غير صحيح داخل /dashboard
 
       ],
     },
