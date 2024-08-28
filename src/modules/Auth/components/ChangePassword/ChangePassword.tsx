@@ -39,43 +39,16 @@ const ChangePassword = () => {
   const onSubmit = async (data: ChangePasswordFormInputs) => {
     try {
       const res = await axios.put(User_URls.ChangePassword, data, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
-      toast.success(res.data.message, {
-        position: 'top-right',
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      toast.success(res.data.message);
       navigate('/dashboard');
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        toast.error(error.response?.data?.message, {
-          position: 'top-right',
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        }
-        );
+        if (error.response?.data?.message) toast.error(error.response?.data?.message);
+        if (error.response?.data?.additionalInfo?.errors?.newPassword[0]) toast.error('Password Should Be Valid Password');
+        if (error.response?.data?.additionalInfo?.errors?.confirmNewPassword[0]) toast.error(error.response?.data?.additionalInfo?.errors?.confirmNewPassword[0]);
       } else {
-        toast.error(
-          'An unexpected error occurred. Please try again.',
-          {
-            position: 'top-right',
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          }
-        );
+        toast.error("An unexpected error occurred. Please try again.");
       }
-
     }
   };
 
