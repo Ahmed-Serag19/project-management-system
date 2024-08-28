@@ -89,6 +89,7 @@ const LoginForm: React.FC = () => {
               <button
                 className="input-group-text"
                 onClick={togglePasswordVisibility}
+                type="button"
               >
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
               </button>
