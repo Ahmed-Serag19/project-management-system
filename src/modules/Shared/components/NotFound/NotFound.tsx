@@ -14,7 +14,7 @@ const NotFound = () => {
       <div className="landing-page-text d-flex flex-column text-center">
         <h4 className='text-success'>Oops! Page not found.</h4>
         <p className="text-white">This Page doesn’t exist or was removed!<br /> We suggest you  back to home.</p>
-        <Link to={'/auth/login'} className='btn btn-success'>Back to home</Link>
+        <Link to={'/dashboard'} className='btn btn-success'>Back to home</Link>
       </div>
     </section>
   );

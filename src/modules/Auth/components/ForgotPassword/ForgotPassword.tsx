@@ -35,7 +35,7 @@ export default function ForgotPassword() {
 
   return (
     <div>
-      <FormLayout
+  <FormLayout
         title="ForgotPassword"
         description="Welcome to PMS"
         backgroundImage={ForgetBg}
@@ -47,14 +47,22 @@ export default function ForgotPassword() {
             <Form.Control
               type="email"
               placeholder="Enter your E-mail"
-              {...register("email", EmailValidation)}
-              isInvalid={!!errors.email}
+
+              {...register('email', EmailValidation)}
+             // isInvalid={!!errors.email}
             />
-            <Form.Control.Feedback type="invalid">
-              {errors.email?.message}
-            </Form.Control.Feedback>
+     
+      
+
           </Form.Group>
 
+{/*          
+          <Form.Control.Feedback type="invalid">
+           
+          </Form.Control.Feedback> */}
+
+          {errors.email && (
+          <p className="text-danger mt-0">{errors.email.message}</p>)}
           <button
             className="form-layout-button w-100"
             disabled={!isDirty || !isValid || isSubmitting}
