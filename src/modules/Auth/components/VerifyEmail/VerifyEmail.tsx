@@ -19,44 +19,45 @@ const VerifyEmail = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<VerifyFormInputs>();
+  } = useForm<VerifyFormInputs>(); // Correctly typed useForm
 
   const onSubmit: SubmitHandler<VerifyFormInputs> = async (data) => {
     return await axios
       .put(`https://upskilling-egypt.com:3003/api/v1/Users/verify`, data)
       .then((res) => {
+        console.log(res);
         toast.success(`Account Verified successfully`, {
-          position: "top-center",
+          position: 'top-center',
           autoClose: 2000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: "light",
+          theme: 'light',
           transition: Bounce,
           style: {
-            textAlign: "center",
+            textAlign: 'center',
           },
         });
-        localStorage.removeItem("email");
+        localStorage.removeItem('email');
         setTimeout(() => {
-          navigate("/auth/login");
+          Navigator('/auth/login');
         }, 2000);
       })
       .catch((err) => {
         toast.error(`${err.response?.data?.message}`, {
-          position: "top-center",
+          position: 'top-center',
           autoClose: 2000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: "light",
+          theme: 'light',
           transition: Bounce,
           style: {
-            textAlign: "center",
+            textAlign: 'center',
           },
         });
       });
