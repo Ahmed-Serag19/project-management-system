@@ -212,7 +212,15 @@ button:disabled:hover {
   padding: 0 !important;
   margin: 0 !important;
 }
-
+.input-group-text {
+  border: none;
+  box-shadow: none !important;
+  /* outline: #414141 !important; */
+  border-radius: 5px !important;
+}
+.input-group-text:focus {
+  outline: 1px solid #fff !important;
+}
 /* .Toastify__toast-theme--dark {
  
 }
