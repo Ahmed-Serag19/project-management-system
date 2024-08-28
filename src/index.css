@@ -193,4 +193,23 @@ input:-webkit-autofill:active {
   background-color: transparent !important;
 }
 
+/*Navbar*/
+.img-user{
+  width: 50px !important;
+}
+#dropdown-basic{
+  background-color: transparent !important;
+  border: none !important;
+  color: #A7A7A7;
+ margin-top: 7px !important;
+ font-size: 20px;
+}
+.dropdown-item{
+  color: #0E382F !important;
+}
+.light-text{
+  color: rgba(0, 0, 0, 0.37);
+  opacity: 73%;
+  
+}
 
