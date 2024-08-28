@@ -1,6 +1,6 @@
-import { Outlet } from 'react-router-dom';
-import Navbar from '../Navbar/Navbar';
-import SidebarComponent from '../SidebarComponent/SidebarComponent';
+import { Outlet } from "react-router-dom";
+import Navbar from "../Navbar/Navbar";
+import SidebarComponent from "../SidebarComponent/SidebarComponent";
 
 const MasterLayout = () => {
   return (
