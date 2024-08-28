@@ -86,9 +86,12 @@ const LoginForm: React.FC = () => {
                 placeholder="Enter your password"
                 {...register("password")}
               />
-              <InputGroup.Text onClick={togglePasswordVisibility}>
+              <button
+                className="input-group-text"
+                onClick={togglePasswordVisibility}
+              >
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
-              </InputGroup.Text>
+              </button>
             </InputGroup>
           </Form.Group>
           {errors.password?.message && (
