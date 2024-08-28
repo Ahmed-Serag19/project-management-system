@@ -1,4 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 * {
   padding: 0;
   margin: 0;
@@ -187,25 +186,6 @@ input:-webkit-autofill:active {
   background-color: transparent !important;
 }
 
-/*Navbar*/
-.img-user{
-  width: 50px !important;
-}
-#dropdown-basic{
-  background-color: transparent !important;
-  border: none !important;
-  color: #A7A7A7;
- margin-top: 7px !important;
- font-size: 20px;
-}
-.dropdown-item{
-  color: #0E382F !important;
-}
-.light-text{
-  color: rgba(0, 0, 0, 0.37);
-  opacity: 73%;
-  
-}
 button:disabled {
   background-color: #e6b168 !important;
   border-color: #e6b168 !important;
@@ -241,29 +221,9 @@ button:disabled:hover {
 .input-group-text:focus {
   outline: 1px solid #fff !important;
 }
-.banner-container {
-  font-family: "Montserrat", sans-serif !important;
-  font-style: normal;
-  padding: 40px 20px;
-  color: white;
-  background-image: url("./assets//home-bg.png");
-  background-repeat: no-repeat;
-  height: 350px;
-  background-size: cover;
-  display: flex;
-  flex-direction: column;
-  background-position: center;
-  gap: 30px;
-  justify-content: center;
-  border-radius: 20px;
-  h1 {
-    font-weight: 400 !important;
-  }
-  h2 {
-    font-weight: 400 !important;
-  }
-  span {
-    color: #ef9b28;
-    text-transform: capitalize;
-  }
+/* .Toastify__toast-theme--dark {
+ 
 }
+.Toastify__close-button > svg {
+
+} */
