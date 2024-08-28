@@ -35,37 +35,41 @@ const Register = () => {
       .post(User_URls.register, data)
       .then((res) => {
         console.log(res);
-        toast.success(`Account created successfully, Verify your email`, {
-          position: "top-right",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-          transition: Bounce,
-          style: {
-            textAlign: "left",
-          },
-        });
-        localStorage.setItem("email", JSON.stringify(data.email));
-
-        navigate("/auth/verify-email");
+        toast.success(
+          `Account created successfully, Verify your email`,
+          {
+            position: 'top-right',
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'light',
+            transition: Bounce,
+            style: {
+              textAlign: 'left',
+            },
+          }
+        );
+        localStorage.setItem('email', JSON.stringify(data.email));
+        setTimeout(() => {
+          navigate('/auth/verify-email');
+        }, 2000);
       })
       .catch((err) => {
         toast.error(`${err.response.data.message}`, {
-          position: "top-right",
+          position: 'top-right',
           autoClose: 2000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: "light",
+          theme: 'light',
           transition: Bounce,
           style: {
-            textAlign: "left",
+            textAlign: 'left',
           },
         });
       });

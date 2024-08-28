@@ -1,0 +1,83 @@
+.dashboard-section {
+  font-family: "Montserrat", sans-serif !important;
+
+  padding: 40px 10px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.section-header {
+  position: relative;
+  padding-left: 30px;
+  ::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 100%;
+    background-color: #ff8800;
+    transition: width 0.3s ease;
+  }
+  h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+  }
+  p {
+    color: #919191;
+  }
+}
+
+.cards-container {
+  display: flex;
+  gap: 16px;
+  padding: 20px 30px;
+}
+
+.card {
+  padding: 16px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 200px;
+}
+
+.icon {
+  font-size: 24px;
+  margin-bottom: 8px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 14px 13px;
+}
+
+.label {
+  color: #555;
+}
+
+.value {
+  font-weight: bold;
+  font-size: 16px;
+}
+.dashboard {
+  display: flex;
+  gap: 50px;
+}
+.card-content {
+  padding-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  p {
+    margin: none !important;
+    margin-bottom: 0rem !important;
+    font-weight: 500;
+  }
+  h2 {
+    font-weight: 400;
+    font-size: 1.5rem;
+  }
+}

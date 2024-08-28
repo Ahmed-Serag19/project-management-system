@@ -1,9 +1,7 @@
-import {
-  AuthContext,
-  AuthContextType,
-} from '../../../../context/AuthContext';
-import { useContext } from 'react';
-
+import { AuthContext, AuthContextType } from "../../../../context/AuthContext";
+import { useContext } from "react";
+import "../../home.css";
+import Dashboard from "../Dashboard/Dashboard";
 const Home = () => {
   const authContext = useContext(AuthContext);
   if (!authContext) {
@@ -13,13 +11,19 @@ const Home = () => {
 
   console.log(user, clearToken);
   return (
-    <div>
-      <h1>Welcome, {user?.userName}</h1>
-      <p>Email: {user?.userEmail}</p>
-      <p>User Group: {user?.userGroup}</p>
-      <p>Roles: {user?.roles.join(', ')}</p>
-      <button onClick={() => clearToken()}>Logout</button>
-    </div>
+    <section>
+      <main>
+        <div className="banner-container">
+          <h1>
+            Welcome <span>{user?.userName}</span>{" "}
+          </h1>
+          <h2>You can add project and assign tasks to your team</h2>
+        </div>
+        <div className="home-content">
+          <Dashboard />
+        </div>
+      </main>
+    </section>
   );
 };
 

@@ -27,35 +27,37 @@ const VerifyEmail = () => {
       .then((res) => {
         console.log(res);
         toast.success(`Account Verified successfully`, {
-          position: "top-center",
+          position: 'top-center',
           autoClose: 2000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: "light",
+          theme: 'light',
           transition: Bounce,
           style: {
-            textAlign: "center",
+            textAlign: 'center',
           },
         });
-        localStorage.removeItem("email");
-        navigate("/auth/login");
+        localStorage.removeItem('email');
+        setTimeout(() => {
+          Navigator('/auth/login');
+        }, 2000);
       })
       .catch((err) => {
         toast.error(`${err.response?.data?.message}`, {
-          position: "top-center",
+          position: 'top-center',
           autoClose: 2000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: "light",
+          theme: 'light',
           transition: Bounce,
           style: {
-            textAlign: "center",
+            textAlign: 'center',
           },
         });
       });

@@ -19,7 +19,7 @@ export default function Navbar() {
 
   let getUser = async () => {
     try {
-      let response = await axios.get(User_URls.currentUser, {
+      let response = await axios.get(User_URls.getCurrentUser, {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
       setUserData(response.data);
