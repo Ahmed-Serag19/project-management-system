@@ -32,14 +32,12 @@ export default function ResetPassword() {
     try {
       const response = await axios.post(User_URls.reset, data);
       toast.success(response?.data?.message || "Password Changed");
-      console.log(response);
 
       navigate("/auth/login");
     } catch (error) {
       if (axios.isAxiosError(error)) {
         // Type guard to ensure error is AxiosError
         toast.error(error.response?.data.message || "An error occurred");
-        console.log(error.response?.data?.message);
       } else {
         toast.error("An unexpected error occurred");
 
@@ -116,6 +114,7 @@ export default function ResetPassword() {
             {/* new key using btn for eye */}
             <div>
               <button
+
                 onMouseDown={(e) => {
                   e.preventDefault();
                 }}
@@ -127,6 +126,7 @@ export default function ResetPassword() {
                 className="text-end  btn-eye"
                 id="basic-addon1"
                 onClick={() => setIsPasswordVisible((prev) => !prev)}
+
               >
                 <span className="sr_only">
                   {isPasswordVisible ? "Hide Password" : "Show Password"}
@@ -170,6 +170,7 @@ export default function ResetPassword() {
             {/* new key using btn for eye */}
             <div>
               <button
+
                 onMouseDown={(e) => {
                   e.preventDefault();
                 }}
@@ -181,6 +182,7 @@ export default function ResetPassword() {
                 className="text-end  btn-eye"
                 id="basic-addon1"
                 onClick={() => setIsPasswordVisible((prev) => !prev)}
+
               >
                 <span className="sr_only">
                   {isPasswordVisible ? "Hide Password" : "Show Password"}
