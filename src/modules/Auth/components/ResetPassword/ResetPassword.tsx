@@ -31,14 +31,12 @@ export default function ResetPassword() {
     try {
       const response = await axios.post(User_URls.reset, data);
       toast.success(response?.data?.message || "Password Changed");
-      console.log(response);
 
       navigate("/auth");
     } catch (error) {
       if (axios.isAxiosError(error)) {
         // Type guard to ensure error is AxiosError
         toast.error(error.response?.data.message || "An error occurred");
-        console.log(error.response?.data?.message);
       } else {
         toast.error("An unexpected error occurred");
 
@@ -113,6 +111,7 @@ export default function ResetPassword() {
               <button
                 className="input-group-text"
                 onClick={togglePasswordVisibility}
+                type="button"
               >
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
               </button>
@@ -144,6 +143,7 @@ export default function ResetPassword() {
               <button
                 className="input-group-text"
                 onClick={togglePasswordVisibility}
+                type="button"
               >
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
               </button>
