@@ -20,6 +20,7 @@ a {
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
+  overflow: hidden  !important;
 
   a {
     text-decoration: none;
@@ -174,29 +175,25 @@ a {
 margin-top: 70px !important;
 }
 
-.side .side-bar-container .ps-sidebar-container {
-  background: #0e382f !important;
-  height: 100vh;
-  font-size: large;
-  
 
-}
 .bg-sidebar{
-  background-color: #fff !important;
- 
+  background-color: #0e382f !important;
+  font-size: large;
 }
-.side .side-bar-container .ps-menu-button {
+.bg-sidebar,.ps-menu-button {
   color: white;
 }
-
-.bg-sidebar ,.ps-menu-button .active {
-  background-color: #EF9B284D;
-  color: #ef9b28;
+.ps-menu-root{
+  background-color: #0e382f !important;
+}
+.ps-menu-button .active {
+  background-color: #EF9B284D !important;
+  color: #ef9b28 !important;
 
 }
 
-.side .side-bar-container .ps-menu-button:hover {
-  background-color: #EF9B284D;
+.bg-sidebar .ps-menu-button:hover {
+  background-color: #EF9B284D !important;
   color: #ef9b28;
 }
 
@@ -251,6 +248,8 @@ input:-webkit-autofill:active {
   opacity: 73%;
   
 }
+
+/*reset*/
 button:disabled {
   background-color: #e6b168 !important;
   border-color: #e6b168 !important;
@@ -289,7 +288,7 @@ button:disabled:hover {
 .banner-container {
   font-family: "Montserrat", sans-serif !important;
   font-style: normal;
-  padding: 40px 20px;
+  padding: 40px 25px;
   color: white;
   background-image: url("./assets//home-bg.png");
   background-repeat: no-repeat;
