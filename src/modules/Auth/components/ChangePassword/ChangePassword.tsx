@@ -61,73 +61,91 @@ const ChangePassword = () => {
     >
       <Form onSubmit={handleSubmit(onSubmit)} className="pt-5">
         {/* Old Password */}
-        <Form.Group
-          controlId="formOldPassword"
-          className="mb-4 input-section"
-        >
-          <Form.Label>Old Password</Form.Label>
-          <InputGroup>
-            <Form.Control
-              type={showOldPassword ? 'text' : 'password'}
-              placeholder="Enter your Old Password"
-              {...register('oldPassword', PasswordValidation)}
-              isInvalid={!!errors.oldPassword}
-            />
-            <InputGroup.Text onClick={toggleOldPasswordVisibility}>
-              {showOldPassword ? <FaEyeSlash /> : <FaEye />}
-            </InputGroup.Text>
-            <Form.Control.Feedback type="invalid">
-              {errors.oldPassword?.message}
-            </Form.Control.Feedback>
-          </InputGroup>
-        </Form.Group>
+        <div className="pb-2">
+          <Form.Group
+            controlId="formOldPassword"
+            className="mb-2 input-section"
+          >
+            <Form.Label>Old Password</Form.Label>
+            <InputGroup>
+              <Form.Control
+                type={showOldPassword ? 'text' : 'password'}
+                placeholder="Enter your Old Password"
+                {...register('oldPassword', PasswordValidation)}
+                isInvalid={!!errors.oldPassword}
+              />
+              <button
+                className="input-group-text"
+                onClick={toggleOldPasswordVisibility}
+                type="button"
+              >
+                {showOldPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
+            </InputGroup>
+          </Form.Group>
+          {errors.oldPassword?.message && (
+            <p className="text-danger"> {errors.oldPassword?.message}</p>
+          )}
+        </div>
         {/* New Password */}
-        <Form.Group
-          controlId="formNewPassword"
-          className="mb-4 input-section"
-        >
-          <Form.Label>New Password</Form.Label>
-          <InputGroup>
-            <Form.Control
-              type={showNewPassword ? 'text' : 'password'}
-              placeholder="Enter your New Password"
-              {...register('newPassword', PasswordValidation)}
-              isInvalid={!!errors.newPassword}
-            />
-            <InputGroup.Text onClick={toggleNewPasswordVisibility}>
-              {showNewPassword ? <FaEyeSlash /> : <FaEye />}
-            </InputGroup.Text>
-            <Form.Control.Feedback type="invalid">
-              {errors.newPassword?.message}
-            </Form.Control.Feedback>
-          </InputGroup>
-        </Form.Group>
+        <div className="pb-2">
+          <Form.Group
+            controlId="formNewPassword"
+            className="mb-2 input-section"
+          >
+            <Form.Label>New Password</Form.Label>
+            <InputGroup>
+              <Form.Control
+                type={showNewPassword ? 'text' : 'password'}
+                placeholder="Enter your New Password"
+                {...register('newPassword', PasswordValidation)}
+                isInvalid={!!errors.newPassword}
+              />
+              <button
+                className="input-group-text"
+                onClick={toggleNewPasswordVisibility}
+                type="button"
+              >
+                {showNewPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
+            </InputGroup>
+          </Form.Group>
+          {errors.newPassword?.message && (
+            <p className="text-danger"> {errors.newPassword?.message}</p>
+          )}
+        </div>
         {/* Confirm New Password */}
-        <Form.Group
-          controlId="formConfirmPassword"
-          className="mb-4 input-section"
-        >
-          <Form.Label>Confirm New Password</Form.Label>
-          <InputGroup>
-            <Form.Control
-              type={showconfirmPassword ? 'text' : 'password'}
-              placeholder="Enter Confirm New Password"
-              {...register('confirmNewPassword', {
-                required: 'Confirm New Password is required',
-                validate: (value) => {
-                  if (watch('newPassword') !== value) return 'Passwords do not match'
-                }
-              })}
-              isInvalid={!!errors.confirmNewPassword}
-            />
-            <InputGroup.Text onClick={toggleconfirmPasswordVisibility}>
-              {showconfirmPassword ? <FaEyeSlash /> : <FaEye />}
-            </InputGroup.Text>
-            <Form.Control.Feedback type="invalid">
-              {errors.confirmNewPassword?.message}
-            </Form.Control.Feedback>
-          </InputGroup>
-        </Form.Group>
+        <div className="pb-2">
+          <Form.Group
+            controlId="formConfirmPassword"
+            className="mb-2 input-section"
+          >
+            <Form.Label>Confirm New Password</Form.Label>
+            <InputGroup>
+              <Form.Control
+                type={showconfirmPassword ? 'text' : 'password'}
+                placeholder="Enter Confirm New Password"
+                {...register('confirmNewPassword', {
+                  required: 'Confirm New Password is required',
+                  validate: (value) => {
+                    if (watch('newPassword') !== value) return 'Passwords do not match'
+                  }
+                })}
+                isInvalid={!!errors.confirmNewPassword}
+              />
+              <button
+                className="input-group-text"
+                onClick={toggleconfirmPasswordVisibility}
+                type="button"
+              >
+                {showconfirmPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
+            </InputGroup>
+          </Form.Group>
+          {errors.confirmNewPassword?.message && (
+            <p className="text-danger"> {errors.confirmNewPassword?.message}</p>
+          )}
+        </div>
         <FormButton buttonText="Save" />
       </Form>
     </FormLayout>
