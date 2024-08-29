@@ -160,19 +160,43 @@ a {
   background-color: rgba(239, 155, 40, 1) !important;
 }
 /*--------------side bar------------*/
-.collapse-btn {
- right: -10px;
-  top: 10px;
-  background: #f09a22;
-  cursor: pointer;
+.css-wx7wi4{
   
+.btn-side{
+  right: -16px;
+  top: -70px;
+  cursor: pointer;
+  /* transition: all 0.3s !important; */
+}
+.collapse-btn {
+  transform: translateX(31px) !important;
+  padding: 10px;
+   background: #f09a22;
+   cursor: pointer;
+   border-top-right-radius: 8px 8px;
+   border-bottom-right-radius: 8px 8px;
+ }
+ .out-btn {
+  padding: 10px; 
+   background: #f09a22;
+   cursor: pointer;
+   border-top-left-radius: 8px 8px;
+   border-bottom-left-radius: 8px 8px;
+  }
+.css-dip3t8{
+ overflow-y:visible !important ;
+ overflow-x: visible !important;
+ background-color: transparent !important;
 }
 .firstIcon-sidebar{
   background-color: transparent !important;
 
 }
+.css-1wvake5{
+border-right-style:none !important;
+}
 .home-sidebar{
-margin-top: 70px !important;
+margin-top:80px !important;
 }
 
 
