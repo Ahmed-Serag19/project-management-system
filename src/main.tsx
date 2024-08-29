@@ -13,7 +13,7 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <AuthContextProvider>
       <App />
-      <ToastContainer />
+      <ToastContainer theme='dark' />
     </AuthContextProvider>
   </StrictMode>
 );

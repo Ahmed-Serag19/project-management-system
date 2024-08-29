@@ -44,7 +44,7 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="dashboard">
+    <div className="dashboard col-md-5">
       <DashboardSection
         title="Tasks"
         description="Lorem ipsum dolor sit amet, consectetur"

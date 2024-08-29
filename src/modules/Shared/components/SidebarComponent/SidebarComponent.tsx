@@ -27,10 +27,10 @@ const SidebarComponent: React.FC = () => {
   return (
     <>
       <div
-        className="bg-sidebar position-relative"
-        style={{ position: "sticky", top: "0", left: "0", height: "100vh" }}
+        className="bg-sidebar"
+        style={{ position:"sticky", top: "0", left: "0", height: "100vh" }}
       >
-        <Sidebar className="position-relative" collapsed={isCollapse}>
+        <Sidebar className="position-relative h-100" collapsed={isCollapse}>
           <div
             onClick={togglerCollapse}
             className=" position-absolute collapse-btn mt-2 "
@@ -45,7 +45,7 @@ const SidebarComponent: React.FC = () => {
           </div>
 
           <Menu
-            className="h-100"
+            className="h-100 overflow-hidden"
             menuItemStyles={{
               button: {
                 [`&.active`]: {
