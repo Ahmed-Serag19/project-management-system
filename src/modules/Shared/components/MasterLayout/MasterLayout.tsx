@@ -8,7 +8,7 @@ const MasterLayout = () => {
       <div className='w-100'>
       <Navbar />
       </div>
-      <div className="d-flex gap-2 ">
+      <div className="d-flex gap-4 ">
       <SidebarComponent />
 
         <div className="w-100 px-3 py-4">
