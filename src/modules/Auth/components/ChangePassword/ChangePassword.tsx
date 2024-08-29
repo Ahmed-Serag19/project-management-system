@@ -38,7 +38,7 @@ const ChangePassword = () => {
 
   const onSubmit = async (data: ChangePasswordFormInputs) => {
     try {
-      const res = await axios.put(User_URls.ChangePassword, data, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
+      const res = await axios.put<{ message: string }>(User_URls.ChangePassword, data, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
       toast.success(res.data.message);
       navigate('/dashboard');
     } catch (error) {
@@ -72,7 +72,6 @@ const ChangePassword = () => {
                 type={showOldPassword ? 'text' : 'password'}
                 placeholder="Enter your Old Password"
                 {...register('oldPassword', PasswordValidation)}
-                isInvalid={!!errors.oldPassword}
               />
               <button
                 className="input-group-text"
@@ -99,7 +98,6 @@ const ChangePassword = () => {
                 type={showNewPassword ? 'text' : 'password'}
                 placeholder="Enter your New Password"
                 {...register('newPassword', PasswordValidation)}
-                isInvalid={!!errors.newPassword}
               />
               <button
                 className="input-group-text"
@@ -131,7 +129,6 @@ const ChangePassword = () => {
                     if (watch('newPassword') !== value) return 'Passwords do not match'
                   }
                 })}
-                isInvalid={!!errors.confirmNewPassword}
               />
               <button
                 className="input-group-text"
