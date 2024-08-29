@@ -7,9 +7,8 @@ const Home = () => {
   if (!authContext) {
     return <div>Error: AuthContext is not available.</div>;
   }
-  const { user, clearToken } = authContext as AuthContextType; //+
+  const { user, clearToken } = authContext as AuthContextType;
 
-  console.log(user, clearToken);
   return (
     <section>
       <main>
@@ -19,9 +18,11 @@ const Home = () => {
           </h1>
           <h2>You can add project and assign tasks to your team</h2>
         </div>
-        <div className="home-content">
-          <Dashboard />
-        </div>
+        {user?.group.name !== "Employee" && (
+          <div className="home-content">
+            <Dashboard />
+          </div>
+        )}
       </main>
     </section>
   );

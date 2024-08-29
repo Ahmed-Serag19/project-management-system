@@ -41,7 +41,8 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  width: 200px;
+  width: 170px;
+  height: 200px !important;
 }
 
 .icon {
@@ -75,9 +76,10 @@
     margin: none !important;
     margin-bottom: 0rem !important;
     font-weight: 500;
+    font-size: 0.9rem !important;
   }
   h2 {
     font-weight: 400;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
   }
 }
