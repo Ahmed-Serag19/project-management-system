@@ -4,16 +4,18 @@ import SidebarComponent from "../SidebarComponent/SidebarComponent";
 
 const MasterLayout = () => {
   return (
-    <div>
-      <div className='w-100'>
+    <div >
+      <div className='w-100 '>
       <Navbar />
       </div>
-      <div className="d-flex gap-4 ">
+      <div className="d-flex ">
+
       <SidebarComponent />
 
-        <div className="w-100 px-3 py-4">
-          
-          <div>
+
+        <div className="w-100 bg-layout ">  
+        
+          <div className="" >
             <Outlet />
           </div>
         </div>

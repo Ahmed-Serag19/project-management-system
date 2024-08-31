@@ -10,7 +10,7 @@ const Home = () => {
   const { user, clearToken } = authContext as AuthContextType;
 
   return (
-    <section>
+    <section className="m-5">
       <main>
         <div className="banner-container">
           <h1>
