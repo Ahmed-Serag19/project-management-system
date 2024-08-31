@@ -33,7 +33,7 @@ const Register = () => {
   const onSubmit = async (data: RegisterFormInputs) => {
     return await axios
       .post(User_URls.register, data)
-      .then((res) => {
+      .then(() => {
         toast.success(`Account created successfully, Verify your email`, {
           position: "top-right",
           autoClose: 2000,
