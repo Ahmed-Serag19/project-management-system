@@ -20,7 +20,7 @@ a {
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
-  overflow: hidden  !important;
+  overflow: hidden  !important;                              
 
   a {
     text-decoration: none;
@@ -160,11 +160,11 @@ a {
   background-color: rgba(239, 155, 40, 1) !important;
 }
 /*--------------side bar------------*/
-.css-wx7wi4{
+.css-wx7wi4{}
   
 .btn-side{
   right: -16px;
-  top: -70px;
+  top: -55px;
   cursor: pointer;
   /* transition: all 0.3s !important; */
 }
@@ -184,8 +184,7 @@ a {
    border-bottom-left-radius: 8px 8px;
   }
 .css-dip3t8{
- overflow-y:visible !important ;
- overflow-x: visible !important;
+ overflow:visible !important ;
  background-color: transparent !important;
 }
 .firstIcon-sidebar{
@@ -196,7 +195,7 @@ a {
 border-right-style:none !important;
 }
 .home-sidebar{
-margin-top:80px !important;
+margin-top:60px !important;
 }
 
 
