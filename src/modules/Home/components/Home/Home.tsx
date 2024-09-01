@@ -7,7 +7,7 @@ const Home = () => {
   if (!authContext) {
     return <div>Error: AuthContext is not available.</div>;
   }
-  const { user, clearToken } = authContext as AuthContextType;
+  const { user } = authContext as AuthContextType;
 
   return (
     <section className="m-5">
