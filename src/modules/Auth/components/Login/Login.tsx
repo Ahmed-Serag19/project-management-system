@@ -87,11 +87,11 @@ const LoginForm: React.FC = () => {
                 {...register("password")}
               />
               <button
-                className="input-group-text"
+                className="input-group-text btn-login"
                 onClick={togglePasswordVisibility}
                 type="button"
               >
-                {showPassword ? <FaEyeSlash /> : <FaEye />}
+                {showPassword ? <FaEyeSlash className="text-white" /> : <FaEye className="text-white"/>}
               </button>
             </InputGroup>
           </Form.Group>
