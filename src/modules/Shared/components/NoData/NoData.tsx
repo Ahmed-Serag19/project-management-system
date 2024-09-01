@@ -1,5 +1,5 @@
 import React from 'react'
-import imgData from '.././../../../assets/Nodata.svg'
+import imgData from '.././../../../assets/Nodata.png'
 export default function NoData() {
   return (
     <div className=''>

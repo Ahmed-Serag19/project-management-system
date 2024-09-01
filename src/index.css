@@ -143,7 +143,7 @@ a {
 .input-group-text {
   background-color: transparent !important;
   border: none !important;
-  color: white !important;
+  /* color: white !important; */
 }
 
 /* .sr-only {
@@ -343,6 +343,63 @@ button:disabled:hover {
 .bg-layout{
   background-color: #F5F5F5 !important;
 }
+.btn-login:focus{
+  border: none !important;
+  outline: none !important;
+}
+/* -------table-------- */
+
+
+.table > thead > tr >th{
+  background-color: #315951E5 !important;
+  opacity: 90% !important;
+  padding: 15px 10px !important ;
+  
+}
+.border-bottom-width{
+  border: none !important;
+
+}
+th{
+  color:  white !important;
+  text-align: left !important;
+
+  font-weight: 400 !important;
+
+}
+.table > tbody > tr >td{
+padding:15px 10px 7px 10px !important;
+font-size: 14px !important;
+color: #4F4F4F !important;
+
+}
+.table > tbody > tr:nth-child(even) > td, .table > tbody > tr:nth-child(even) > th {
+  background-color:#F8F9FB !important;
+  
+}
+
+table, tr, td, th {
+    border: none !important;
+}
+/*user*/
+.fa-search{
+  color: #4F4F4F !important;
+
+}
+.gray{
+  color: black !important;
+}
+.page-link {
+  color: #0E382F !important;
+  cursor: pointer !important;
+}
+.fa-toggle-off,.fa-toggle-on{
+  cursor: pointer !important;
+}
+.btn-hover{
+  pointer-events: none !important; 
+}
+
 
 /* ----media-screen---- */
 @media screen and (max-width:600px){

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "../User.css";
+import styles from './Users.module.css'
 import { HiChevronUpDown } from "react-icons/hi2";
 import axios from "axios";
 import { requestHeader, User_URls } from "../../../constants/End_Points";
@@ -56,7 +56,7 @@ export default function Users() {
       );
       console.log(response);
 
-      getAllUsers(8, 1,"", 1);
+      getAllUsers(8,1,"", 1);
     } catch (error:any) {
       console.log(error);
       toast.error(error?.response?.data?.message)
@@ -90,11 +90,11 @@ export default function Users() {
 
   const getNameValue = (input: any) => {
     setNameValue(input.target.value);
-    getAllUsers(8, 1, input.target.value, groupValue);
+    getAllUsers(8,1,input.target.value,groupValue);
   };
   const getGroupValue = (input: any) => {
     setGroupValue(input.target.value);
-    getAllUsers(8, 1, nameValue, input.target.value);
+    getAllUsers(8, 1,nameValue,input.target.value);
   };
 
   return (
@@ -102,17 +102,15 @@ export default function Users() {
       <h2 className="title-components ps-5 py-4 bg-white mb-5">User</h2>
 
       <div className="mx-5 mb-5 pt-1 rounded-2 bg-white">
-        {userList.length > 0 ? (
-          <div>
-            <div className="mb-3 ms-3 mt-4 pt-2 d-flex ">
+      <div className="mb-3 ms-3 mt-4 pt-2 d-flex ">
               <div className="col-md-3 me-3 mb-1">
                 <div className="input-group border-1 mb-2  p-1 border rounded-pill">
-                  <span className="input-group-text " id="basic-addon1">
-                    <i className="fa fa-search "></i>
+                  <span className="input-group-text" id="basic-addon1">
+                    <i className="fa fa-search"></i>
                   </span>
                   <input
                     type="text"
-                    className="form-control inputForm gay"
+                    className="form-control inputForm gray"
                     placeholder="Search by name"
                     onChange={getNameValue}
                   />
@@ -130,11 +128,14 @@ export default function Users() {
                 </select>
               </div>
             </div>
+        {userList.length > 0 ? (
+          <div>
+       
 
             <table className="table col-md-11">
               <thead>
-                <tr className="text-white text-start">
-                  <th scope="col-2">
+                <tr className="text-white text-start ">
+                  <th scope="col-2 " className="ms-3">
                     {" "}
                     User Name <HiChevronUpDown />{" "}
                   </th>
@@ -161,11 +162,11 @@ export default function Users() {
                     <td>{user.userName}</td>
                     <td>
                       {user.isActivated ? (
-                        <button className="btn btn-success rounded-pill ">
+                        <button className="btn btn-hover btn-success rounded-pill ">
                           Active
                         </button>
                       ) : (
-                        <button className="btn btn-danger rounded-pill ">
+                        <button className="btn btn-hover btn-danger rounded-pill ">
                           Not Active
                         </button>
                       )}
