@@ -7,6 +7,7 @@
 body{
   font-family: "Montserrat", sans-serif !important;
   /* overflow-x: hidden !important; */
+  background-color: #F5F5F5 !important;
 }
 
 a {
@@ -245,7 +246,7 @@ input:-webkit-autofill:active {
 
 /*--------Navbar---------*/
 
-.dropdown-menu {
+.nav-item .dropdown-menu{
   transform: translateX(-160px) !important;
   color: #A7A7A7 !important;
   
@@ -345,7 +346,7 @@ button:disabled:hover {
 
 /* ----media-screen---- */
 @media screen and (max-width:600px){
-  .dropdown-menu {
+  .nav-item .dropdown-menu {
     transform: translateX(0) !important;
   width:75% ;
     
@@ -366,7 +367,7 @@ button:disabled:hover {
 }
   @media screen and (min-width:610px) and (max-width:768px){
 
-    .dropdown-menu {
+    .nav-item .dropdown-menu{
       transform: translateX(0) !important;
       width:75% ;
     }
@@ -389,7 +390,7 @@ button:disabled:hover {
   }
   @media screen and (min-width:769px) and (max-width:992px){
   
-    .dropdown-menu {
+    .nav-item .dropdown-menu {
       transform: translateX(0) !important;
       margin-right: 10px;
     }
@@ -405,7 +406,7 @@ button:disabled:hover {
     .navbar-toggler{
       margin-left: 30px;
     }
-    .navbarNavDropdown{
+    .nav-item .dropdown-menu{
       width: 75% !important;
     }
     .navbar-left{

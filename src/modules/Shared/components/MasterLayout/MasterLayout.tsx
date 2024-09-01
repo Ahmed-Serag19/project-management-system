@@ -13,7 +13,7 @@ const MasterLayout = () => {
       <SidebarComponent />
 
 
-        <div className="w-100 bg-layout ">  
+        <div className="w-100  ">  
         
           <div className="" >
             <Outlet />
