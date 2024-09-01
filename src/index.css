@@ -146,7 +146,7 @@ a {
   color: white !important;
 }
 
-.sr-only {
+/* .sr-only {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -156,7 +156,7 @@ a {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border-width: 0;
-}
+} */
 
 .bg-main {
   background-color: rgba(239, 155, 40, 1) !important;
@@ -166,20 +166,20 @@ a {
   
 .btn-side{
   right: -16px;
-  top: -55px;
+  top: -50px;
   cursor: pointer;
   /* transition: all 0.3s !important; */
 }
 .collapse-btn {
-  transform: translateX(31px) !important;
-  padding: 10px;
+  transform: translateX(27px) !important;
+  padding: 8px;
    background: #f09a22;
    cursor: pointer;
    border-top-right-radius: 8px 8px;
    border-bottom-right-radius: 8px 8px;
  }
  .out-btn {
-  padding: 10px; 
+  padding: 8px; 
    background: #f09a22;
    cursor: pointer;
    border-top-left-radius: 8px 8px;
@@ -197,7 +197,7 @@ a {
 border-right-style:none !important;
 }
 .home-sidebar{
-margin-top:60px !important;
+margin-top:50px !important;
 }
 
 

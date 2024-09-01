@@ -59,3 +59,17 @@ select > option{
   color: #0E382F !important;
   cursor: pointer !important;
 }
+.select::-ms-expand {
+    display: none !important;
+}
+.input-group-text:focus {
+    outline: 1px solid #AAAAAA !important;
+  }
+ select > .form-control:focus {
+    box-shadow: #4F4F4F !important;
+    border-color: #4F4F4F !important;
+    outline: 1px solid #4F4F4F !important;
+}
+  select .text-black{
+    color: #4F4F4F !important;
+  }
