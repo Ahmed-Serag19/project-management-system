@@ -1,5 +1,10 @@
 const Base_Url = "https://upskilling-egypt.com:3003/api/v1";
 export const Base_Img_Url = "https://upskilling-egypt.com:3003/";
+export const Base_Img_Url = "https://upskilling-egypt.com:3003/";
+
+export const requestHeader = {
+  Authorization: `Bearer ${localStorage.getItem("token")}`,
+};
 
 const Base_Users = `${Base_Url}/Users`;
 
@@ -12,6 +17,24 @@ export const User_URls = {
   verify: `${Base_Users}/verify`,
   ChangePassword: `${Base_Users}/ChangePassword`,
   getCurrentUser: `${Base_Users}/currentUser`,
+  getUser: `${Base_Users}`,
+  toggleStatues: (id: string) => `${Base_Users}/${id}`,
+};
+
+const Base_Tasks = `${Base_Url}/Task`;
+
+export const Task_URLs = {
+  create: `${Base_Tasks}`,
+  getAllAssigned: `${Base_Tasks}`,
+  getAllForManager: `${Base_Tasks}/manager`,
+  getById: (id: number | string): string => `${Base_Tasks}/${id}`,
+  update: (id: number | string): string => `${Base_Tasks}/${id}`,
+  delete: (id: number | string): string => `${Base_Tasks}/${id}`,
+  count: `${Base_Tasks}/count`,
+  changeStatus: (id: number | string): string =>
+    `${Base_Tasks}/${id}/change-status`,
+  getByProject: (projectId: number | string): string =>
+    `${Base_Tasks}/project/${projectId}`,
 };
 
 const Base_Tasks = `${Base_Url}/Task`;
