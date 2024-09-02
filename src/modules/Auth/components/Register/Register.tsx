@@ -2,7 +2,9 @@ import FormLayout from "../../../Shared/components/FormLayout/FormLayout";
 import RegisterBg from "../../../../assets/register-bg.png";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import { toast, Bounce } from "react-toastify";
+import { FaCamera } from "react-icons/fa";
+import profileDefaultPic from "../../../../assets/8550fbcbe60cd242d12760784feff287.jpeg";
+import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { User_URls } from "../../../../constants/End_Points";
 import {
@@ -20,6 +22,22 @@ type RegisterFormInputs = {
   confirmPassword: string;
 };
 
+const convertToFormData = (data: RegisterFormInputs): FormData => {
+  const recipeFormData = new FormData();
+
+  recipeFormData.append("userName", data.userName);
+  recipeFormData.append("email", data.email);
+  recipeFormData.append("country", data.country);
+  recipeFormData.append("phoneNumber", data.phoneNumber);
+  if (data.profileImage.length > 0) {
+    recipeFormData.append("profileImage", data.profileImage[0]);
+  }
+  recipeFormData.append("password", data.password);
+  recipeFormData.append("confirmPassword", data.confirmPassword);
+
+  return recipeFormData;
+};
+
 const Register = () => {
   const navigate = useNavigate();
 
@@ -31,44 +49,16 @@ const Register = () => {
   } = useForm<RegisterFormInputs>();
 
   const onSubmit = async (data: RegisterFormInputs) => {
-    return await axios
-      .post(User_URls.register, data)
-      .then(() => {
-        toast.success(`Account created successfully, Verify your email`, {
-          position: "top-right",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-          transition: Bounce,
-          style: {
-            textAlign: "left",
-          },
-        });
-        localStorage.setItem("email", JSON.stringify(data.email));
-        setTimeout(() => {
-          navigate("/auth/verify-email");
-        }, 2000);
-      })
-      .catch((err) => {
-        toast.error(`${err.response.data.message}`, {
-          position: "top-right",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-          transition: Bounce,
-          style: {
-            textAlign: "left",
-          },
-        });
-      });
+    try {
+      const formData = convertToFormData(data);
+      const res = await axios.post(User_URls.register, formData);
+      console.log(res);
+      toast.success(`Account created successfully, Verify your email`);
+      localStorage.setItem("email", JSON.stringify(data.email));
+      navigate("/auth/verify-email");
+    } catch (error: any) {
+      toast.error(`${error.response.data.message}`);
+    }
   };
 
   return (
@@ -80,6 +70,32 @@ const Register = () => {
         backgroundImage={RegisterBg}
       >
         <form onSubmit={handleSubmit(onSubmit)} className="row flex-wrap pt-3">
+          <div className="mb-3 text-center">
+            <input
+              type="file"
+              id="fileInput"
+              accept="image/*"
+              className="d-none"
+              {...register("profileImage", {
+                required: "profileImage is required",
+              })}
+            />
+            <label htmlFor="fileInput" className="profile-pic">
+              <img
+                src={profileDefaultPic}
+                alt="Profile Picture"
+                className="profile-pic-img"
+              />
+              <span className="camera-icon"> {<FaCamera />}</span>
+            </label>
+
+            {errors.profileImage && (
+              <p className="alert alert-danger p-1 my-1 ps-2 rounded-1 w-100">
+                {errors.profileImage.message}
+              </p>
+            )}
+          </div>
+
           <div className="col-md-6 mb-3">
             <label htmlFor="" className="form-label mb-0">
               User Name

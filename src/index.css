@@ -1,10 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
 }
-body{
+
+body {
   font-family: "Montserrat", sans-serif !important;
   /* overflow-x: hidden !important; */
   background-color: #F5F5F5 !important;
@@ -22,6 +24,7 @@ a {
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
+
   overflow: hidden  !important;                              
 
   a {
@@ -57,6 +60,7 @@ a {
     color: #ef9b28 !important;
   }
 }
+
 /* padding size change  */
 .form-layout-card {
   background-color: rgba(49, 89, 81, 0.9);
@@ -66,6 +70,7 @@ a {
   color: #fff;
   width: 100%;
 }
+
 /* font size change  */
 .form-layout-title {
   font-size: 24px;
@@ -82,6 +87,7 @@ a {
   height: 5px;
   width: 18px;
 }
+
 /*font size change*/
 .form-layout-description {
   margin-bottom: 0 !important;
@@ -161,7 +167,9 @@ a {
 .bg-main {
   background-color: rgba(239, 155, 40, 1) !important;
 }
+
 /*--------------side bar------------*/
+
 .css-wx7wi4{}
   
 .btn-side{
@@ -189,10 +197,12 @@ a {
  overflow:visible !important ;
  background-color: transparent !important;
 }
-.firstIcon-sidebar{
+
+.firstIcon-sidebar {
   background-color: transparent !important;
 
 }
+
 .css-1wvake5{
 border-right-style:none !important;
 }
@@ -201,16 +211,19 @@ margin-top:50px !important;
 }
 
 
-.bg-sidebar{
+.bg-sidebar {
   background-color: #0e382f !important;
   font-size: large;
 }
-.bg-sidebar,.ps-menu-button {
+
+.bg-sidebar, .ps-menu-button {
   color: white;
 }
-.ps-menu-root{
+
+.ps-menu-root {
   background-color: #0e382f !important;
 }
+
 .ps-menu-button .active {
   background-color: #EF9B284D !important;
   color: #ef9b28 !important;
@@ -222,9 +235,10 @@ margin-top:50px !important;
   color: #ef9b28;
 }
 
-.css-gailc7 >.ps-menu-button.active {
-border-left: 5px solid #ef9b28 !important;
+.css-gailc7>.ps-menu-button.active {
+  border-left: 5px solid #ef9b28 !important;
 }
+
 /* .side .side-bar-container .ps-menuitem-root 
  */
 
@@ -232,6 +246,7 @@ border-left: 5px solid #ef9b28 !important;
 .logo-form-container img {
   width: 200px !important;
 }
+
 /* Style fix for auto complete inputs */
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
@@ -239,7 +254,8 @@ input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
   -webkit-text-fill-color: #ffffff !important;
-  border-radius: 8px; /* Adjust as needed */
+  border-radius: 8px;
+  /* Adjust as needed */
   transition: background-color 5000s ease-in-out 0s;
   background-color: transparent !important;
 }
@@ -249,11 +265,13 @@ input:-webkit-autofill:active {
 .nav-item .dropdown-menu{
   transform: translateX(-160px) !important;
   color: #A7A7A7 !important;
-  
+
 }
-.img-user{
+
+.img-user {
   width: 50px !important;
 }
+
 /* #dropdown-basic{
   background-color: transparent !important;
   border: none !important;
@@ -261,17 +279,19 @@ input:-webkit-autofill:active {
  margin-top: 7px !important;
  font-size: 20px;
 } */
-.dropdown-item{
+.dropdown-item {
   color: #0E382F !important;
 
 }
-.ImgNavbar{
-   cursor: pointer;
+
+.ImgNavbar {
+  cursor: pointer;
 }
-.light-text{
+
+.light-text {
   color: rgba(0, 0, 0, 0.37);
   opacity: 73%;
-  
+
 }
 
 /*reset*/
@@ -279,10 +299,12 @@ button:disabled {
   background-color: #e6b168 !important;
   border-color: #e6b168 !important;
 }
+
 button:disabled:hover {
   background-color: #e6b168 !important;
   border-color: #e6b168 !important;
 }
+
 .sr_only {
   position: absolute;
   width: 1px;
@@ -294,6 +316,7 @@ button:disabled:hover {
   white-space: nowrap;
   border-width: 0;
 }
+
 .btn-eye {
   color: white !important;
   border: none;
@@ -301,15 +324,18 @@ button:disabled:hover {
   padding: 0 !important;
   margin: 0 !important;
 }
+
 .input-group-text {
   border: none;
   box-shadow: none !important;
   /* outline: #414141 !important; */
   border-radius: 5px !important;
 }
+
 .input-group-text:focus {
   outline: 1px solid #fff !important;
 }
+
 .banner-container {
   font-family: "Montserrat", sans-serif !important;
   font-style: normal;
@@ -325,12 +351,15 @@ button:disabled:hover {
   gap: 30px;
   justify-content: center;
   border-radius: 20px;
+
   h1 {
     font-weight: 400 !important;
   }
+
   h2 {
     font-weight: 400 !important;
   }
+
   span {
     color: #ef9b28;
     text-transform: capitalize;
@@ -402,21 +431,22 @@ table, tr, td, th {
 
 
 /* ----media-screen---- */
+
 @media screen and (max-width:600px){
   .nav-item .dropdown-menu {
     transform: translateX(0) !important;
-  width:75% ;
-    
+    width: 75%;
   }
+
   .nav-item {
     margin-top: 5px !important;
     margin-bottom: 5px !important;
   }
 
-  .navbar-toggler{
+  .navbar-toggler {
     margin-left: 20px;
-    
   }
+
 .navbarNavDropdown{
   width: 75%;
 }
