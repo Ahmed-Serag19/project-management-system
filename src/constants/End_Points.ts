@@ -19,3 +19,7 @@ export const User_URls = {
   getUser: `${Base_Users}`,
   toggleStatues:(id:string)=> `${Base_Users}/${id}`,
 };
+
+export const Project_URLs = {
+  addNewProject: `${Base_Url}/Project`
+}
