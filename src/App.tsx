@@ -17,6 +17,7 @@ import Projects from "./modules/Projects/Componant/Projects";
 import Tasks from "./modules/Tasks/Componant/Tasks";
 import ChangePassword from "./modules/Auth/components/ChangePassword/ChangePassword";
 import VerifyEmail from "./modules/Auth/components/VerifyEmail/VerifyEmail";
+import AddProject from "./modules/Projects/Componant/AddProject/AddProject";
 
 function App() {
   const routes = createHashRouter([
@@ -66,6 +67,10 @@ function App() {
         {
           path: "projects",
           element: <Projects />,
+        },
+        {
+          path: "add-project",
+          element: <AddProject />,
         },
         {
           path: "tasks",

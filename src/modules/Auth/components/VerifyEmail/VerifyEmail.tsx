@@ -2,7 +2,7 @@ import FormLayout from "../../../Shared/components/FormLayout/FormLayout";
 import VerifyBg from "../../../../assets/verify-bg.png";
 import { useForm, SubmitHandler } from "react-hook-form";
 import axios from "axios";
-import { toast, Bounce } from "react-toastify";
+import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
@@ -24,41 +24,14 @@ const VerifyEmail = () => {
   const onSubmit: SubmitHandler<VerifyFormInputs> = async (data) => {
     return await axios
       .put(`https://upskilling-egypt.com:3003/api/v1/Users/verify`, data)
+
       .then((res) => {
-        toast.success(`Account Verified successfully`, {
-          position: "top-center",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-          transition: Bounce,
-          style: {
-            textAlign: "center",
-          },
-        });
+        toast.success(`Account Verified successfully`);
         localStorage.removeItem("email");
-        setTimeout(() => {
-          navigate("/auth/login");
-        }, 2000);
+        navigate("/auth/login");
       })
       .catch((err) => {
-        toast.error(`${err.response?.data?.message}`, {
-          position: "top-center",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-          transition: Bounce,
-          style: {
-            textAlign: "center",
-          },
-        });
+        toast.error(`${err.response?.data?.message}`);
       });
   };
 
@@ -93,8 +66,8 @@ const VerifyEmail = () => {
               value={email}
               {...register("email", {
                 required: "Email is required",
+                onChange: (e) => setEmail(e.target.value),
               })}
-              readOnly
             />
             {errors.email && typeof errors.email.message === "string" && (
               <p className="alert alert-danger p-1 my-1 ps-2 rounded-1 w-100">
@@ -124,7 +97,7 @@ const VerifyEmail = () => {
 
           <button
             type="submit"
-            className="btn bg-main rounded-5 mt-4 fw-bold text-white d-block w-50 mx-auto"
+            className="btn bg-main rounded-5 mt-4 text-white d-block w-100 py-2"
           >
             Save
           </button>
