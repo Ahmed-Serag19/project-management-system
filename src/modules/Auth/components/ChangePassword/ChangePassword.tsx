@@ -38,7 +38,8 @@ const ChangePassword = () => {
 
   const onSubmit = async (data: ChangePasswordFormInputs) => {
     try {
-      const res = await axios.put<{ message: string }>(User_URls.ChangePassword, data, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
+      const res = await axios.put<{ message: string }>(User_URls.ChangePassword, data,
+         { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
       toast.success(res.data.message);
       navigate('/dashboard');
     } catch (error) {
