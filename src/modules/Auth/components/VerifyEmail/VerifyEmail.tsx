@@ -24,6 +24,7 @@ const VerifyEmail = () => {
   const onSubmit: SubmitHandler<VerifyFormInputs> = async (data) => {
     return await axios
       .put(`https://upskilling-egypt.com:3003/api/v1/Users/verify`, data)
+
       .then((res) => {
         toast.success(`Account Verified successfully`);
         localStorage.removeItem("email");

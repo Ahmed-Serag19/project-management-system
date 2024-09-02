@@ -1,5 +1,5 @@
 import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
-import {  NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { FiLogOut, FiUsers } from "react-icons/fi";
 import { GrProjects } from "react-icons/gr";
 
@@ -10,7 +10,7 @@ import { IoHomeSharp } from "react-icons/io5";
 
 const SidebarComponent: React.FC = () => {
   const navigate = useNavigate();
-  const[isCollapse, setIsCollapse] = useState(() => {
+  const [isCollapse, setIsCollapse] = useState(() => {
     const storedValue = localStorage.getItem("isCollapse");
     if (!storedValue) return false;
 
@@ -29,7 +29,7 @@ const SidebarComponent: React.FC = () => {
     <>
       <div
         className="bg-sidebar"
-        style={{ position:"sticky", top: "0", left: "0", height: "100vh" }}
+        style={{ position: "sticky", top: "0", left: "0", height: "100vh" }}
       >
         <Sidebar className="position-relative h-100" collapsed={isCollapse}>
           <div
@@ -95,22 +95,6 @@ const SidebarComponent: React.FC = () => {
           </Menu>
         </Sidebar>
       </div>
-
-      {/*
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      */}
     </>
   );
 };
