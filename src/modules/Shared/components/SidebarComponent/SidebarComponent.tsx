@@ -2,6 +2,7 @@ import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
 import {  NavLink, useNavigate } from "react-router-dom";
 import { FiLogOut, FiUsers } from "react-icons/fi";
 import { GrProjects } from "react-icons/gr";
+
 import { FaTasks } from "react-icons/fa";
 // import pmsLogo from '../../../../assets/pms-logo.png';
 import { useState } from "react";
@@ -33,19 +34,20 @@ const SidebarComponent: React.FC = () => {
         <Sidebar className="position-relative h-100" collapsed={isCollapse}>
           <div
             onClick={togglerCollapse}
-            className=" position-absolute collapse-btn mt-2 "
+            className=" position-absolute btn-side mt-2 "
           >
-            <span className="collapse-btn ps-1 pe-3 py-2 rounded-2">
+            <span className="   ps-1 pe-3 py-2">
               {isCollapse ? (
-                <i className="fa-solid fa-chevron-right text-white"></i>
+                
+                <i className="fa-solid collapse-btn fa-chevron-right text-white"></i>
               ) : (
-                <i className="fa-solid  fa-chevron-left text-white"></i>
+                <i className="fa-solid  fa-chevron-left  out-btn  text-white"></i>
               )}
             </span>
           </div>
 
           <Menu
-            className="h-100 overflow-hidden"
+            className="h-100 "
             menuItemStyles={{
               button: {
                 [`&.active`]: {
