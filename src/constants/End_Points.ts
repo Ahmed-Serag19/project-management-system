@@ -35,3 +35,7 @@ export const Task_URLs = {
   getByProject: (projectId: number | string): string =>
     `${Base_Tasks}/project/${projectId}`,
 };
+
+export const Project_URLs = {
+  addNewProject: `${Base_Url}/Project`
+}
