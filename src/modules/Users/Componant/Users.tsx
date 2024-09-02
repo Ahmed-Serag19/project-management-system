@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 export default function Users() {
   const [userList, setUserList] = useState([]);
   const [nameValue, setNameValue] = useState<string>("");
-  const [groupValue, setGroupValue] = useState(1);
+  const [groupValue, setGroupValue] = useState();
   // const [arrayOffPages, setArrayOffPages] = useState<any>([]);
   // type pagesData={
   //   totalNumberOfPages:number;
