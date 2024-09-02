@@ -4,8 +4,7 @@ import { Base_Img_Url, User_URls } from "../../../../constants/End_Points";
 import ImgNavbar from "../../../../assets/nav-icon.png";
 import Alret from "../../../../assets/alret.png";
 import User from "../../../../assets/User.png";
-import Dropdown from "react-bootstrap/Dropdown";
-import { Link,useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Navbar() {
   const navigate = useNavigate();
