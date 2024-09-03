@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import styles from './Users.module.css'
 import { HiChevronUpDown } from "react-icons/hi2";
 import axios from "axios";
-import { requestHeader, User_URls } from "../../../constants/End_Points";
+import {  User_URls } from "../../../constants/End_Points";
 import NoData from "../../Shared/components/NoData/NoData";
 import { toast } from "react-toastify";
 
@@ -10,13 +10,15 @@ export default function Users() {
   const [userList, setUserList] = useState([]);
   const [nameValue, setNameValue] = useState<string>("");
   const [groupValue, setGroupValue] = useState();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(10); 
   // const [arrayOffPages, setArrayOffPages] = useState<any>([]);
   // type pagesData={
   //   totalNumberOfPages:number;
   // }
-  const arrayOfPages = Array.from({ length: 20 }, (_, i) => i + 1);
+  const arrayOfPages = Array.from({ length: totalPages }, (_, i) => i + 1);
   const filteredPages = arrayOfPages.filter(
-    (pageN) => pageN >= 1 && pageN <= 10
+    (pageN) => pageN >= 1 && pageN <= totalPages
   );
 
   let getAllUsers = async (
@@ -26,8 +28,8 @@ export default function Users() {
     groupsInput?: number
   ) => {
     try {
-      let response = await axios.get(User_URls.getUser, {
-        headers: requestHeader,
+      let response = await axios.get(User_URls.getUser, 
+        { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } ,
         params: {
           pageSize: pageS,
           pageNumber: pageN,
@@ -41,7 +43,7 @@ export default function Users() {
       console.log(response);
     } catch (error:any) {
       console.log(error);
-     
+         toast.error(error?.response?.data?.message)
      
     }
   };
@@ -50,8 +52,7 @@ export default function Users() {
       let response = await axios.put(
         User_URls.toggleStatues(id),
         {},
-        {
-          headers: requestHeader,
+        { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } ,
         }
       );
       console.log(response);
@@ -62,6 +63,20 @@ export default function Users() {
       toast.error(error?.response?.data?.message)
     }
   };
+  const handlePrevious = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+      getAllUsers(8, currentPage - 1, nameValue, groupValue);
+    }
+  };
+
+  const handleNext = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+      getAllUsers(8, currentPage + 1, nameValue, groupValue);
+    }
+  };
+
 
   //   const pages=(currentPage:number, totalNumberOfPages:any)=>{
   // if (currentPage == arrayOffPages[0]) {
@@ -158,10 +173,10 @@ export default function Users() {
               </thead>
               <tbody>
                 {userList.map((user: any) => (
-                  <tr key={user.id}>
-                    <td>{user.userName}</td>
+                  <tr key={user?.id}>
+                    <td>{user?.userName}</td>
                     <td>
-                      {user.isActivated ? (
+                      {user?.isActivated ? (
                         <button className="btn btn-hover btn-success rounded-pill ">
                           Active
                         </button>
@@ -171,8 +186,8 @@ export default function Users() {
                         </button>
                       )}
                     </td>
-                    <td>{user.phoneNumber}</td>
-                    <td>{user.email}</td>
+                    <td>{user?.phoneNumber}</td>
+                    <td>{user?.email}</td>
                     <td>{new Date(user?.creationDate).toLocaleDateString()}</td>
                     <td>
                       {user?.isActivated ? (
@@ -195,14 +210,21 @@ export default function Users() {
               <nav aria-label="Page navigation example ">
                 <ul className="pagination  justify-content-end">
                   <li className="page-item">
-                    <a className="page-link" aria-label="Previous">
+                    <a className="page-link" aria-label="Previous" onClick={handlePrevious}>
                       <span aria-hidden="true">&laquo;</span>
                     </a>
                   </li>
 
                   {filteredPages.map((pageN: number) => (
                     <li
-                      onClick={() => getAllUsers(8, pageN)}
+                      onClick={() => {
+                        setCurrentPage(pageN);
+                        getAllUsers(8, pageN)}
+                      }
+                        
+                        
+                       
+                      
                       className="page-item"
                       key={pageN}
                     >
@@ -217,7 +239,7 @@ export default function Users() {
     ))}  */}
 
                   <li className="page-item">
-                    <a className="page-link" aria-label="Next">
+                    <a  className="page-link" aria-label="Next" onClick={handleNext}>
                       <span aria-hidden="true">&raquo;</span>
                     </a>
                   </li>

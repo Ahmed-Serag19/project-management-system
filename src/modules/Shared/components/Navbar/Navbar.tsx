@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Base_Img_Url, requestHeader, User_URls } from "../../../../constants/End_Points";
+import { Base_Img_Url, User_URls } from "../../../../constants/End_Points";
 import ImgNavbar from "../../../../assets/nav-icon.png";
 import Alret from "../../../../assets/alret.png";
 import User from "../../../../assets/User.png";
@@ -30,8 +30,8 @@ export default function Navbar() {
 
   return (
     <div className="border-bottom bg-white ">
-      <div className="d-flex">
-        <div className="col-md-9 border-end  navbar-left my-2 ms-1">
+      <div className="d-flex" >
+        <div className="col-md-9 border-end  navbar-left my-2 ps-2 ">
           <div className="d-flex justify-content-between p-1">
             <div className="col-md-9 sideLeft-Navbar">
               <img
@@ -50,7 +50,7 @@ export default function Navbar() {
           </div>
         </div>
 
-        <div className="col-md-2 navbar-right d-flex ms-2 mt-2">
+        <div className="col-md-2 navbar-right d-flex bg-white  mt-2">
           <nav className="navbar navbar-expand-lg navbar-light bg-white">
             <button
               className="navbar-toggler mb-2"
