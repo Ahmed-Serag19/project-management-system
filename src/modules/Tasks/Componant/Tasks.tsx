@@ -9,6 +9,7 @@ import NoData from "../../Shared/components/NoData/NoData";
 import { AuthContext, AuthContextType } from "../../../context/AuthContext";
 import { Link } from "react-router-dom";
 import { BsEye, BsPencilSquare, BsTrash } from "react-icons/bs";
+import PopupModal from "../../Shared/components/PopupModal/PopupModal";
 
 interface Task {
   id: number;
@@ -33,7 +34,9 @@ const Tasks: React.FC = () => {
   const [totalPages, setTotalPages] = useState<number>(1);
   const { getAllForManager, getAllAssigned, delete: deleteTask } = Task_URLs;
   const authContext = useContext(AuthContext);
-
+  const [showModal, setShowModal] = useState(false);
+  const [selectedTaskId, setSelectedTaskId] = useState<number | null>(null);
+  const [deleting, setDeleting] = useState<boolean>(false);
   const { user } = authContext as AuthContextType;
 
   // Determine which endpoint to use based on the user's group
@@ -66,15 +69,31 @@ const Tasks: React.FC = () => {
     }
   };
 
-  const handleDeleteTask = async (taskId: number) => {
+  const handleDeleteTask = async () => {
+    if (selectedTaskId === null) return;
+
+    setDeleting(true);
     try {
-      await axiosInstance.delete(deleteTask(taskId));
+      await axiosInstance.delete(deleteTask(selectedTaskId));
       toast.success("Task deleted successfully");
       fetchTasks(pageNumber); // Refresh tasks after deletion
+      setShowModal(false); // Close the modal after deletion
     } catch (error) {
       console.error("Failed to delete task", error);
       toast.error("Failed to delete task");
+    } finally {
+      setDeleting(false);
     }
+  };
+
+  const openDeleteModal = (taskId: number) => {
+    setSelectedTaskId(taskId);
+    setShowModal(true);
+  };
+
+  const closeDeleteModal = () => {
+    setShowModal(false);
+    setSelectedTaskId(null);
   };
 
   // Fetch tasks when the component mounts and when filters change
@@ -207,31 +226,44 @@ const Tasks: React.FC = () => {
               </thead>
               <tbody>
                 {tasks.map((task) => (
-                  <tr key={task.id} className={loading ? "opacity-50" : ""}>
-                    <td>{task.title}</td>
-                    <td>{task.status}</td>
-                    <td>{task.employee.userName}</td>
-                    <td>{task.project.title}</td>
-                    <td>{new Date(task.creationDate).toLocaleDateString()}</td>
-                    <td>
-                      <Dropdown>
-                        <Dropdown.Toggle as={CustomToggle} />
-                        <Dropdown.Menu>
-                          <Dropdown.Item href="#">
-                            <BsEye className="me-2" /> View
-                          </Dropdown.Item>
-                          <Dropdown.Item href="#">
-                            <BsPencilSquare className="me-2" /> Edit
-                          </Dropdown.Item>
-                          <Dropdown.Item
-                            onClick={() => handleDeleteTask(task.id)}
-                          >
-                            <BsTrash className="me-2" /> Delete
-                          </Dropdown.Item>
-                        </Dropdown.Menu>
-                      </Dropdown>
-                    </td>
-                  </tr>
+                  <>
+                    <tr key={task.id} className={loading ? "opacity-50" : ""}>
+                      <td>{task.title}</td>
+                      <td>{task.status}</td>
+                      <td>{task.employee.userName}</td>
+                      <td>{task.project.title}</td>
+                      <td>
+                        {new Date(task.creationDate).toLocaleDateString()}
+                      </td>
+                      <td>
+                        <Dropdown>
+                          <Dropdown.Toggle as={CustomToggle} />
+                          <Dropdown.Menu>
+                            <Dropdown.Item href="#">
+                              <BsEye className="me-2" /> View
+                            </Dropdown.Item>
+                            <Dropdown.Item href="#">
+                              <BsPencilSquare className="me-2" /> Edit
+                            </Dropdown.Item>
+                            <Dropdown.Item
+                              onClick={() => openDeleteModal(task.id)}
+                            >
+                              <BsTrash className="me-2" /> Delete
+                            </Dropdown.Item>
+                          </Dropdown.Menu>
+                        </Dropdown>
+                      </td>
+                    </tr>
+                    <PopupModal
+                      buttonText="Delete"
+                      bodyText="Are you sure you want to delete this task?"
+                      show={showModal}
+                      handleClose={closeDeleteModal}
+                      propFunction={handleDeleteTask}
+                      loading={deleting}
+                      title="Delete Task Confirmation"
+                    />
+                  </>
                 ))}
               </tbody>
             </table>
