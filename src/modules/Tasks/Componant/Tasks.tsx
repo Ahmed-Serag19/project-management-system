@@ -7,6 +7,8 @@ import axiosInstance from "../../../utils/axiosInstance";
 import { toast } from "react-toastify";
 import NoData from "../../Shared/components/NoData/NoData";
 import { AuthContext, AuthContextType } from "../../../context/AuthContext";
+import { Link } from "react-router-dom";
+import { BsEye, BsPencilSquare, BsTrash } from "react-icons/bs";
 
 interface Task {
   id: number;
@@ -29,7 +31,7 @@ const Tasks: React.FC = () => {
   const [pageNumber, setPageNumber] = useState<number>(1);
   const [pageSize] = useState<number>(10);
   const [totalPages, setTotalPages] = useState<number>(1);
-  const { getAllForManager, getAllAssigned } = Task_URLs;
+  const { getAllForManager, getAllAssigned, delete: deleteTask } = Task_URLs;
   const authContext = useContext(AuthContext);
 
   const { user } = authContext as AuthContextType;
@@ -61,6 +63,17 @@ const Tasks: React.FC = () => {
       setTasks([]);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleDeleteTask = async (taskId: number) => {
+    try {
+      await axiosInstance.delete(deleteTask(taskId));
+      toast.success("Task deleted successfully");
+      fetchTasks(pageNumber); // Refresh tasks after deletion
+    } catch (error) {
+      console.error("Failed to delete task", error);
+      toast.error("Failed to delete task");
     }
   };
 
@@ -131,7 +144,10 @@ const Tasks: React.FC = () => {
 
   return (
     <>
-      <h2 className="title-components ps-5 py-4 bg-white mb-5">Tasks</h2>
+      <div className="title-components tasks-header ps-5 py-4 bg-white mb-5">
+        <h2 className="">Tasks</h2>
+        <Link to=""></Link>
+      </div>
 
       <div className="mx-5 mb-5 pt-1 rounded-2 bg-white">
         <div className="mb-3 ms-3 mt-4 pt-2 d-flex ">
@@ -201,9 +217,17 @@ const Tasks: React.FC = () => {
                       <Dropdown>
                         <Dropdown.Toggle as={CustomToggle} />
                         <Dropdown.Menu>
-                          <Dropdown.Item href="#">View Task</Dropdown.Item>
-                          <Dropdown.Item href="#">Edit Task</Dropdown.Item>
-                          <Dropdown.Item href="#">Delete Task</Dropdown.Item>
+                          <Dropdown.Item href="#">
+                            <BsEye className="me-2" /> View
+                          </Dropdown.Item>
+                          <Dropdown.Item href="#">
+                            <BsPencilSquare className="me-2" /> Edit
+                          </Dropdown.Item>
+                          <Dropdown.Item
+                            onClick={() => handleDeleteTask(task.id)}
+                          >
+                            <BsTrash className="me-2" /> Delete
+                          </Dropdown.Item>
                         </Dropdown.Menu>
                       </Dropdown>
                     </td>

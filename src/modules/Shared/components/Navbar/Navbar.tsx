@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Base_Img_Url, requestHeader, User_URls } from "../../../../constants/End_Points";
+import { Base_Img_Url, User_URls } from "../../../../constants/End_Points";
 import ImgNavbar from "../../../../assets/nav-icon.png";
 import Alret from "../../../../assets/alret.png";
 import User from "../../../../assets/User.png";
@@ -18,8 +18,9 @@ export default function Navbar() {
 
   let getUser = async () => {
     try {
-      let response = await axios.get(User_URls.getCurrentUser, 
-          { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
+      let response = await axios.get(User_URls.getCurrentUser, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      });
       setUserData(response.data);
     } catch (error) {}
   };
@@ -29,7 +30,7 @@ export default function Navbar() {
   }, []);
 
   return (
-    <div className="border-bottom bg-white ">
+    <div className="border-bottom bg-white">
       <div className="d-flex">
         <div className="col-md-9 border-end  navbar-left my-2 ms-1">
           <div className="d-flex justify-content-between p-1">
