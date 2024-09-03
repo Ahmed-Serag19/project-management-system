@@ -35,10 +35,10 @@ function AddProject() {
                 <form onSubmit={handleSubmit(addNewProjuct)}>
                     <div className="mb-5">
                         <Form.Group controlId="name">
-                            <Form.Label>Enter project name</Form.Label>
+                            <Form.Label className="text-muted">Enter project name</Form.Label>
                             <InputGroup>
                                 <Form.Control
-                                    className="border rounded-4 p-2"
+                                    className="border rounded-4 p-2 text-secondary"
                                     type='text' placeholder="Title"
                                     {...register("title", { required: 'Project Title is required!' })}
                                 />
@@ -50,9 +50,9 @@ function AddProject() {
                     </div>
                     <div className="mb-5">
                         <Form.Group controlId="exampleForm.ControlTextarea1">
-                            <Form.Label>Description</Form.Label>
+                            <Form.Label className="text-muted">Description</Form.Label>
                             <Form.Control
-                                className="border rounded-4 p-2"
+                                className="border rounded-4 p-2 text-secondary"
                                 as="textarea"
                                 placeholder="Description"
                                 rows={3}

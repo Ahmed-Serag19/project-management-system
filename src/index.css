@@ -132,8 +132,6 @@ a {
 
 .form-control:focus {
   box-shadow: none !important;
-  border-color: transparent !important;
-  outline: none !important;
 }
 
 /* padding  change */
@@ -264,8 +262,13 @@ input:-webkit-autofill:active {
 /*--------Navbar---------*/
 
 .nav-item .dropdown-menu {
-  transform: translateX(-160px) !important;
+  transform: translateX(-200px) !important;
   color: #a7a7a7 !important;
+  margin-top: 3px !important;
+}
+.navbar-expand-lg .navbar-nav .nav-link {
+  padding-left: 6px !important;
+  cursor: pointer;
 }
 
 .img-user {
@@ -290,6 +293,7 @@ input:-webkit-autofill:active {
 .light-text {
   color: rgba(0, 0, 0, 0.37);
   opacity: 73%;
+  font-size: 14px;
 }
 
 /*reset*/
@@ -405,6 +409,10 @@ tr,
 td,
 th {
   border: none !important;
+  color: white !important;
+  text-align: left !important;
+
+  font-weight: 400 !important;
 }
 /*user*/
 .fa-search {
