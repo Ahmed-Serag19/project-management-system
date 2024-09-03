@@ -127,8 +127,6 @@ a {
 
 .form-control:focus {
   box-shadow: none !important;
-  border-color: transparent !important;
-  outline: none !important;
 }
 
 /* padding  change */
