@@ -26,7 +26,6 @@ export const Task_URLs = {
   create: `${Base_Tasks}`,
   getAllAssigned: `${Base_Tasks}`,
   getAllForManager: `${Base_Tasks}/manager`,
-  getById: (id: number | string): string => `${Base_Tasks}/${id}`,
   update: (id: number | string): string => `${Base_Tasks}/${id}`,
   delete: (id: number | string): string => `${Base_Tasks}/${id}`,
   count: `${Base_Tasks}/count`,
@@ -37,5 +36,5 @@ export const Task_URLs = {
 };
 
 export const Project_URLs = {
-  addNewProject: `${Base_Url}/Project`
-}
+  addNewProject: `${Base_Url}/Project`,
+};

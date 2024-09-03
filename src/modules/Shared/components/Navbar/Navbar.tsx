@@ -18,8 +18,9 @@ export default function Navbar() {
 
   let getUser = async () => {
     try {
-      let response = await axios.get(User_URls.getCurrentUser, 
-          { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
+      let response = await axios.get(User_URls.getCurrentUser, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      });
       setUserData(response.data);
     } catch (error) {}
   };
@@ -30,7 +31,7 @@ export default function Navbar() {
 
   return (
     <div className="border-bottom bg-white ">
-      <div className="d-flex" >
+      <div className="d-flex">
         <div className="col-md-9 border-end  navbar-left my-2 ps-2 ">
           <div className="d-flex justify-content-between p-1">
             <div className="col-md-9 sideLeft-Navbar">
