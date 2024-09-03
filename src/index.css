@@ -263,9 +263,15 @@ input:-webkit-autofill:active {
 /*--------Navbar---------*/
 
 .nav-item .dropdown-menu{
-  transform: translateX(-160px) !important;
+  transform: translateX(-200px) !important;
   color: #A7A7A7 !important;
+  margin-top: 3px !important;
 
+
+}
+ .navbar-expand-lg .navbar-nav .nav-link {
+  padding-left: 6px !important;
+  cursor: pointer;
 }
 
 .img-user {
@@ -291,6 +297,7 @@ input:-webkit-autofill:active {
 .light-text {
   color: rgba(0, 0, 0, 0.37);
   opacity: 73%;
+  font-size: 14px;
 
 }
 
@@ -389,13 +396,6 @@ button:disabled:hover {
   border: none !important;
 
 }
-th{
-  color:  white !important;
-  text-align: left !important;
-
-  font-weight: 400 !important;
-
-}
 .table > tbody > tr >td{
 padding:15px 10px 7px 10px !important;
 font-size: 14px !important;
@@ -409,6 +409,11 @@ color: #4F4F4F !important;
 
 table, tr, td, th {
     border: none !important;
+    color:  white !important;
+    text-align: left !important;
+  
+    font-weight: 400 !important;
+  
 }
 /*user*/
 .fa-search{
