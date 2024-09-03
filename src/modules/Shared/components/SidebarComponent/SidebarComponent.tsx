@@ -2,9 +2,7 @@ import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { NavLink, useNavigate } from "react-router-dom";
 import { FiLogOut, FiUsers } from "react-icons/fi";
 import { GrProjects } from "react-icons/gr";
-
 import { FaTasks } from "react-icons/fa";
-// import pmsLogo from '../../../../assets/pms-logo.png';
 import { useState } from "react";
 import { IoHomeSharp } from "react-icons/io5";
 
@@ -21,8 +19,6 @@ const SidebarComponent: React.FC = () => {
     const newCollapseState = !isCollapse;
     setIsCollapse(newCollapseState);
     localStorage.setItem("isCollapse", JSON.stringify(newCollapseState));
-    // setIsCollapse(!isCollapse);
-    // localStorage.setItem("isCollapse", !isCollapse);
   };
 
   return (
@@ -38,7 +34,6 @@ const SidebarComponent: React.FC = () => {
           >
             <span className="   ps-1 pe-3 py-2">
               {isCollapse ? (
-                
                 <i className="fa-solid collapse-btn fa-chevron-right text-white"></i>
               ) : (
                 <i className="fa-solid  fa-chevron-left  out-btn  text-white"></i>
@@ -59,7 +54,6 @@ const SidebarComponent: React.FC = () => {
           >
             <MenuItem
               className="home-sidebar"
-              onClick={togglerCollapse}
               icon={<IoHomeSharp />}
               component={<NavLink to="/dashboard/home" />}
             >
@@ -79,7 +73,7 @@ const SidebarComponent: React.FC = () => {
             </MenuItem>
             <MenuItem
               icon={<FaTasks />}
-              component={<NavLink to="/dashboard/Tasks" />}
+              component={<NavLink to="/dashboard/tasks" />}
             >
               Tasks
             </MenuItem>
