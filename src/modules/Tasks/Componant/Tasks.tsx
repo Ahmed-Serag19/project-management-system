@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { HiChevronUpDown } from "react-icons/hi2";
 import { Dropdown } from "react-bootstrap";
 import CustomToggle from "./CustomToggle"; // Adjust the import path as needed
@@ -6,6 +6,7 @@ import { Task_URLs } from "../../../constants/End_Points";
 import axiosInstance from "../../../utils/axiosInstance";
 import { toast } from "react-toastify";
 import NoData from "../../Shared/components/NoData/NoData";
+import { AuthContext, AuthContextType } from "../../../context/AuthContext";
 
 interface Task {
   id: number;
@@ -26,16 +27,23 @@ const Tasks: React.FC = () => {
   const [titleValue, setTitleValue] = useState<string>("");
   const [statusValue, setStatusValue] = useState<string>("");
   const [pageNumber, setPageNumber] = useState<number>(1);
-  const [pageSize] = useState<number>(10); // Default to 10 items per page
+  const [pageSize] = useState<number>(10);
   const [totalPages, setTotalPages] = useState<number>(1);
+  const { getAllForManager, getAllAssigned } = Task_URLs;
+  const authContext = useContext(AuthContext);
 
-  const { getAllForManager } = Task_URLs;
+  const { user } = authContext as AuthContextType;
 
-  // Fetch tasks based on current pagination and filters
+  // Determine which endpoint to use based on the user's group
   const fetchTasks = async (pageN: number = 1) => {
     setLoading(true);
+
+    // Determine the correct API endpoint
+    const apiEndpoint =
+      user?.group.name === "Manager" ? getAllForManager : getAllAssigned;
+
     try {
-      const response = await axiosInstance.get(getAllForManager, {
+      const response = await axiosInstance.get(apiEndpoint, {
         params: {
           title: titleValue,
           status: statusValue,
@@ -56,9 +64,12 @@ const Tasks: React.FC = () => {
     }
   };
 
+  // Fetch tasks when the component mounts and when filters change
   useEffect(() => {
-    fetchTasks(pageNumber);
-  }, [titleValue, statusValue]);
+    if (user) {
+      fetchTasks(pageNumber);
+    }
+  }, [titleValue, statusValue, user]);
 
   // Update the title filter
   const getTitleValue = (input: any) => {
