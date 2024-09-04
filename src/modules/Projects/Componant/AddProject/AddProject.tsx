@@ -27,11 +27,11 @@ function AddProject() {
 
     return (
         <div>
-            <div className="title-components ps-5 py-4 bg-white">
+            <div className="dark-green  ps-5 py-4 bg-white">
                 <Link to={'/dashboard/projects'} className="text-decoration-none text-muted"><IoIosArrowBack /> View All Projects</Link>
                 <h2 className="mt-2">Add a New Project</h2>
             </div>
-            <div className="m-5 bg-white p-5 rounded-4 shadow">
+            <div className="my-5 bg-white p-5 rounded-4 shadow w-75 m-auto">
                 <form onSubmit={handleSubmit(addNewProjuct)}>
                     <div className="mb-5">
                         <Form.Group controlId="name">

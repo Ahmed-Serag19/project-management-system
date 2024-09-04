@@ -7,9 +7,10 @@ import axiosInstance from "../../../utils/axiosInstance";
 import { toast } from "react-toastify";
 import NoData from "../../Shared/components/NoData/NoData";
 import { AuthContext, AuthContextType } from "../../../context/AuthContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BsEye, BsPencilSquare, BsTrash } from "react-icons/bs";
 import PopupModal from "../../Shared/components/PopupModal/PopupModal";
+import { GoPlus } from "react-icons/go";
 
 interface Task {
   id: number;
@@ -38,7 +39,7 @@ const Tasks: React.FC = () => {
   const [selectedTaskId, setSelectedTaskId] = useState<number | null>(null);
   const [deleting, setDeleting] = useState<boolean>(false);
   const { user } = authContext as AuthContextType;
-
+  let navigate = useNavigate()
   // Determine which endpoint to use based on the user's group
   const fetchTasks = async (pageN: number = 1) => {
     setLoading(true);
@@ -164,7 +165,16 @@ const Tasks: React.FC = () => {
   return (
     <>
       <div className="title-components tasks-header ps-5 py-4 bg-white mb-5">
+        <div className="d-flex justify-content-between">
         <h2 className="">Tasks</h2>
+        <button className="btn btn-lg btn-warning me-5 btn-add text-white rounded-pill px-4 "
+        onClick={()=>{navigate("/dashboard/add-task")}}>
+          
+           <GoPlus className="me-2" />  
+        Add New Task</button>
+
+        </div>
+   
         <Link to=""></Link>
       </div>
 
@@ -201,7 +211,7 @@ const Tasks: React.FC = () => {
           <NoData />
         ) : (
           <div>
-            <table className="table col-md-11">
+            <table className="table border-bottom col-md-11">
               <thead>
                 <tr className="text-white text-start">
                   <th>

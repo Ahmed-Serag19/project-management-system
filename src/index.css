@@ -118,6 +118,14 @@ a {
 .form-layout-button:hover {
   background-color: #df860a !important;
 }
+.btn-warning.btn-add,.btn-warning.Save {
+  background-color: #ef9b28 !important;
+  border-color: #ef9b28 !important;
+}
+.btn-warning.btn-add:hover,.btn-warning.Save:hover {
+  background-color: #df860a !important;
+  border-color: #df860a !important;
+}
 
 /* font size change */
 
@@ -132,6 +140,18 @@ a {
 
 .form-control:focus {
   box-shadow: none !important;
+}
+.form-control .select{
+  border: 1px solid #a7a7a7  !important;
+  background-color: transparent !important;
+  padding: 5px !important;
+  color:black!important;
+  border-radius: 10 !important;
+  font-size: 15px !important;
+}
+
+.form-control .select:focus {
+box-shadow: #a7a7a7 !important;
 }
 
 /* padding  change */
@@ -368,6 +388,19 @@ button:disabled:hover {
   }
 }
 /******shared****/
+
+.dark-green{
+  color: #0E382F !important;
+}
+.border-select:focus{
+border-color: #4f4f4f !important
+
+}
+.dashboard-section{
+background-color: #F8F9FB !important;
+margin-top:20px  !important;
+border-radius: 10px;
+}
 .title-components {
   color: #4f4f4f !important;
 }
@@ -415,6 +448,13 @@ th {
   font-weight: 400 !important;
 }
 /*user*/
+.Chevron{
+  margin-top: 10px !important;
+}
+.dark-gary{
+  color: #4F4F4F !important;
+
+}
 .fa-search {
   color: #4f4f4f !important;
 }
