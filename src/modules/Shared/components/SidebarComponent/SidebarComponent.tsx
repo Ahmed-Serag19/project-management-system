@@ -6,10 +6,14 @@ import { FaTasks } from "react-icons/fa";
 import { useContext, useState } from "react";
 import { IoHomeSharp } from "react-icons/io5";
 import { AuthContext, AuthContextType } from "../../../../context/AuthContext";
+import PopupModal from "../PopupModal/PopupModal";
 
 const SidebarComponent: React.FC = () => {
   const navigate = useNavigate();
   const authContext = useContext(AuthContext);
+  const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
+
   const { user } = authContext as AuthContextType;
   const [isCollapse, setIsCollapse] = useState(() => {
     const storedValue = localStorage.getItem("isCollapse");
@@ -18,10 +22,28 @@ const SidebarComponent: React.FC = () => {
     return JSON.parse(storedValue);
   });
 
-  let togglerCollapse = () => {
+  const togglerCollapse = () => {
     const newCollapseState = !isCollapse;
     setIsCollapse(newCollapseState);
     localStorage.setItem("isCollapse", JSON.stringify(newCollapseState));
+  };
+
+  const openLogoutModal = () => {
+    setShowModal(true);
+  };
+
+  const closeLogoutModal = () => {
+    setShowModal(false);
+  };
+
+  const handleLogout = () => {
+    setLoading(true);
+    setTimeout(() => {
+      localStorage.removeItem("token");
+      setLoading(false);
+      setShowModal(false);
+      navigate("/auth/login");
+    }, 500); // Simulate a delay, if needed
   };
 
   return (
@@ -33,19 +55,19 @@ const SidebarComponent: React.FC = () => {
         <Sidebar className="position-relative h-100" collapsed={isCollapse}>
           <div
             onClick={togglerCollapse}
-            className=" position-absolute btn-side mt-2 "
+            className="position-absolute btn-side mt-2"
           >
-            <span className="   ps-1 pe-3 py-2">
+            <span className="ps-1 pe-3 py-2">
               {isCollapse ? (
                 <i className="fa-solid collapse-btn fa-chevron-right text-white"></i>
               ) : (
-                <i className="fa-solid  fa-chevron-left  out-btn  text-white"></i>
+                <i className="fa-solid fa-chevron-left out-btn text-white"></i>
               )}
             </span>
           </div>
 
           <Menu
-            className="h-100 "
+            className="h-100"
             menuItemStyles={{
               button: {
                 [`&.active`]: {
@@ -82,18 +104,21 @@ const SidebarComponent: React.FC = () => {
             >
               Tasks
             </MenuItem>
-            <MenuItem
-              icon={<FiLogOut />}
-              onClick={() => {
-                localStorage.removeItem("token");
-                navigate("/auth/login");
-              }}
-            >
+            <MenuItem icon={<FiLogOut />} onClick={openLogoutModal}>
               Logout
             </MenuItem>
           </Menu>
         </Sidebar>
       </div>
+      <PopupModal
+        buttonText="Logout"
+        bodyText="Are you sure you want to log out?"
+        show={showModal}
+        handleClose={closeLogoutModal}
+        propFunction={handleLogout}
+        loading={loading}
+        title="Logout Confirmation"
+      />
     </>
   );
 };
