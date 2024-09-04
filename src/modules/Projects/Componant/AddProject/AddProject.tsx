@@ -2,28 +2,43 @@ import axios from "axios";
 import { Form, InputGroup } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { IoIosArrowBack } from "react-icons/io";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { Project_URLs } from "../../../../constants/End_Points";
+import { Project_URLs, requestHeader } from "../../../../constants/End_Points";
 
 type addProjuctInputs = {
-    title: string,
-    description: string
-}
+  title: string;
+  description: string;
+};
 
 function AddProject() {
-    const { register, handleSubmit, formState: { errors } } = useForm<addProjuctInputs>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<addProjuctInputs>();
 
-    const addNewProjuct = async (data: addProjuctInputs) => {
-        try {
-            const res = await axios.post<{ statusText: string }>(Project_URLs.addNewProject, data,
-                { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
-            if (res.statusText == 'Created') toast.success('Project Added Successfully')
-        } catch (error) {
-            toast.error("An unexpected error occurred. Please try again.");
-            console.log(error);
+  const Navigator = useNavigate();
+
+  const addNewProjuct = async (data: addProjuctInputs) => {
+    try {
+      const res = await axios.post<{ statusText: string }>(
+        Project_URLs.addProjectForMang,
+        data,
+        {
+          headers: requestHeader,
         }
+      );
+      if (res.statusText == "Created")
+        toast.success("Project Added Successfully");
+      reset();
+      Navigator("/dashboard/projects");
+    } catch (error) {
+      toast.error("An unexpected error occurred. Please try again.");
+      console.log(error);
     }
+  };
 
     return (
         <div>
@@ -72,6 +87,7 @@ function AddProject() {
             </div>
         </div>
     );
+
 }
 
-export default AddProject
+export default AddProject;
