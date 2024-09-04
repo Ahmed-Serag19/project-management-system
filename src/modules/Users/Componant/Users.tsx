@@ -235,7 +235,7 @@ export default function Users() {
               </div>
 
               <p className="mt-2 mx-3">of {arrayOffPages} Results</p>
-              <p className="mt-2 me-3">Page 1 of 10</p>
+              <p className="mt-2 me-3">Page {currentPage} of 10</p>
               <FaChevronLeft  className=" me-3 Chevron" onClick={handlePrevious} />
               <FaChevronRight  className="Chevron" onClick={handleNext}/>
 
