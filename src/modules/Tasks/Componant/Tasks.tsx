@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { HiChevronUpDown } from "react-icons/hi2";
 import { Dropdown } from "react-bootstrap";
-import CustomToggle from "./CustomToggle"; // Adjust the import path as needed
+import CustomToggle from "./CustomToggle";
 import { Task_URLs } from "../../../constants/End_Points";
 import axiosInstance from "../../../utils/axiosInstance";
 import { toast } from "react-toastify";
@@ -28,6 +28,7 @@ interface Task {
 const Tasks: React.FC = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [userLoading, setUserLoading] = useState<boolean>(true); // New state for user loading
   const [titleValue, setTitleValue] = useState<string>("");
   const [statusValue, setStatusValue] = useState<string>("");
   const [pageNumber, setPageNumber] = useState<number>(1);
@@ -39,12 +40,20 @@ const Tasks: React.FC = () => {
   const [selectedTaskId, setSelectedTaskId] = useState<number | null>(null);
   const [deleting, setDeleting] = useState<boolean>(false);
   const { user } = authContext as AuthContextType;
-  let navigate = useNavigate()
+  let navigate = useNavigate();
+
+  // Fetch user state on initial load
+  useEffect(() => {
+    if (user === null) {
+      setUserLoading(true);
+    } else {
+      setUserLoading(false);
+    }
+  }, [user]);
+
   // Determine which endpoint to use based on the user's group
   const fetchTasks = async (pageN: number = 1) => {
     setLoading(true);
-
-    // Determine the correct API endpoint
     const apiEndpoint =
       user?.group.name === "Manager" ? getAllForManager : getAllAssigned;
 
@@ -99,10 +108,10 @@ const Tasks: React.FC = () => {
 
   // Fetch tasks when the component mounts and when filters change
   useEffect(() => {
-    if (user) {
+    if (!userLoading && user) {
       fetchTasks(pageNumber);
     }
-  }, [titleValue, statusValue, user]);
+  }, [titleValue, statusValue, user, userLoading]);
 
   // Update the title filter
   const getTitleValue = (input: any) => {
@@ -162,19 +171,34 @@ const Tasks: React.FC = () => {
     );
   };
 
+  if (userLoading) {
+    return (
+      <div className="d-flex justify-content-center align-items-center">
+        <div className="spinner-border text-primary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <>
       <div className="title-components tasks-header ps-5 py-4 bg-white mb-5">
         <div className="d-flex justify-content-between">
-        <h2 className="">Tasks</h2>
-        <button className="btn btn-lg btn-warning me-5 btn-add text-white rounded-pill px-4 "
-        onClick={()=>{navigate("/dashboard/add-task")}}>
-          
-           <GoPlus className="me-2" />  
-        Add New Task</button>
-
+          <h2 className="">Tasks</h2>
+          {user?.group.name === "Manager" && (
+            <button
+              className="btn btn-lg btn-warning me-5 btn-add text-white rounded-pill px-4 "
+              onClick={() => {
+                navigate("/dashboard/add-task");
+              }}
+            >
+              <GoPlus className="me-2" />
+              Add New Task
+            </button>
+          )}
         </div>
-   
+
         <Link to=""></Link>
       </div>
 
@@ -236,49 +260,35 @@ const Tasks: React.FC = () => {
               </thead>
               <tbody>
                 {tasks.map((task) => (
-                  <>
-                    <tr key={task.id} className={loading ? "opacity-50" : ""}>
-                      <td>{task.title}</td>
-                      <td>{task.status}</td>
-                      <td>{task.employee.userName}</td>
-                      <td>{task.project.title}</td>
-                      <td>
-                        {new Date(task.creationDate).toLocaleDateString()}
-                      </td>
-                      <td>
-                        <Dropdown>
-                          <Dropdown.Toggle as={CustomToggle} />
-                          <Dropdown.Menu>
-                            <Dropdown.Item href="#">
-                              <BsEye className="me-2" /> View
-                            </Dropdown.Item>
-                            <Dropdown.Item href="#">
-                              <BsPencilSquare className="me-2" /> Edit
-                            </Dropdown.Item>
-                            <Dropdown.Item
-                              onClick={() => openDeleteModal(task.id)}
-                            >
-                              <BsTrash className="me-2" /> Delete
-                            </Dropdown.Item>
-                          </Dropdown.Menu>
-                        </Dropdown>
-                      </td>
-                    </tr>
-                    <PopupModal
-                      buttonText="Delete"
-                      bodyText="Are you sure you want to delete this task?"
-                      show={showModal}
-                      handleClose={closeDeleteModal}
-                      propFunction={handleDeleteTask}
-                      loading={deleting}
-                      title="Delete Task Confirmation"
-                    />
-                  </>
+                  <tr key={task.id} className={loading ? "opacity-50" : ""}>
+                    <td>{task.title}</td>
+                    <td>{task.status}</td>
+                    <td>{task.employee.userName}</td>
+                    <td>{task.project.title}</td>
+                    <td>{new Date(task.creationDate).toLocaleDateString()}</td>
+                    <td>
+                      <Dropdown>
+                        <Dropdown.Toggle as={CustomToggle} />
+                        <Dropdown.Menu>
+                          <Dropdown.Item href="#">
+                            <BsEye className="me-2" /> View
+                          </Dropdown.Item>
+                          <Dropdown.Item href="#">
+                            <BsPencilSquare className="me-2" /> Edit
+                          </Dropdown.Item>
+                          <Dropdown.Item
+                            onClick={() => openDeleteModal(task.id)}
+                          >
+                            <BsTrash className="me-2" /> Delete
+                          </Dropdown.Item>
+                        </Dropdown.Menu>
+                      </Dropdown>
+                    </td>
+                  </tr>
                 ))}
               </tbody>
             </table>
 
-            {/* Show a loading overlay on top of the table */}
             {loading && (
               <div className="loading-overlay d-flex justify-content-center align-items-center">
                 <div className="spinner-border text-primary" role="status">
@@ -287,11 +297,20 @@ const Tasks: React.FC = () => {
               </div>
             )}
 
-            {/* Pagination Controls */}
             <div className="pb-1 my-2 me-4">{renderPagination()}</div>
           </div>
         )}
       </div>
+
+      <PopupModal
+        buttonText="Delete"
+        bodyText="Are you sure you want to delete this task?"
+        show={showModal}
+        handleClose={closeDeleteModal}
+        propFunction={handleDeleteTask}
+        loading={deleting}
+        title="Delete Task Confirmation"
+      />
     </>
   );
 };

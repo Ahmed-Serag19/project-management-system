@@ -3,11 +3,14 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { FiLogOut, FiUsers } from "react-icons/fi";
 import { GrProjects } from "react-icons/gr";
 import { FaTasks } from "react-icons/fa";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { IoHomeSharp } from "react-icons/io5";
+import { AuthContext, AuthContextType } from "../../../../context/AuthContext";
 
 const SidebarComponent: React.FC = () => {
   const navigate = useNavigate();
+  const authContext = useContext(AuthContext);
+  const { user } = authContext as AuthContextType;
   const [isCollapse, setIsCollapse] = useState(() => {
     const storedValue = localStorage.getItem("isCollapse");
     if (!storedValue) return false;
@@ -59,12 +62,14 @@ const SidebarComponent: React.FC = () => {
             >
               Home
             </MenuItem>
-            <MenuItem
-              icon={<FiUsers />}
-              component={<NavLink to="/dashboard/Users" />}
-            >
-              Users
-            </MenuItem>
+            {user?.group.name === "Manager" && (
+              <MenuItem
+                icon={<FiUsers />}
+                component={<NavLink to="/dashboard/Users" />}
+              >
+                Users
+              </MenuItem>
+            )}
             <MenuItem
               icon={<GrProjects />}
               component={<NavLink to="/dashboard/projects" />}
