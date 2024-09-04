@@ -18,7 +18,7 @@ const Home = () => {
           </h1>
           <h2>You can add project and assign tasks to your team</h2>
         </div>
-        {user?.group.name === "Manager" && (
+        {user?.userGroup === "Manager" && (
           <div className="home-content">
             <Dashboard />
           </div>
