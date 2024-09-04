@@ -13,12 +13,13 @@ export default function Users() {
   const [nameValue, setNameValue] = useState<string>("");
   const [groupValue, setGroupValue] = useState();
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(10); 
+  const [totalPages, setTotalPages] = useState(50); 
+  const [totalPage, setTotalPage] = useState(10); 
   const [arrayOffPages, setArrayOffPages] = useState<any>([]);
-
-  const arrayOfPages = Array.from({ length: totalPages }, (_, i) => i + 1);
+  const [Pages, setPages] = useState<any>([]);
+  const arrayOfPages = Array.from({ length: totalPage }, (_, i) => i + 1);
   const filteredPages = arrayOfPages.filter(
-    (pageN) => pageN >= 1 && pageN <= totalPages
+    (pageN) => pageN >= 1 && pageN <= totalPage
   );
 
   let getAllUsers = async (
@@ -40,10 +41,12 @@ export default function Users() {
       
       setUserList(response.data.data);
       setArrayOffPages(response.data.totalNumberOfRecords)
+     // setPages(response.data.totalNumberOfPages)
       console.log(response);
     } catch (error:any) {
       console.log(error);
-         toast.error(error?.response?.data?.message)
+      toast.error(error.response.data.message)
+
      
     }
   };
@@ -64,20 +67,20 @@ export default function Users() {
       getAllUsers(8,1,"", 1);
     } catch (error:any) {
       console.log(error);
-      toast.error(error?.response?.data?.message)
+      //toast.error(error?.response?.data?.message)
     }
   };
   const handlePrevious = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-      getAllUsers(8, currentPage - 1, nameValue, groupValue);
+    if (currentPage > 5) {
+      setCurrentPage(currentPage - 5);
+      getAllUsers(8, currentPage - 5, nameValue, groupValue);
     }
   };
 
   const handleNext = () => {
     if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
-      getAllUsers(8, currentPage + 1, nameValue, groupValue);
+      setCurrentPage(currentPage + 5);
+      getAllUsers(8, currentPage + 5, nameValue, groupValue);
     }
   };
 
@@ -235,7 +238,7 @@ export default function Users() {
               </div>
 
               <p className="mt-2 mx-3">of {arrayOffPages} Results</p>
-              <p className="mt-2 me-3">Page {currentPage} of 10</p>
+              <p className="mt-2 me-3">Page {currentPage} </p>
               <FaChevronLeft  className=" me-3 Chevron" onClick={handlePrevious} />
               <FaChevronRight  className="Chevron" onClick={handleNext}/>
 
