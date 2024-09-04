@@ -35,6 +35,11 @@ export const Task_URLs = {
     `${Base_Tasks}/project/${projectId}`,
 };
 
+const Base_Projects = `${Base_Url}/Project`;
+
 export const Project_URLs = {
+  addProjectForMang: `${Base_Projects}`,
+  getProjectForMang: `${Base_Projects}/manager`,
   addNewProject: `${Base_Url}/Project`,
+
 };
