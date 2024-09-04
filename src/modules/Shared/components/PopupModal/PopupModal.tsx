@@ -28,7 +28,7 @@ function PopupModal({
         show={show}
         onHide={handleClose}
         backdropClassName="custom-modal-backdrop"
-        className="flex justify-content-center align-items-center pt-5"
+        className="flex justify-content-center align-items-center pt-1"
       >
         <Modal.Header closeButton></Modal.Header>
         <Modal.Body className="d-flex flex-column text-center justify-content-center align-items-center ">

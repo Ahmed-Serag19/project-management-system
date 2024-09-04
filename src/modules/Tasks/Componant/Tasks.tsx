@@ -39,14 +39,14 @@ const Tasks: React.FC = () => {
   const [selectedTaskId, setSelectedTaskId] = useState<number | null>(null);
   const [deleting, setDeleting] = useState<boolean>(false);
   const { user } = authContext as AuthContextType;
-  let navigate = useNavigate()
+  let navigate = useNavigate();
   // Determine which endpoint to use based on the user's group
   const fetchTasks = async (pageN: number = 1) => {
     setLoading(true);
 
     // Determine the correct API endpoint
     const apiEndpoint =
-      user?.group.name === "Manager" ? getAllForManager : getAllAssigned;
+      user?.userGroup === "Manager" ? getAllForManager : getAllAssigned;
 
     try {
       const response = await axiosInstance.get(apiEndpoint, {
@@ -166,15 +166,18 @@ const Tasks: React.FC = () => {
     <>
       <div className="title-components tasks-header ps-5 py-4 bg-white mb-5">
         <div className="d-flex justify-content-between">
-        <h2 className="">Tasks</h2>
-        <button className="btn btn-lg btn-warning me-5 btn-add text-white rounded-pill px-4 "
-        onClick={()=>{navigate("/dashboard/add-task")}}>
-          
-           <GoPlus className="me-2" />  
-        Add New Task</button>
-
+          <h2 className="">Tasks</h2>
+          <button
+            className="btn btn-lg btn-warning me-5 btn-add text-white rounded-pill px-4 "
+            onClick={() => {
+              navigate("/dashboard/add-task");
+            }}
+          >
+            <GoPlus className="me-2" />
+            Add New Task
+          </button>
         </div>
-   
+
         <Link to=""></Link>
       </div>
 
@@ -264,15 +267,6 @@ const Tasks: React.FC = () => {
                         </Dropdown>
                       </td>
                     </tr>
-                    <PopupModal
-                      buttonText="Delete"
-                      bodyText="Are you sure you want to delete this task?"
-                      show={showModal}
-                      handleClose={closeDeleteModal}
-                      propFunction={handleDeleteTask}
-                      loading={deleting}
-                      title="Delete Task Confirmation"
-                    />
                   </>
                 ))}
               </tbody>
@@ -292,6 +286,15 @@ const Tasks: React.FC = () => {
           </div>
         )}
       </div>
+      <PopupModal
+        buttonText="Delete"
+        bodyText="Are you sure you want to delete this task?"
+        show={showModal}
+        handleClose={closeDeleteModal}
+        propFunction={handleDeleteTask}
+        loading={deleting}
+        title="Delete Task Confirmation"
+      />
     </>
   );
 };
