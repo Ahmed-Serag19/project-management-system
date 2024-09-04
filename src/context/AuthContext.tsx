@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect, ReactNode } from "react";
-import axios from "axios"; // Assuming axios is used for API calls
+import axios from "axios";
 import { User_URls } from "../constants/End_Points";
 
 export interface AuthContextType {
@@ -9,17 +9,26 @@ export interface AuthContextType {
   clearToken: () => void;
 }
 
-interface DecodedUser {
-  userId: number;
-  userName: string;
-  userEmail: string;
-  roles: string[];
-  userGroup: string;
-  iat: number;
-  exp: number;
+interface Group {
+  id: number;
+  name: string;
+  creationDate: string;
+  modificationDate: string;
 }
 
-// Create the context
+interface DecodedUser {
+  id: number;
+  userName: string;
+  email: string;
+  country: string;
+  phoneNumber: string;
+  imagePath: string | null;
+  isActivated: boolean;
+  group: Group;
+  creationDate: string;
+  modificationDate: string;
+}
+
 export const AuthContext = createContext<AuthContextType | undefined>(
   undefined
 );
@@ -29,7 +38,6 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   const [token, setToken] = useState<string | null>(null);
   const [user, setUser] = useState<DecodedUser | null>(null);
 
-  // Function to save the token and fetch user data from API
   const saveToken = async (token: string) => {
     setToken(token);
     localStorage.setItem("token", token);
@@ -44,7 +52,6 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
       setUser(response.data);
     } catch (error) {
       console.error("Failed to fetch user data:", error);
-      // Handle errors such as logging out the user or showing a message
       clearToken();
     }
   };
