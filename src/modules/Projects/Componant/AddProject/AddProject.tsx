@@ -81,7 +81,7 @@ function AddProject() {
                     <hr />
                     <div className="d-flex justify-content-between">
                         <Link to={'/dashboard/home'} className="text-decoration-none btn btn-outline-dark rounded-5 px-3">Cancel</Link>
-                        <button className="text-white btn btn-warning rounded-5 px-3">Save</button>
+                        <button className="text-white btn btn-warning Save rounded-5 px-4">Save</button>
                     </div>
                 </form>
             </div>

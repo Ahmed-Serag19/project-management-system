@@ -48,9 +48,9 @@ export default function AddTask() {
       });
       console.log(response.data);
       setProjectList(response.data.data);
-      toast.success(response.data.message);
+     
     } catch (error: any) {
-      toast.error(error.response.data.message);
+ 
     }
   };
 
@@ -65,7 +65,7 @@ export default function AddTask() {
       console.log(response);
     } catch (error: any) {
       console.log(error);
-      toast.error(error?.response?.data?.message);
+      
     }
   };
   useEffect(() => {
