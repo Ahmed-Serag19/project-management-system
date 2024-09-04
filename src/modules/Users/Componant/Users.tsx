@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import styles from './Users.module.css'
 import { HiChevronUpDown } from "react-icons/hi2";
+import { FaChevronLeft } from "react-icons/fa6";
+import { FaChevronRight } from "react-icons/fa6";
 import axios from "axios";
 import {  User_URls } from "../../../constants/End_Points";
 import NoData from "../../Shared/components/NoData/NoData";
@@ -12,10 +14,8 @@ export default function Users() {
   const [groupValue, setGroupValue] = useState();
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(10); 
-  // const [arrayOffPages, setArrayOffPages] = useState<any>([]);
-  // type pagesData={
-  //   totalNumberOfPages:number;
-  // }
+  const [arrayOffPages, setArrayOffPages] = useState<any>([]);
+
   const arrayOfPages = Array.from({ length: totalPages }, (_, i) => i + 1);
   const filteredPages = arrayOfPages.filter(
     (pageN) => pageN >= 1 && pageN <= totalPages
@@ -37,9 +37,9 @@ export default function Users() {
           groups: groupsInput,
         },
       });
-      // setArrayOffPages(Array(response.data.totalNumberOfPages).fill().map((_,i)=>i+1))
+      
       setUserList(response.data.data);
-
+      setArrayOffPages(response.data.totalNumberOfRecords)
       console.log(response);
     } catch (error:any) {
       console.log(error);
@@ -56,7 +56,11 @@ export default function Users() {
         }
       );
       console.log(response);
-
+      if (response.data.isActivated) {
+        toast.success("Activation done");
+      } else {
+        toast.warning("Deactivation done");
+      }
       getAllUsers(8,1,"", 1);
     } catch (error:any) {
       console.log(error);
@@ -111,6 +115,11 @@ export default function Users() {
     setGroupValue(input.target.value);
     getAllUsers(8, 1,nameValue,input.target.value);
   };
+  const handlePageChange = (event: any) => {
+    const selectedPage = parseInt(event.target.value, 10);
+    setCurrentPage(selectedPage);
+    getAllUsers(8, selectedPage, nameValue, groupValue);
+  };
 
   return (
     <>
@@ -135,7 +144,7 @@ export default function Users() {
               <div className=".col-md-2 pe-2">
                 <select
                   onChange={getGroupValue}
-                  className=" text-black border rounded-pill py-2 px-2 "
+                  className=" text-black border  rounded-pill py-2 px-2 "
                 >
                   <option value=""> Filter</option>
                   <option value="1">Manager</option>
@@ -147,7 +156,7 @@ export default function Users() {
           <div>
        
 
-            <table className="table col-md-11">
+            <table className="table border-bottom mb-4 col-md-11">
               <thead>
                 <tr className="text-white text-start ">
                   <th scope="col-2 " className="ms-3">
@@ -206,7 +215,33 @@ export default function Users() {
                 ))}
               </tbody>
             </table>
-            <div className="pb-1 my-2 me-4">
+
+            <div className="d-flex justify-content-end pb-2 me-4 my-2 dark-gary">
+              <p className="mt-2 me-2">Showing </p>
+              <div >
+                
+              <select
+                  value={currentPage}
+                  onChange={handlePageChange}
+                  className="text-secondary border-select border rounded-pill py-2 px-2"
+                >
+                  {arrayOfPages.map((pageN: number) => (
+                    <option key={pageN} value={pageN}>
+                      {pageN}
+                    </option>
+                  ))}
+                </select>
+
+              </div>
+
+              <p className="mt-2 mx-3">of {arrayOffPages} Results</p>
+              <p className="mt-2 me-3">Page 1 of 10</p>
+              <FaChevronLeft  className=" me-3 Chevron" onClick={handlePrevious} />
+              <FaChevronRight  className="Chevron" onClick={handleNext}/>
+
+            
+            </div>
+            {/* <div className="pb-1 my-2 me-4">
               <nav aria-label="Page navigation example ">
                 <ul className="pagination  justify-content-end">
                   <li className="page-item">
@@ -217,7 +252,7 @@ export default function Users() {
 
                   {filteredPages.map((pageN: number) => (
                     <li
-                      onClick={() => {
+                      onChange={() => {
                         setCurrentPage(pageN);
                         getAllUsers(8, pageN)}
                       }
@@ -232,11 +267,7 @@ export default function Users() {
                     </li>
                   ))}
 
-                  {/*
-    {arrayOffPages.map((pageN)=>(
-   <li onClick={()=> getUsers(10,pageN)} className="page-item" key={pageN}>
-     <a className="page-link" href="#">{pageN} <span className="sr-only">(current)</span></a></li>
-    ))}  */}
+                  
 
                   <li className="page-item">
                     <a  className="page-link" aria-label="Next" onClick={handleNext}>
@@ -245,7 +276,7 @@ export default function Users() {
                   </li>
                 </ul>
               </nav>
-            </div>
+            </div> */}
           </div>
         ) : (
           <NoData />

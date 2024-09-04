@@ -18,6 +18,7 @@ import Tasks from "./modules/Tasks/Componant/Tasks";
 import ChangePassword from "./modules/Auth/components/ChangePassword/ChangePassword";
 import VerifyEmail from "./modules/Auth/components/VerifyEmail/VerifyEmail";
 import AddProject from "./modules/Projects/Componant/AddProject/AddProject";
+import AddTask from "./modules/Tasks/Componant/AddTask/AddTask";
 
 function App() {
   const routes = createHashRouter([
@@ -75,6 +76,10 @@ function App() {
         {
           path: "tasks",
           element: <Tasks />,
+        },
+        {
+          path: "add-task",
+          element: <AddTask />,
         },
       ],
     },
