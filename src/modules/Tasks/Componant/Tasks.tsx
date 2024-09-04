@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { HiChevronUpDown } from "react-icons/hi2";
 import { Dropdown } from "react-bootstrap";
 import CustomToggle from "./CustomToggle"; // Adjust the import path as needed
@@ -6,6 +6,11 @@ import { Task_URLs } from "../../../constants/End_Points";
 import axiosInstance from "../../../utils/axiosInstance";
 import { toast } from "react-toastify";
 import NoData from "../../Shared/components/NoData/NoData";
+import { AuthContext, AuthContextType } from "../../../context/AuthContext";
+import { Link, useNavigate } from "react-router-dom";
+import { BsEye, BsPencilSquare, BsTrash } from "react-icons/bs";
+import PopupModal from "../../Shared/components/PopupModal/PopupModal";
+import { GoPlus } from "react-icons/go";
 
 interface Task {
   id: number;
@@ -26,16 +31,25 @@ const Tasks: React.FC = () => {
   const [titleValue, setTitleValue] = useState<string>("");
   const [statusValue, setStatusValue] = useState<string>("");
   const [pageNumber, setPageNumber] = useState<number>(1);
-  const [pageSize] = useState<number>(10); // Default to 10 items per page
+  const [pageSize] = useState<number>(10);
   const [totalPages, setTotalPages] = useState<number>(1);
-
-  const { getAllForManager } = Task_URLs;
-
-  // Fetch tasks based on current pagination and filters
+  const { getAllForManager, getAllAssigned, delete: deleteTask } = Task_URLs;
+  const authContext = useContext(AuthContext);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedTaskId, setSelectedTaskId] = useState<number | null>(null);
+  const [deleting, setDeleting] = useState<boolean>(false);
+  const { user } = authContext as AuthContextType;
+  let navigate = useNavigate()
+  // Determine which endpoint to use based on the user's group
   const fetchTasks = async (pageN: number = 1) => {
     setLoading(true);
+
+    // Determine the correct API endpoint
+    const apiEndpoint =
+      user?.group.name === "Manager" ? getAllForManager : getAllAssigned;
+
     try {
-      const response = await axiosInstance.get(getAllForManager, {
+      const response = await axiosInstance.get(apiEndpoint, {
         params: {
           title: titleValue,
           status: statusValue,
@@ -56,9 +70,39 @@ const Tasks: React.FC = () => {
     }
   };
 
+  const handleDeleteTask = async () => {
+    if (selectedTaskId === null) return;
+
+    setDeleting(true);
+    try {
+      await axiosInstance.delete(deleteTask(selectedTaskId));
+      toast.success("Task deleted successfully");
+      fetchTasks(pageNumber); // Refresh tasks after deletion
+      setShowModal(false); // Close the modal after deletion
+    } catch (error) {
+      console.error("Failed to delete task", error);
+      toast.error("Failed to delete task");
+    } finally {
+      setDeleting(false);
+    }
+  };
+
+  const openDeleteModal = (taskId: number) => {
+    setSelectedTaskId(taskId);
+    setShowModal(true);
+  };
+
+  const closeDeleteModal = () => {
+    setShowModal(false);
+    setSelectedTaskId(null);
+  };
+
+  // Fetch tasks when the component mounts and when filters change
   useEffect(() => {
-    fetchTasks(pageNumber);
-  }, [titleValue, statusValue]);
+    if (user) {
+      fetchTasks(pageNumber);
+    }
+  }, [titleValue, statusValue, user]);
 
   // Update the title filter
   const getTitleValue = (input: any) => {
@@ -120,7 +164,19 @@ const Tasks: React.FC = () => {
 
   return (
     <>
-      <h2 className="title-components ps-5 py-4 bg-white mb-5">Tasks</h2>
+      <div className="title-components tasks-header ps-5 py-4 bg-white mb-5">
+        <div className="d-flex justify-content-between">
+        <h2 className="">Tasks</h2>
+        <button className="btn btn-lg btn-warning me-5 btn-add text-white rounded-pill px-4 "
+        onClick={()=>{navigate("/dashboard/add-task")}}>
+          
+           <GoPlus className="me-2" />  
+        Add New Task</button>
+
+        </div>
+   
+        <Link to=""></Link>
+      </div>
 
       <div className="mx-5 mb-5 pt-1 rounded-2 bg-white">
         <div className="mb-3 ms-3 mt-4 pt-2 d-flex ">
@@ -155,7 +211,7 @@ const Tasks: React.FC = () => {
           <NoData />
         ) : (
           <div>
-            <table className="table col-md-11">
+            <table className="table border-bottom col-md-11">
               <thead>
                 <tr className="text-white text-start">
                   <th>
@@ -180,23 +236,44 @@ const Tasks: React.FC = () => {
               </thead>
               <tbody>
                 {tasks.map((task) => (
-                  <tr key={task.id} className={loading ? "opacity-50" : ""}>
-                    <td>{task.title}</td>
-                    <td>{task.status}</td>
-                    <td>{task.employee.userName}</td>
-                    <td>{task.project.title}</td>
-                    <td>{new Date(task.creationDate).toLocaleDateString()}</td>
-                    <td>
-                      <Dropdown>
-                        <Dropdown.Toggle as={CustomToggle} />
-                        <Dropdown.Menu>
-                          <Dropdown.Item href="#">View Task</Dropdown.Item>
-                          <Dropdown.Item href="#">Edit Task</Dropdown.Item>
-                          <Dropdown.Item href="#">Delete Task</Dropdown.Item>
-                        </Dropdown.Menu>
-                      </Dropdown>
-                    </td>
-                  </tr>
+                  <>
+                    <tr key={task.id} className={loading ? "opacity-50" : ""}>
+                      <td>{task.title}</td>
+                      <td>{task.status}</td>
+                      <td>{task.employee.userName}</td>
+                      <td>{task.project.title}</td>
+                      <td>
+                        {new Date(task.creationDate).toLocaleDateString()}
+                      </td>
+                      <td>
+                        <Dropdown>
+                          <Dropdown.Toggle as={CustomToggle} />
+                          <Dropdown.Menu>
+                            <Dropdown.Item href="#">
+                              <BsEye className="me-2" /> View
+                            </Dropdown.Item>
+                            <Dropdown.Item href="#">
+                              <BsPencilSquare className="me-2" /> Edit
+                            </Dropdown.Item>
+                            <Dropdown.Item
+                              onClick={() => openDeleteModal(task.id)}
+                            >
+                              <BsTrash className="me-2" /> Delete
+                            </Dropdown.Item>
+                          </Dropdown.Menu>
+                        </Dropdown>
+                      </td>
+                    </tr>
+                    <PopupModal
+                      buttonText="Delete"
+                      bodyText="Are you sure you want to delete this task?"
+                      show={showModal}
+                      handleClose={closeDeleteModal}
+                      propFunction={handleDeleteTask}
+                      loading={deleting}
+                      title="Delete Task Confirmation"
+                    />
+                  </>
                 ))}
               </tbody>
             </table>

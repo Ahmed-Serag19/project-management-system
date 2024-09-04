@@ -8,10 +8,15 @@
 
 body {
   font-family: "Montserrat", sans-serif !important;
-  /* overflow-x: hidden !important; */
-  background-color: #F5F5F5 !important;
+  background-color: #f5f5f5 !important;
+}
+.dark {
+  --bg-main: black;
 }
 
+.light {
+  --main: white;
+}
 a {
   text-decoration: none;
   color: white;
@@ -113,6 +118,14 @@ a {
 .form-layout-button:hover {
   background-color: #df860a !important;
 }
+.btn-warning.btn-add,.btn-warning.Save {
+  background-color: #ef9b28 !important;
+  border-color: #ef9b28 !important;
+}
+.btn-warning.btn-add:hover,.btn-warning.Save:hover {
+  background-color: #df860a !important;
+  border-color: #df860a !important;
+}
 
 /* font size change */
 
@@ -127,8 +140,18 @@ a {
 
 .form-control:focus {
   box-shadow: none !important;
-  border-color: transparent !important;
-  outline: none !important;
+}
+.form-control .select{
+  border: 1px solid #a7a7a7  !important;
+  background-color: transparent !important;
+  padding: 5px !important;
+  color:black!important;
+  border-radius: 10 !important;
+  font-size: 15px !important;
+}
+
+.form-control .select:focus {
+box-shadow: #a7a7a7 !important;
 }
 
 /* padding  change */
@@ -170,7 +193,6 @@ a {
 
 /*--------------side bar------------*/
 
-.css-wx7wi4 {}
 
 .btn-side {
   right: -16px;
@@ -197,13 +219,13 @@ a {
 }
 
 .css-dip3t8 {
-  overflow: visible !important;
+  overflow: visible !important ;
+
   background-color: transparent !important;
 }
 
 .firstIcon-sidebar {
   background-color: transparent !important;
-
 }
 
 .css-1wvake5 {
@@ -214,13 +236,13 @@ a {
   margin-top: 50px !important;
 }
 
-
 .bg-sidebar {
   background-color: #0e382f !important;
   font-size: large;
 }
 
-.bg-sidebar, .ps-menu-button {
+.bg-sidebar,
+.ps-menu-button {
   color: white;
 }
 
@@ -229,17 +251,16 @@ a {
 }
 
 .ps-menu-button .active {
-  background-color: #EF9B284D !important;
+  background-color: #ef9b284d !important;
   color: #ef9b28 !important;
-
 }
 
 .bg-sidebar .ps-menu-button:hover {
-  background-color: #EF9B284D !important;
+  background-color: #ef9b284d !important;
   color: #ef9b28;
 }
 
-.css-gailc7>.ps-menu-button.active {
+.css-gailc7 > .ps-menu-button.active {
   border-left: 5px solid #ef9b28 !important;
 }
 
@@ -267,8 +288,14 @@ input:-webkit-autofill:active {
 /*--------Navbar---------*/
 
 .nav-item .dropdown-menu {
-  transform: translateX(-160px) !important;
-  color: #A7A7A7 !important;
+
+  transform: translateX(-200px) !important;
+  color: #a7a7a7 !important;
+  margin-top: 3px !important;
+}
+.navbar-expand-lg .navbar-nav .nav-link {
+  padding-left: 6px !important;
+  cursor: pointer;
 
 }
 
@@ -284,8 +311,7 @@ input:-webkit-autofill:active {
  font-size: 20px;
 } */
 .dropdown-item {
-  color: #0E382F !important;
-
+  color: #0e382f !important;
 }
 
 .ImgNavbar {
@@ -295,7 +321,7 @@ input:-webkit-autofill:active {
 .light-text {
   color: rgba(0, 0, 0, 0.37);
   opacity: 73%;
-
+  font-size: 14px;
 }
 
 /*reset*/
@@ -371,12 +397,25 @@ button:disabled:hover {
 }
 
 /******shared****/
-.title-components {
-  color: #4F4F4F !important;
-}
 
+
+.dark-green{
+  color: #0E382F !important;
+}
+.border-select:focus{
+border-color: #4f4f4f !important
+
+}
+.dashboard-section{
+background-color: #F8F9FB !important;
+margin-top:20px  !important;
+border-radius: 10px;
+}
+.title-components {
+  color: #4f4f4f !important;
+}
 .bg-layout {
-  background-color: #F5F5F5 !important;
+  background-color: #f5f5f5 !important;
 }
 
 .btn-login:focus {
@@ -387,46 +426,55 @@ button:disabled:hover {
 /* -------table-------- */
 
 
-.table>thead>tr>th {
-  background-color: #315951E5 !important;
+.table > thead > tr > th {
+  background-color: #315951e5 !important;
   opacity: 90% !important;
-  padding: 15px 10px !important;
-
+  padding: 15px 10px !important ;
 }
-
 .border-bottom-width {
   border: none !important;
-
 }
+
 
 th {
   color: white !important;
   text-align: left !important;
 
   font-weight: 400 !important;
-
 }
 
-.table>tbody>tr>td {
+.table > tbody > tr > td {
   padding: 15px 10px 7px 10px !important;
   font-size: 14px !important;
-  color: #4F4F4F !important;
-
+  color: #4f4f4f !important;
+}
+.table > tbody > tr:nth-child(even) > td,
+.table > tbody > tr:nth-child(even) > th {
+  background-color: #f8f9fb !important;
 }
 
-.table>tbody>tr:nth-child(even)>td, .table>tbody>tr:nth-child(even)>th {
-  background-color: #F8F9FB !important;
-
-}
-
-table, tr, td, th {
+table,
+tr,
+td,
+th {
   border: none !important;
+  color: white !important;
+  text-align: left !important;
+
+  font-weight: 400 !important;
 }
 
 /*user*/
-.fa-search {
+
+.Chevron{
+  margin-top: 10px !important;
+}
+.dark-gary{
   color: #4F4F4F !important;
 
+}
+.fa-search {
+  color: #4f4f4f !important;
 }
 
 .gray {
@@ -434,11 +482,12 @@ table, tr, td, th {
 }
 
 .page-link {
-  color: #0E382F !important;
+  color: #0e382f !important;
   cursor: pointer !important;
 }
 
-.fa-toggle-off, .fa-toggle-on {
+.fa-toggle-off,
+.fa-toggle-on {
   cursor: pointer !important;
 }
 
@@ -446,10 +495,11 @@ table, tr, td, th {
   pointer-events: none !important;
 }
 
-
 /* ----media-screen---- */
 
-@media screen and (max-width:600px) {
+
+@media screen and (max-width: 600px) {
+
   .nav-item .dropdown-menu {
     transform: translateX(0) !important;
     width: 75%;
@@ -466,34 +516,57 @@ table, tr, td, th {
 
   .navbarNavDropdown {
     width: 75%;
+
   }
-
 }
-
-@media screen and (min-width:610px) and (max-width:768px) {
-
+@media screen and (min-width: 610px) and (max-width: 768px) {
   .nav-item .dropdown-menu {
     transform: translateX(0) !important;
     width: 75%;
   }
-
   .nav-item {
     margin-top: 5px !important;
     margin-bottom: 5px !important;
   }
-
   .navbar-toggler {
     margin-left: 20px;
   }
-
   .navbarNavDropdown {
     width: 75% !important;
   }
-
   .navbar-left {
     width: 60% !important;
-
   }
+}
+@media screen and (min-width: 769px) and (max-width: 992px) {
+  .nav-item .dropdown-menu {
+    transform: translateX(0) !important;
+    margin-right: 10px;
+  }
+  .nav-item {
+    margin-top: 5px !important;
+    margin-bottom: 5px !important;
+    font-size: 14px !important;
+  }
+  .dropdown-item {
+    font-size: 14px !important;
+  }
+  .navbar-toggler {
+    margin-left: 30px;
+  }
+
+  .navbar-left {
+    width: 70% !important;
+  }
+}
+@media screen and (min-width: 993px) and (max-width: 1200px) {
+  .navbarNavDropdown {
+    width: 75% !important;
+  }
+  .navbar-left {
+    width: 70% !important;
+  }
+
 
 
 }
@@ -586,3 +659,9 @@ table, tr, td, th {
 .border-addInput:focus {
   border-color: #dee2e6 !important;
 }
+
+  .nav-item {
+    font-size: 15px !important;
+  }
+}
+

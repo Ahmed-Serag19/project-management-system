@@ -1,6 +1,9 @@
 import FormLayout from "../../../Shared/components/FormLayout/FormLayout";
 import Reset from "../../../../assets/reset-password-bg.png";
 import { Form } from "react-bootstrap";
+
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+
 import {
   EmailValidation,
   PasswordValidation,
@@ -129,13 +132,7 @@ export default function ResetPassword() {
                   <span className="sr_only">
                     {isPasswordVisible ? "Hide Password" : "Show Password"}
                   </span>
-                  <i
-                    className={`fa ${
-                      isPasswordVisible
-                        ? "fa-eye-slash eyeIcon"
-                        : "fa-eye eyeIcon"
-                    }`}
-                  ></i>
+                  {isPasswordVisible ? <FaEyeSlash className="text-white" /> : <FaEye className="text-white"/>}
                 </button>
               </div>
             </div>
@@ -183,13 +180,7 @@ export default function ResetPassword() {
                   <span className="sr_only">
                     {isPasswordVisible ? "Hide Password" : "Show Password"}
                   </span>
-                  <i
-                    className={`fa ${
-                      isPasswordVisible
-                        ? "fa-eye-slash eyeIcon"
-                        : "fa-eye eyeIcon"
-                    }`}
-                  ></i>
+                  {isPasswordVisible ? <FaEyeSlash className="text-white" /> : <FaEye className="text-white"/>}
                 </button>
               </div>
 
