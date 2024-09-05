@@ -67,7 +67,7 @@ export default function Users() {
       getAllUsers(8,1,"", 1);
     } catch (error:any) {
       console.log(error);
-      //toast.error(error?.response?.data?.message)
+      toast.error(error?.response?.data?.message)
     }
   };
   const handlePrevious = () => {

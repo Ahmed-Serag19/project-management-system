@@ -291,12 +291,13 @@ input:-webkit-autofill:active {
 
   transform: translateX(-200px) !important;
   color: #a7a7a7 !important;
-  margin-top: 3px !important;
+  margin-top: 20px !important;
 }
-.navbar-expand-lg .navbar-nav .nav-link {
+.nav-link.toggle {
   padding-left: 6px !important;
   cursor: pointer;
-
+  color: #a7a7a7 !important;
+  font-size: 20px !important;
 }
 
 .img-user {
@@ -519,6 +520,9 @@ th {
     width: 75%;
 
   }
+  .navbar-left {
+    width: 52% !important;
+  }
 }
 @media screen and (min-width: 610px) and (max-width: 768px) {
   .nav-item .dropdown-menu {
@@ -557,7 +561,7 @@ th {
   }
 
   .navbar-left {
-    width: 70% !important;
+    width: 65% !important;
   }
 }
 @media screen and (min-width: 993px) and (max-width: 1200px) {
@@ -572,55 +576,10 @@ th {
 
 }
 
-@media screen and (min-width:769px) and (max-width:992px) {
-
-  .nav-item .dropdown-menu {
-    transform: translateX(0) !important;
-    margin-right: 10px;
-  }
-
-  .nav-item {
-    margin-top: 5px !important;
-    margin-bottom: 5px !important;
-    font-size: 14px !important;
-  }
-
-  .dropdown-item {
-    font-size: 14px !important;
-
-  }
-
-  .navbar-toggler {
-    margin-left: 30px;
-  }
-
-  .navbar-left {
-    width: 70% !important;
-
-  }
-
-
-}
-
-@media screen and (min-width:993px) and (max-width:1200px) {
-  .navbarNavDropdown {
-    width: 75% !important;
-  }
-
-  .navbar-left {
-    width: 70% !important;
-
-  }
-
-  .nav-item {
-    font-size: 15px !important;
-  }
-
-}
-
+/* 
 .form-control:focus {
   border-color: #ffffff !important;
-}
+} */
 
 .profile-pic {
   width: 70px;
@@ -657,9 +616,9 @@ th {
   width: fit-content !important;
 }
 
-.border-addInput:focus {
+/* .border-addInput:focus {
   border-color: #dee2e6 !important;
-}
+} */
 
   .nav-item {
     font-size: 15px !important;
