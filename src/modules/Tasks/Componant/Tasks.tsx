@@ -273,7 +273,13 @@ const Tasks: React.FC = () => {
                           <Dropdown.Item href="#">
                             <BsEye className="me-2" /> View
                           </Dropdown.Item>
-                          <Dropdown.Item href="#">
+                          <Dropdown.Item
+                            onClick={() =>
+                              navigate("/dashboard/add-task", {
+                                state: { task },
+                              })
+                            }
+                          >
                             <BsPencilSquare className="me-2" /> Edit
                           </Dropdown.Item>
                           <Dropdown.Item
