@@ -2,7 +2,7 @@ import axios from "axios";
 import { Form, InputGroup } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { IoIosArrowBack } from "react-icons/io";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import {
   Project_URLs,
@@ -15,59 +15,87 @@ export default function AddTask() {
   const [projectList, setProjectList] = useState([]);
   const [userList, setUserList] = useState([]);
   let navigate = useNavigate();
+  const location = useLocation();
+  const task = location.state?.task;
+
   interface dataTask {
     title: string;
     description: string;
     employeeId: number;
     projectId: number;
   }
-  let {
+
+  const {
     register,
     formState: { errors },
     handleSubmit,
+    setValue,
   } = useForm<dataTask>({
-    defaultValues: { title: "", description: "", employeeId: 0, projectId: 0 },
+    defaultValues: {
+      title: task?.title || "",
+      description: task?.description || "",
+      employeeId: task?.employee?.id || 0,
+      projectId: task?.project?.id || 0,
+    },
   });
-  let onSubmit = async (data: dataTask) => {
+
+  // Set form values if editing a task
+  useEffect(() => {
+    if (task) {
+      setValue("title", task.title);
+      setValue("description", task.description);
+
+      // Ensure dropdown values reflect properly by setting them correctly
+      if (task.employee?.id) {
+        setValue("employeeId", task.employee.id.toString());
+      }
+      if (task.project?.id) {
+        setValue("projectId", task.project.id.toString());
+      }
+    }
+  }, [task, setValue]);
+
+  const onSubmit = async (data: dataTask) => {
     try {
-      let response = await axios.post(Task_URLs.create, data, {
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-      });
-      console.log(response.data);
+      if (task) {
+        await axios.put(Task_URLs.update(task.id), data, {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        });
+        toast.success("Task updated successfully");
+      } else {
+        await axios.post(Task_URLs.create, data, {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        });
+        toast.success("Task added successfully");
+      }
       navigate("/dashboard/tasks");
-      toast.success(response.data.message || "Task Add Successfully");
     } catch (error: any) {
-      toast.error(error.response.data.message || "Failed Add Task");
+      toast.error(error.response?.data?.message || "Failed to save task");
     }
   };
 
-  let addProject = async () => {
+  const addProject = async () => {
     try {
       let response = await axios.get(Project_URLs.addNewProject, {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
-      console.log(response.data);
       setProjectList(response.data.data);
-     
     } catch (error: any) {
- 
+      console.error(error);
     }
   };
 
-  let getAllUsers = async () => {
+  const getAllUsers = async () => {
     try {
       let response = await axios.get(User_URls.getUser, {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
-
       setUserList(response.data.data);
-
-      console.log(response);
     } catch (error: any) {
-      console.log(error);
-      
+      console.error(error);
     }
   };
+
   useEffect(() => {
     addProject();
     getAllUsers();
@@ -82,95 +110,83 @@ export default function AddTask() {
         >
           <IoIosArrowBack /> View All Tasks
         </Link>
-        <h2 className="mt-2">Add All Tasks</h2>
+        <h2 className="mt-2">{task ? "Update Task" : "Add Task"}</h2>
       </div>
       <div className="my-5 bg-white p-5 rounded-4 shadow w-75 m-auto">
-        <form className="" onSubmit={handleSubmit(onSubmit)}>
-          <div className="">
-            <Form.Group controlId="name">
-              <Form.Label className="text-muted">Title</Form.Label>
-              <InputGroup>
-                <Form.Control
-                  className="border rounded-4 p-2 text-secondary"
-                  type="text"
-                  placeholder="Name"
-                  {...register("title", {
-                    required: "Task Name is required!",
-                  })}
-                />
-              </InputGroup>
-            </Form.Group>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Form.Group controlId="name">
+            <Form.Label className="text-muted">Title</Form.Label>
+            <InputGroup>
+              <Form.Control
+                className="border rounded-4 p-2 text-secondary"
+                type="text"
+                placeholder="Name"
+                {...register("title", {
+                  required: "Task Name is required!",
+                })}
+              />
+            </InputGroup>
             {errors.title?.message && (
               <p className="text-danger mt-1">{errors.title?.message}</p>
             )}
-          </div>
-          <div className="my-4">
-            <Form.Group controlId="exampleForm.ControlTextarea1">
-              <Form.Label className="text-muted">Description</Form.Label>
-              <Form.Control
-                className="border rounded-4 p-2 text-secondary"
-                as="textarea"
-                placeholder="Description"
-                rows={3}
-                {...register("description", {
-                  required: "Task description is required!",
-                })}
-              />
-            </Form.Group>
+          </Form.Group>
+
+          <Form.Group controlId="description" className="my-4">
+            <Form.Label className="text-muted">Description</Form.Label>
+            <Form.Control
+              className="border rounded-4 p-2 text-secondary"
+              as="textarea"
+              placeholder="Description"
+              rows={3}
+              {...register("description", {
+                required: "Task description is required!",
+              })}
+            />
             {errors.description?.message && (
               <p className="text-danger mt-1">{errors.description?.message}</p>
             )}
-          </div>
+          </Form.Group>
 
           <div className="row mb-4">
             <div className="col-md-6">
-              <div>
-                <Form.Label className="text-muted ms-1">User</Form.Label>
-                <select
-                  {...register("employeeId", { required: "User is required" })}
-                  className="form-control text-secondary border rounded-4 p-2  select"
-                  id=""
-                >
-                  <option>No Status Selected</option>
-                  {userList.map((user: any) => (
-                    <option key={user.id} value={user.id}>
-                      {user.userName}
-                    </option>
-                  ))}
-                </select>
-
-                {errors.employeeId?.message && (
-                  <p className="text-danger mt-1">
-                    {errors.employeeId?.message}
-                  </p>
-                )}
-              </div>
+              <Form.Label className="text-muted ms-1">User</Form.Label>
+              <select
+                {...register("employeeId", { required: "User is required" })}
+                className="form-control text-secondary border rounded-4 p-2 select"
+                defaultValue={task?.employee?.id || 0} // Set default value to show correct selection
+              >
+                <option value={0}>No User Selected</option>
+                {userList.map((user: any) => (
+                  <option key={user.id} value={user.id}>
+                    {user.userName}
+                  </option>
+                ))}
+              </select>
+              {errors.employeeId?.message && (
+                <p className="text-danger mt-1">{errors.employeeId?.message}</p>
+              )}
             </div>
+
             <div className="col-md-6">
-              <div>
-                <Form.Label className="text-muted ms-1">Project</Form.Label>
-                <select
-                  {...register("projectId", {
-                    required: "project is required",
-                  })}
-                  className="form-control text-secondary border rounded-4 p-2 select"
-                  id=""
-                >
-                  <option>No Status Selected</option>
-                  {projectList.map((project: any) => (
-                    <option key={project.id} value={project.id}>
-                      {project.title}
-                    </option>
-                  ))}
-                </select>
-                {errors.projectId?.message && (
-                  <p className="text-danger mt-1">
-                    {errors.projectId?.message}
-                  </p>
-                )}
-              </div>
+              <Form.Label className="text-muted ms-1">Project</Form.Label>
+              <select
+                {...register("projectId", { required: "Project is required" })}
+                className="form-control text-secondary border rounded-4 p-2 select"
+                defaultValue={task?.project?.id || 0} // Set default value to show correct selection
+              >
+                <option value={0}>No Project Selected</option>
+                {projectList.map((project: any) => (
+                  <option key={project.id} value={project.id}>
+                    {project.title}
+                  </option>
+                ))}
+              </select>
+              {errors.projectId?.message && (
+                <p className="text-danger mt-1">{errors.projectId?.message}</p>
+              )}
             </div>
           </div>
+
           <hr />
           <div className="d-flex justify-content-between">
             <button
@@ -182,7 +198,7 @@ export default function AddTask() {
               Cancel
             </button>
             <button className="text-white btn btn-warning rounded-5 Save px-4">
-              Save
+              {task ? "Update" : "Save"}
             </button>
           </div>
         </form>
