@@ -5,6 +5,7 @@ import ImgNavbar from "../../../../assets/nav-icon.png";
 import Alret from "../../../../assets/alret.png";
 import User from "../../../../assets/User.png";
 import { Link, useNavigate } from "react-router-dom";
+import { Dropdown } from "react-bootstrap";
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -52,7 +53,7 @@ export default function Navbar() {
         </div>
 
         <div className="col-md-2 navbar-right d-flex bg-white  mt-2">
-          <nav className="navbar navbar-expand-lg navbar-light bg-white">
+          {/* <nav className="navbar navbar-expand-lg navbar-light bg-white">
             <button
               className="navbar-toggler mb-2"
               type="button"
@@ -119,9 +120,9 @@ export default function Navbar() {
                 </li>
               </ul>
             </div>
-          </nav>
+          </nav> */}
 
-          {/* <div>
+           <div>
             {UserData?.imagePath !== null ? (
               <img
                 src={`${Base_Img_Url}/${UserData?.imagePath}`}
@@ -144,11 +145,20 @@ export default function Navbar() {
 
           <Dropdown>
             <Dropdown.Toggle
+            className="nav-link toggle bg-white"
               variant="success"
               id="dropdown-basic"
             ></Dropdown.Toggle>
 
-            <Dropdown.Menu>
+            <Dropdown.Menu >
+              <Dropdown.Item className=" fw-bold"
+                onClick={() => {
+                  
+                  navigate("/auth/change-password");
+                }}>
+                    <i className="fa-solid fa-unlock"></i> ChangePassword
+
+              </Dropdown.Item>
               <Dropdown.Item
                 className=" fw-bold"
                 onClick={() => {
@@ -156,11 +166,11 @@ export default function Navbar() {
                   navigate("/auth/login");
                 }}
               >
-                Logout
+              <i className="fa-solid fa-door-open"></i> Logout
               </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
- */}
+ 
         </div>
       </div>
     </div>
