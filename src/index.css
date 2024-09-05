@@ -576,10 +576,10 @@ th {
 
 }
 
-
+/* 
 .form-control:focus {
   border-color: #ffffff !important;
-}
+} */
 
 .profile-pic {
   width: 70px;
@@ -616,9 +616,9 @@ th {
   width: fit-content !important;
 }
 
-.border-addInput:focus {
+/* .border-addInput:focus {
   border-color: #dee2e6 !important;
-}
+} */
 
   .nav-item {
     font-size: 15px !important;
