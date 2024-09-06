@@ -16,7 +16,7 @@ export const User_URls = {
   verify: `${Base_Users}/verify`,
   ChangePassword: `${Base_Users}/ChangePassword`,
   getCurrentUser: `${Base_Users}/currentUser`,
-  getUser: `${Base_Users}`,
+  getUser: `${Base_Users}/manager`,
   toggleStatues: (id: string) => `${Base_Users}/${id}`,
 };
 

@@ -298,7 +298,9 @@ input:-webkit-autofill:active {
   cursor: pointer;
   color: #a7a7a7 !important;
   font-size: 20px !important;
+  transform: translateX(-40px) !important;
 }
+
 
 .img-user {
   width: 50px !important;
@@ -322,7 +324,7 @@ input:-webkit-autofill:active {
 .light-text {
   color: rgba(0, 0, 0, 0.37);
   opacity: 73%;
-  font-size: 14px;
+  font-size: 13px;
 }
 
 /*reset*/
@@ -425,7 +427,10 @@ border-radius: 10px;
 }
 
 /* -------table-------- */
-
+.pagination{
+  flex-wrap: wrap !important;
+ 
+}
 
 .table > thead > tr > th {
   background-color: #315951e5 !important;
@@ -463,6 +468,53 @@ th {
   text-align: left !important;
 
   font-weight: 400 !important;
+}
+/* ----userTask --*/
+select option:hover,
+    select option:focus,
+    select option:active {
+        background: linear-gradient(#000000, #000000);
+        background-color: #000000 !important; /* for IE */
+        color: #ffed00 !important;
+    }
+
+    
+    select option:hover {
+      color: #000; 
+      box-shadow: inset 20px 20px rgb(66, 66, 70) ;
+      background: #f00;
+    }
+    select option:checked {
+        background: linear-gradient(#d6d6d6, #d6d6d6);
+        background-color: #d6d6d6 !important; /* for IE */
+        color: #000000 !important;
+    }
+.cards{
+
+min-height: 24rem ;
+  .bg-dark-green{
+    background-color: #315951E5;
+   opacity: 90%;
+   padding-block: 50px;
+   padding-inline: 14px;
+  }
+  .title{
+    color:  #4F4F4F !important;
+    font-weight: 500 !important;
+    font-size: 22px !important;
+    
+  }
+  .task{
+  background-color: #ef9b28;
+  padding-top: 16px;
+  padding-inline: 16px;
+  }
+
+
+
+
+
+
 }
 
 /*user*/
@@ -569,7 +621,7 @@ th {
     width: 75% !important;
   }
   .navbar-left {
-    width: 70% !important;
+    width:68% !important;
   }
 
 
