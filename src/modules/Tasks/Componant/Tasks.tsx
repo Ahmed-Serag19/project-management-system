@@ -11,6 +11,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { BsEye, BsPencilSquare, BsTrash } from "react-icons/bs";
 import PopupModal from "../../Shared/components/PopupModal/PopupModal";
 import { GoPlus } from "react-icons/go";
+import TaskUser from "./TaskUser/TaskUser";
 
 interface Task {
   id: number;
@@ -72,7 +73,7 @@ const Tasks: React.FC = () => {
       setPageNumber(pageN);
     } catch (error) {
       console.error("Failed to load tasks", error);
-      toast.error("Failed to load tasks");
+     toast.error("Failed to load tasks");
       setTasks([]);
     } finally {
       setLoading(false);
@@ -201,112 +202,117 @@ const Tasks: React.FC = () => {
 
         <Link to=""></Link>
       </div>
+{user?.group.name === "Manager"? 
 
-      <div className="mx-5 mb-5 pt-1 rounded-2 bg-white">
-        <div className="mb-3 ms-3 mt-4 pt-2 d-flex ">
-          <div className="col-md-3 me-3 mb-1">
-            <div className="input-group border-1 mb-2 p-1 border rounded-pill">
-              <span className="input-group-text" id="basic-addon1">
-                <i className="fa fa-search"></i>
-              </span>
-              <input
-                type="text"
-                className="form-control inputForm gray"
-                placeholder="Search by title"
-                onChange={getTitleValue}
-              />
-            </div>
-          </div>
 
-          <div className=".col-md-2 pe-2">
-            <select
-              onChange={getStatusValue}
-              className="text-black border rounded-pill py-2 px-2"
-            >
-              <option value="">Filter by status</option>
-              <option value="ToDo">To Do</option>
-              <option value="InProgress">In Progress</option>
-              <option value="Done">Done</option>
-            </select>
-          </div>
+<div className="mx-5 mb-5 pt-1 rounded-2 bg-white">
+<div className="mb-3 ms-3 mt-4 pt-2 d-flex ">
+  <div className="col-md-3 me-3 mb-1">
+    <div className="input-group border-1 mb-2 p-1 border rounded-pill">
+      <span className="input-group-text" id="basic-addon1">
+        <i className="fa fa-search"></i>
+      </span>
+      <input
+        type="text"
+        className="form-control inputForm gray"
+        placeholder="Search by title"
+        onChange={getTitleValue}
+      />
+    </div>
+  </div>
+
+  <div className=".col-md-2 pe-2">
+    <select
+      onChange={getStatusValue}
+      className="text-black border rounded-pill py-2 px-2"
+    >
+      <option value="">Filter by status</option>
+      <option value="ToDo">To Do</option>
+      <option value="InProgress">In Progress</option>
+      <option value="Done">Done</option>
+    </select>
+  </div>
+</div>
+
+{tasks.length === 0 ? (
+  <NoData />
+) : (
+  <div>
+    <table className="table border-bottom col-md-11">
+      <thead>
+        <tr className="text-white text-start">
+          <th>
+            Title <HiChevronUpDown />
+          </th>
+          <th>
+            Status <HiChevronUpDown />
+          </th>
+          <th>
+            User <HiChevronUpDown />
+          </th>
+          <th>
+            Project <HiChevronUpDown />
+          </th>
+          <th>
+            Date Created <HiChevronUpDown />
+          </th>
+          <th>
+            Action <HiChevronUpDown />
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {tasks.map((task) => (
+          <tr key={task.id} className={loading ? "opacity-50" : ""}>
+            <td>{task.title}</td>
+            <td>{task.status}</td>
+            <td>{task.employee.userName}</td>
+            <td>{task.project.title}</td>
+            <td>{new Date(task.creationDate).toLocaleDateString()}</td>
+            <td>
+              <Dropdown>
+                <Dropdown.Toggle as={CustomToggle} />
+                <Dropdown.Menu>
+                  <Dropdown.Item href="#">
+                    <BsEye className="me-2" /> View
+                  </Dropdown.Item>
+                  <Dropdown.Item
+                    onClick={() =>
+                      navigate("/dashboard/add-task", {
+                        state: { task },
+                      })
+                    }
+                  >
+                    <BsPencilSquare className="me-2" /> Edit
+                  </Dropdown.Item>
+                  <Dropdown.Item
+                    onClick={() => openDeleteModal(task.id)}
+                  >
+                    <BsTrash className="me-2" /> Delete
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+
+    {loading && (
+      <div className="loading-overlay d-flex justify-content-center align-items-center">
+        <div className="spinner-border text-primary" role="status">
+          <span className="visually-hidden">Loading...</span>
         </div>
-
-        {tasks.length === 0 ? (
-          <NoData />
-        ) : (
-          <div>
-            <table className="table border-bottom col-md-11">
-              <thead>
-                <tr className="text-white text-start">
-                  <th>
-                    Title <HiChevronUpDown />
-                  </th>
-                  <th>
-                    Status <HiChevronUpDown />
-                  </th>
-                  <th>
-                    User <HiChevronUpDown />
-                  </th>
-                  <th>
-                    Project <HiChevronUpDown />
-                  </th>
-                  <th>
-                    Date Created <HiChevronUpDown />
-                  </th>
-                  <th>
-                    Action <HiChevronUpDown />
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {tasks.map((task) => (
-                  <tr key={task.id} className={loading ? "opacity-50" : ""}>
-                    <td>{task.title}</td>
-                    <td>{task.status}</td>
-                    <td>{task.employee.userName}</td>
-                    <td>{task.project.title}</td>
-                    <td>{new Date(task.creationDate).toLocaleDateString()}</td>
-                    <td>
-                      <Dropdown>
-                        <Dropdown.Toggle as={CustomToggle} />
-                        <Dropdown.Menu>
-                          <Dropdown.Item href="#">
-                            <BsEye className="me-2" /> View
-                          </Dropdown.Item>
-                          <Dropdown.Item
-                            onClick={() =>
-                              navigate("/dashboard/add-task", {
-                                state: { task },
-                              })
-                            }
-                          >
-                            <BsPencilSquare className="me-2" /> Edit
-                          </Dropdown.Item>
-                          <Dropdown.Item
-                            onClick={() => openDeleteModal(task.id)}
-                          >
-                            <BsTrash className="me-2" /> Delete
-                          </Dropdown.Item>
-                        </Dropdown.Menu>
-                      </Dropdown>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-
-            {loading && (
-              <div className="loading-overlay d-flex justify-content-center align-items-center">
-                <div className="spinner-border text-primary" role="status">
-                  <span className="visually-hidden">Loading...</span>
-                </div>
-              </div>
-            )}
-
-            <div className="pb-1 my-2 me-4">{renderPagination()}</div>
-          </div>
-        )}
       </div>
+    )}
+
+    <div className="pb-1 my-2 me-4">{renderPagination()}</div>
+  </div>
+)}
+</div>
+
+: <TaskUser/>}
+     
 
       <PopupModal
         buttonText="Delete"
@@ -317,6 +323,9 @@ const Tasks: React.FC = () => {
         loading={deleting}
         title="Delete Task Confirmation"
       />
+
+
+
     </>
   );
 };

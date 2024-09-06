@@ -11,22 +11,26 @@ import { toast } from "react-toastify";
 export default function Users() {
   const [userList, setUserList] = useState([]);
   const [nameValue, setNameValue] = useState<string>("");
-  const [groupValue, setGroupValue] = useState();
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(50); 
-  const [totalPage, setTotalPage] = useState(10); 
+  const [statusFilter, setStatusFilter] = useState<string>(""); 
   const [arrayOffPages, setArrayOffPages] = useState<any>([]);
-  const [Pages, setPages] = useState<any>([]);
-  const arrayOfPages = Array.from({ length: totalPage }, (_, i) => i + 1);
-  const filteredPages = arrayOfPages.filter(
-    (pageN) => pageN >= 1 && pageN <= totalPage
-  );
+
+
+
+  // const [groupValue, setGroupValue] = useState();
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const [totalPages, setTotalPages] = useState(50); 
+  // const [totalPage, setTotalPage] = useState(10); 
+  // const [Pages, setPages] = useState<any>([]);
+  // const arrayOfPages = Array.from({ length: totalPage }, (_, i) => i + 1);
+  // const filteredPages = arrayOfPages.filter(
+  //   (pageN) => pageN >= 1 && pageN <= totalPage
+  // );
 
   let getAllUsers = async (
     pageS?: number,
     pageN?: number,
     nameInput?: string,
-    groupsInput?: number
+    status?:string
   ) => {
     try {
       let response = await axios.get(User_URls.getUser, 
@@ -35,14 +39,14 @@ export default function Users() {
           pageSize: pageS,
           pageNumber: pageN,
           userName: nameInput,
-          groups: groupsInput,
+          isActivated:status
         },
       });
       
       setUserList(response.data.data);
-      setArrayOffPages(response.data.totalNumberOfRecords)
-     // setPages(response.data.totalNumberOfPages)
-      console.log(response);
+      //setArrayOffPages(response.data.totalNumberOfRecords)
+      setArrayOffPages(Array.from({ length: response.data.totalNumberOfPages }, (_, i) => i + 1));
+     
     } catch (error:any) {
       console.log(error);
       toast.error(error.response.data.message)
@@ -64,25 +68,30 @@ export default function Users() {
       } else {
         toast.warning("Deactivation done");
       }
-      getAllUsers(8,1,"", 1);
+      getAllUsers(8,1,"", statusFilter);
     } catch (error:any) {
       console.log(error);
       toast.error(error?.response?.data?.message)
     }
   };
-  const handlePrevious = () => {
-    if (currentPage > 5) {
-      setCurrentPage(currentPage - 5);
-      getAllUsers(8, currentPage - 5, nameValue, groupValue);
-    }
-  };
+  // const handlePrevious = () => {
+  //   if (currentPage > 5) {
+  //     setCurrentPage(currentPage - 5);
+  //     getAllUsers(8, currentPage - 5, nameValue, groupValue);
+  //   }
+  // };
 
-  const handleNext = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 5);
-      getAllUsers(8, currentPage + 5, nameValue, groupValue);
-    }
-  };
+  // const handleNext = () => {
+  //   if (currentPage < totalPages) {
+  //     setCurrentPage(currentPage + 5);
+  //     getAllUsers(8, currentPage + 5, nameValue, groupValue);
+  //   }
+  // };
+  // const handlePageChange = (event: any) => {
+  //   const selectedPage = parseInt(event.target.value, 10);
+  //   setCurrentPage(selectedPage);
+  //   getAllUsers(8, selectedPage, nameValue, groupValue);
+  // };
 
 
   //   const pages=(currentPage:number, totalNumberOfPages:any)=>{
@@ -107,23 +116,18 @@ export default function Users() {
   //   }
 
   useEffect(() => {
-    getAllUsers(8, 1,"", 1);
+    getAllUsers(10, 1,"",statusFilter);
   }, []);
 
   const getNameValue = (input: any) => {
     setNameValue(input.target.value);
-    getAllUsers(8,1,input.target.value,groupValue);
-  };
-  const getGroupValue = (input: any) => {
-    setGroupValue(input.target.value);
-    getAllUsers(8, 1,nameValue,input.target.value);
-  };
-  const handlePageChange = (event: any) => {
-    const selectedPage = parseInt(event.target.value, 10);
-    setCurrentPage(selectedPage);
-    getAllUsers(8, selectedPage, nameValue, groupValue);
+    getAllUsers(10,1,input.target.value,statusFilter);
   };
 
+  const getstatusValue = (input: any) => {
+    setStatusFilter(input.target.value);
+    getAllUsers(10, 1,nameValue,input.target.value);
+  };
   return (
     <>
       <h2 className="title-components ps-5 py-4 bg-white mb-5">User</h2>
@@ -146,12 +150,12 @@ export default function Users() {
 
               <div className=".col-md-2 pe-2">
                 <select
-                  onChange={getGroupValue}
+                  onChange={getstatusValue}
                   className=" text-black border  rounded-pill py-2 px-2 "
                 >
                   <option value=""> Filter</option>
-                  <option value="1">Manager</option>
-                  <option value="2">Employee</option>
+                  <option value="true">Active</option>
+                  <option value="false">Not Active</option>
                 </select>
               </div>
             </div>
@@ -159,7 +163,7 @@ export default function Users() {
           <div>
        
 
-            <table className="table border-bottom mb-4 col-md-11">
+            <table className="table border-bottom mb-3 col-md-11">
               <thead>
                 <tr className="text-white text-start ">
                   <th scope="col-2 " className="ms-3">
@@ -175,9 +179,9 @@ export default function Users() {
                   <th scope="col-2">
                     Email <HiChevronUpDown />
                   </th>
-                  <th scope="col">
+                  {/* <th scope="col">
                     Date Created <HiChevronUpDown />
-                  </th>
+                  </th> */}
                   <th scope="col">
                     Action <HiChevronUpDown />
                   </th>
@@ -200,7 +204,7 @@ export default function Users() {
                     </td>
                     <td>{user?.phoneNumber}</td>
                     <td>{user?.email}</td>
-                    <td>{new Date(user?.creationDate).toLocaleDateString()}</td>
+                    {/* <td>{new Date(user?.creationDate).toLocaleDateString()}</td> */}
                     <td>
                       {user?.isActivated ? (
                         <i
@@ -219,7 +223,33 @@ export default function Users() {
               </tbody>
             </table>
 
-            <div className="d-flex justify-content-end pb-2 me-4 my-2 dark-gary">
+            <div className=' mx-4 col-md-11 '>
+
+
+ <ul className="pagination justify-content-end pb-3" >
+    <li className="page-item">
+      <a className="page-link"  aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+
+    {arrayOffPages.map((pageN:any)=>(
+   <li onClick={()=> getAllUsers(10,pageN)} className="page-item" key={pageN}>
+     <a className="page-link" >{pageN} <span className="sr-only">(current)</span></a></li>
+    ))} 
+
+   
+    <li className="page-item ">
+      <a className="page-link"  aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul> 
+
+</div>
+
+
+            {/* <div className="d-flex justify-content-end pb-2 me-4 my-2 dark-gary">
               <p className="mt-2 me-2">Showing </p>
               <div >
                 
@@ -243,43 +273,8 @@ export default function Users() {
               <FaChevronRight  className="Chevron" onClick={handleNext}/>
 
             
-            </div>
-            {/* <div className="pb-1 my-2 me-4">
-              <nav aria-label="Page navigation example ">
-                <ul className="pagination  justify-content-end">
-                  <li className="page-item">
-                    <a className="page-link" aria-label="Previous" onClick={handlePrevious}>
-                      <span aria-hidden="true">&laquo;</span>
-                    </a>
-                  </li>
-
-                  {filteredPages.map((pageN: number) => (
-                    <li
-                      onChange={() => {
-                        setCurrentPage(pageN);
-                        getAllUsers(8, pageN)}
-                      }
-                        
-                        
-                       
-                      
-                      className="page-item"
-                      key={pageN}
-                    >
-                      <a className="page-link">{pageN}</a>
-                    </li>
-                  ))}
-
-                  
-
-                  <li className="page-item">
-                    <a  className="page-link" aria-label="Next" onClick={handleNext}>
-                      <span aria-hidden="true">&raquo;</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
             </div> */}
+           
           </div>
         ) : (
           <NoData />
