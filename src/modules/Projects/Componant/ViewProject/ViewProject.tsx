@@ -3,29 +3,24 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import projectImage from "../../../../assets/home-bg.png";
 
+// ViewProject.tsx
 interface ViewProjectProps {
-  projectId: number;
   projectTitle: string;
   projectDescription: string;
   projectTasks: number;
-  projectCreationDate: string;
+  projectCreationDate?: string; // Made optional
 }
 
 function ViewProject({
-  projectId,
   projectTitle,
   projectDescription,
   projectTasks,
+  projectCreationDate, // Keep this as it is used within the component
 }: ViewProjectProps) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
-  console.log(projectId);
-  console.log(projectTitle);
-  console.log(projectDescription);
-  console.log(projectTasks);
 
   return (
     <>
@@ -48,10 +43,12 @@ function ViewProject({
             <img src={projectImage} alt="img to view project" />
 
             <div className="mt-3">
-              <p>project Title: {projectTitle}</p>
-              <p>project Id: {projectId}</p>
-              <p>project Description: {projectDescription}</p>
+              <p>Project Title: {projectTitle}</p>
+              <p>Project Description: {projectDescription}</p>
               <p>Number Of Tasks: {projectTasks}</p>
+              {projectCreationDate && (
+                <p>Creation Date: {projectCreationDate}</p>
+              )}
             </div>
           </div>
         </Modal.Body>

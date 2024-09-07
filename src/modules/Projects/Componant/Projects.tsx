@@ -53,7 +53,7 @@ export default function Projects() {
       });
       closeDeleteModal();
       toast.success("Task deleted successfully");
-      getAllProjects(5, 1, "");
+      getAllProjects(10, 1, "");
     } catch (error) {
       toast.error("Failed to delete task");
       closeDeleteModal();
@@ -65,7 +65,7 @@ export default function Projects() {
 
   const getSearchValue = (e: any) => {
     console.log(e.target.value);
-    getAllProjects(5, 1, e.target.value);
+    getAllProjects(10, 1, e.target.value);
   };
 
   const getAllProjects = async (
@@ -86,19 +86,20 @@ export default function Projects() {
       console.log(res?.data.data);
 
       setTotalNumberOfPages(
-        Array(res?.data?.totalNumberOfPages)
-          .fill()
-          .map((_, i) => i + 1)
+        Array.from(
+          { length: res?.data?.totalNumberOfPages || 0 },
+          (_, i) => i + 1
+        )
       );
       setPageNumber(res?.data?.pageNumber);
       setProjectList(res?.data?.data);
     } catch (error: any) {
-      toast.error(error);
+      toast.error(error.message || "Error fetching projects");
     }
   };
 
   useEffect(() => {
-    getAllProjects(5, 1, "");
+    getAllProjects(10, 1, "");
   }, []);
 
   return (
@@ -164,7 +165,6 @@ export default function Projects() {
                               <FaEye />
                               <span className="d-inline-block ms-2">
                                 <ViewProject
-                                  projectId={Project.id}
                                   projectTitle={Project.title}
                                   projectDescription={Project.description}
                                   projectTasks={Project.task.length}
@@ -173,12 +173,12 @@ export default function Projects() {
                             </Dropdown.Item>
 
                             <Dropdown.Item href="#">
-                              <CiEdit />
                               <Link
                                 to={`/dashboard/add-project/${Project.id}`}
                                 className="text-black"
                                 state={{ taskData: { Project }, type: "edit" }}
                               >
+                                <CiEdit />
                                 <span className="d-inline-block ms-2">
                                   Edit
                                 </span>
