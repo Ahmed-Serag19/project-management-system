@@ -74,6 +74,10 @@ function App() {
           element: <AddProject />,
         },
         {
+          path: "add-project/:id",
+          element: <AddProject />,
+        },
+        {
           path: "tasks",
           element: <Tasks />,
         },
@@ -84,11 +88,11 @@ function App() {
       ],
     },
   ]);
-  return(
+  return (
     <>
-    <RouterProvider router={routes} />
+      <RouterProvider router={routes} />
     </>
-    ) 
+  );
 }
 
 export default App;

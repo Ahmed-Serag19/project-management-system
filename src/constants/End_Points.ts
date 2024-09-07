@@ -41,5 +41,6 @@ export const Project_URLs = {
   addProjectForMang: `${Base_Projects}`,
   getProjectForMang: `${Base_Projects}/manager`,
   addNewProject: `${Base_Url}/Project`,
-
+  deleteProject: (id: number | string): string => `${Base_Url}/Project/${id}`,
+  updateProject: (id: number | string): string => `${Base_Url}/Project/${id}`,
 };
