@@ -5,13 +5,17 @@ import InputGroup from "react-bootstrap/InputGroup";
 import { HiChevronUpDown } from "react-icons/hi2";
 import { IoMdSearch } from "react-icons/io";
 import { Project_URLs, requestHeader } from "../../../constants/End_Points";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import NoData from "../../Shared/components/NoData/NoData";
 import { Dropdown } from "react-bootstrap";
 import CustomToggle from "../../Tasks/Componant/CustomToggle";
 import { FaEye } from "react-icons/fa";
 import { CiEdit } from "react-icons/ci";
 import { MdDelete } from "react-icons/md";
+import { toast } from "react-toastify";
+import Pagination from "react-bootstrap/Pagination";
+import PopupModal from "../../Shared/components/PopupModal/PopupModal";
+import ViewProject from "./ViewProject/ViewProject";
 
 interface Project {
   id: number;
@@ -21,23 +25,80 @@ interface Project {
 }
 
 export default function Projects() {
-  const Navigator = useNavigate();
+  const navigate = useNavigate();
   const [projectList, setProjectList] = useState<Project[]>([]);
+  const [totalNumberOfPages, setTotalNumberOfPages] = useState<number[]>([]);
+  const [pageNumber, setPageNumber] = useState(0);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedTaskId, setSelectedTaskId] = useState<number | null>(null);
+  const [deleting, setDeleting] = useState<boolean>(false);
 
-  const getAllProjects = async () => {
+  const closeDeleteModal = (): void => {
+    setShowModal(false);
+    setSelectedTaskId(null);
+  };
+
+  const openDeleteModal = (taskId: number) => {
+    setSelectedTaskId(taskId);
+    setShowModal(true);
+  };
+
+  const handleDeleteTask = async () => {
+    if (selectedTaskId === null) return;
+
+    setDeleting(true);
     try {
-      const res = await axios.get(`${Project_URLs.getProjectForMang}`, {
+      await axios.delete(Project_URLs.deleteProject(selectedTaskId), {
         headers: requestHeader,
       });
-      console.log(res?.data?.data);
-      setProjectList(res?.data?.data);
+      closeDeleteModal();
+      toast.success("Task deleted successfully");
+      getAllProjects(5, 1, "");
     } catch (error) {
+      toast.error("Failed to delete task");
+      closeDeleteModal();
       console.log(error);
+    } finally {
+      setDeleting(false);
+    }
+  };
+
+  const getSearchValue = (e: any) => {
+    console.log(e.target.value);
+    getAllProjects(5, 1, e.target.value);
+  };
+
+  const getAllProjects = async (
+    pageSize: number,
+    pageNumber: number,
+    title: string
+  ) => {
+    try {
+      const params = {
+        pageSize: pageSize,
+        pageNumber: pageNumber,
+        title: title,
+      };
+      const res = await axios.get(`${Project_URLs.getProjectForMang}`, {
+        headers: requestHeader,
+        params,
+      });
+      console.log(res?.data.data);
+
+      setTotalNumberOfPages(
+        Array(res?.data?.totalNumberOfPages)
+          .fill()
+          .map((_, i) => i + 1)
+      );
+      setPageNumber(res?.data?.pageNumber);
+      setProjectList(res?.data?.data);
+    } catch (error: any) {
+      toast.error(error);
     }
   };
 
   useEffect(() => {
-    getAllProjects();
+    getAllProjects(5, 1, "");
   }, []);
 
   return (
@@ -46,7 +107,7 @@ export default function Projects() {
         <h2 className="title-components ps-5 py-4">Projects</h2>
         <button
           className="btn bg-main rounded-5 text-white px-4 me-4"
-          onClick={() => Navigator("/dashboard/add-project")}
+          onClick={() => navigate("/dashboard/add-project")}
         >
           + Add New Project
         </button>
@@ -62,6 +123,7 @@ export default function Projects() {
             aria-label="Search By Title"
             aria-describedby="basic-addon1"
             className="text-black py-1"
+            onChange={(e) => getSearchValue(e)}
           />
         </InputGroup>
 
@@ -69,6 +131,9 @@ export default function Projects() {
           <table className="table">
             <thead>
               <tr className="text-white">
+                <th>
+                  ID <HiChevronUpDown />
+                </th>
                 <th>
                   Title <HiChevronUpDown />
                 </th>
@@ -87,6 +152,7 @@ export default function Projects() {
                 projectList.map((Project) => {
                   return (
                     <tr key={Project.id}>
+                      <td>{Project.id}</td>
                       <td>{Project.title}</td>
                       <td>{Project.task.length}</td>
                       <td>{Project.description}</td>
@@ -96,13 +162,33 @@ export default function Projects() {
                           <Dropdown.Menu>
                             <Dropdown.Item href="#">
                               <FaEye />
-                              <span className="d-inline-block ms-2">View</span>
+                              <span className="d-inline-block ms-2">
+                                <ViewProject
+                                  projectId={Project.id}
+                                  projectTitle={Project.title}
+                                  projectDescription={Project.description}
+                                  projectTasks={Project.task.length}
+                                />
+                              </span>
                             </Dropdown.Item>
+
                             <Dropdown.Item href="#">
                               <CiEdit />
-                              <span className="d-inline-block ms-2">Edit</span>
+                              <Link
+                                to={`/dashboard/add-project/${Project.id}`}
+                                className="text-black"
+                                state={{ taskData: { Project }, type: "edit" }}
+                              >
+                                <span className="d-inline-block ms-2">
+                                  Edit
+                                </span>
+                              </Link>
                             </Dropdown.Item>
-                            <Dropdown.Item href="#">
+
+                            <Dropdown.Item
+                              href="#"
+                              onClick={() => openDeleteModal(Project.id)}
+                            >
                               <MdDelete />
                               <span className="d-inline-block ms-2">
                                 Delete
@@ -120,6 +206,52 @@ export default function Projects() {
             </tbody>
           </table>
         </div>
+
+        <div className="d-flex justify-content-end mt-4">
+          <Pagination>
+            <Pagination.First
+              onClick={() => getAllProjects(5, totalNumberOfPages[0], "")}
+            />
+            <Pagination.Prev
+              onClick={() => getAllProjects(5, pageNumber - 1, "")}
+            />
+
+            {totalNumberOfPages?.map((num: number) => {
+              return (
+                <Pagination.Item
+                  active={num === pageNumber}
+                  key={num}
+                  onClick={() => getAllProjects(5, num, "")}
+                >
+                  {num}
+                </Pagination.Item>
+              );
+            })}
+
+            <Pagination.Next
+              onClick={() => getAllProjects(5, pageNumber + 1, "")}
+            />
+            <Pagination.Last
+              onClick={() =>
+                getAllProjects(
+                  5,
+                  totalNumberOfPages[totalNumberOfPages.length - 1],
+                  ""
+                )
+              }
+            />
+          </Pagination>
+        </div>
+
+        <PopupModal
+          buttonText="Delete"
+          title="Delete Project Confirmation"
+          bodyText="Are you sure you want to delete this project?"
+          show={showModal}
+          handleClose={closeDeleteModal}
+          propFunction={handleDeleteTask}
+          loading={deleting}
+        />
       </div>
     </div>
   );

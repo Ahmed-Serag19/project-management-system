@@ -20,6 +20,8 @@ import VerifyEmail from "./modules/Auth/components/VerifyEmail/VerifyEmail";
 import AddProject from "./modules/Projects/Componant/AddProject/AddProject";
 import AddTask from "./modules/Tasks/Componant/AddTask/AddTask";
 import { useState } from "react";
+import ProtectedRoute from "./modules/Shared/components/ProtectedRoute/ProtectedRoute";
+
 
 function App() {
   const [mode, setMode] = useState('light');
@@ -62,6 +64,12 @@ function App() {
     {
       path: "/dashboard",
       element: <MasterLayout toggle={toggle} mode={mode} />,
+      element: (
+        <ProtectedRoute>
+          <MasterLayout />
+        </ProtectedRoute>
+      ),
+
       errorElement: <NotFound />,
 
       children: [
@@ -86,6 +94,10 @@ function App() {
           element: <AddProject />,
         },
         {
+          path: "add-project/:id",
+          element: <AddProject />,
+        },
+        {
           path: "tasks",
           element: <Tasks />,
         },
@@ -96,11 +108,11 @@ function App() {
       ],
     },
   ]);
-  return(
+  return (
     <>
-    <RouterProvider router={routes} />
+      <RouterProvider router={routes} />
     </>
-    ) 
+  );
 }
 
 export default App;
