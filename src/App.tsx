@@ -1,8 +1,4 @@
-import {
-  // createBrowserRouter,
-  createHashRouter,
-  RouterProvider,
-} from "react-router-dom";
+import { createHashRouter, RouterProvider } from "react-router-dom";
 import AuthLayout from "./modules/Shared/components/AuthLayout/AuthLayout";
 import Login from "./modules/Auth/components/Login/Login";
 import Register from "./modules/Auth/components/Register/Register";
