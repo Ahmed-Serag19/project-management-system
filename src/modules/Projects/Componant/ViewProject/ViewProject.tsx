@@ -5,7 +5,6 @@ import projectImage from "../../../../assets/home-bg.png";
 
 // ViewProject.tsx
 interface ViewProjectProps {
-  projectId: number;
   projectTitle: string;
   projectDescription: string;
   projectTasks: number;
@@ -13,7 +12,6 @@ interface ViewProjectProps {
 }
 
 function ViewProject({
-  projectId,
   projectTitle,
   projectDescription,
   projectTasks,
@@ -46,7 +44,6 @@ function ViewProject({
 
             <div className="mt-3">
               <p>Project Title: {projectTitle}</p>
-              <p>Project Id: {projectId}</p>
               <p>Project Description: {projectDescription}</p>
               <p>Number Of Tasks: {projectTasks}</p>
               {projectCreationDate && (

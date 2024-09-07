@@ -165,7 +165,6 @@ export default function Projects() {
                               <FaEye />
                               <span className="d-inline-block ms-2">
                                 <ViewProject
-                                  projectId={Project.id}
                                   projectTitle={Project.title}
                                   projectDescription={Project.description}
                                   projectTasks={Project.task.length}
@@ -174,12 +173,12 @@ export default function Projects() {
                             </Dropdown.Item>
 
                             <Dropdown.Item href="#">
-                              <CiEdit />
                               <Link
                                 to={`/dashboard/add-project/${Project.id}`}
                                 className="text-black"
                                 state={{ taskData: { Project }, type: "edit" }}
                               >
+                                <CiEdit />
                                 <span className="d-inline-block ms-2">
                                   Edit
                                 </span>
