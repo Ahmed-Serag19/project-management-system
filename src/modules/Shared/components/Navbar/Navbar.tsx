@@ -6,8 +6,11 @@ import Alret from "../../../../assets/alret.png";
 import User from "../../../../assets/User.png";
 import { Link, useNavigate } from "react-router-dom";
 import { Dropdown } from "react-bootstrap";
+import { MdDarkMode } from "react-icons/md";
+import { CiLight } from "react-icons/ci";
 
-export default function Navbar() {
+export default function Navbar({toggle}) {
+  
   const navigate = useNavigate();
   interface user {
     imagePath: string;
@@ -31,7 +34,7 @@ export default function Navbar() {
   }, []);
 
   return (
-    <div className="border-bottom bg-white ">
+    <div className="border-bottom ">
       <div className="d-flex">
         <div className="col-md-9 border-end  navbar-left my-2 ps-2 ">
           <div className="d-flex justify-content-between p-1">
@@ -158,6 +161,12 @@ export default function Navbar() {
                 }}>
                     <i className="fa-solid fa-unlock"></i> ChangePassword
 
+              </Dropdown.Item>
+              <Dropdown.Item className=" fw-bold"
+                onClick={() => { 
+                  toggle()
+                }}>
+                   <MdDarkMode /> dark / <CiLight /> light 
               </Dropdown.Item>
               <Dropdown.Item
                 className=" fw-bold"

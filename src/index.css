@@ -6,18 +6,22 @@
   box-sizing: border-box;
 }
 
-body {
-  font-family: "Montserrat", sans-serif !important;
-  background-color: #f5f5f5 !important;
+:root{
+  --bg-main-dark: black !important;
+  --bg-main-light: #fff !important;
 }
 
 .dark {
-  --bg-main: black;
+  background-color: var(--bg-main-dark);
+  color: var(--bg-main-light);
 }
 
 .light {
-  --main: white;
+  background-color: var(--bg-main-light);
+  color: var(--bg-main-dark);
 }
+
+
 
 a {
   text-decoration: none;

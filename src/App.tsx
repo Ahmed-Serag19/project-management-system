@@ -19,9 +19,22 @@ import ChangePassword from "./modules/Auth/components/ChangePassword/ChangePassw
 import VerifyEmail from "./modules/Auth/components/VerifyEmail/VerifyEmail";
 import AddProject from "./modules/Projects/Componant/AddProject/AddProject";
 import AddTask from "./modules/Tasks/Componant/AddTask/AddTask";
+import { useState } from "react";
 import ProtectedRoute from "./modules/Shared/components/ProtectedRoute/ProtectedRoute";
 
+
 function App() {
+  const [mode, setMode] = useState('light');
+
+  const toggle =()=>{
+    if(mode==='light'){
+      setMode('dark');
+    }
+    else{
+      setMode('light');
+    }
+  }
+  
   const routes = createHashRouter([
     {
       path: "/",
@@ -50,11 +63,13 @@ function App() {
     },
     {
       path: "/dashboard",
+      element: <MasterLayout toggle={toggle} mode={mode} />,
       element: (
         <ProtectedRoute>
           <MasterLayout />
         </ProtectedRoute>
       ),
+
       errorElement: <NotFound />,
 
       children: [
