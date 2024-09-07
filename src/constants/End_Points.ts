@@ -18,6 +18,7 @@ export const User_URls = {
   getCurrentUser: `${Base_Users}/currentUser`,
   getUser: `${Base_Users}/manager`,
   toggleStatues: (id: string) => `${Base_Users}/${id}`,
+  getUsersCount: `${Base_Users}/count`,
 };
 
 const Base_Tasks = `${Base_Url}/Task`;
@@ -33,6 +34,7 @@ export const Task_URLs = {
     `${Base_Tasks}/${id}/change-status`,
   getByProject: (projectId: number | string): string =>
     `${Base_Tasks}/project/${projectId}`,
+  getTasksCount: `${Base_Tasks}/count`,
 };
 
 const Base_Projects = `${Base_Url}/Project`;
