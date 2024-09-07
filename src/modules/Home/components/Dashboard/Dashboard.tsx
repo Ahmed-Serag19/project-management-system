@@ -1,11 +1,7 @@
 import DashboardSection from "../DashboardSection/DashboardSection";
-import {
-  FaChartBar,
-  FaClipboardList,
-  FaProjectDiagram,
-  FaUserAltSlash,
-  FaUserAlt,
-} from "react-icons/fa";
+import { FaUserAltSlash, FaUserAlt } from "react-icons/fa";
+import { LuListTodo, LuListChecks, LuLayoutList } from "react-icons/lu";
+
 import { Task_URLs, User_URls } from "../../../../constants/End_Points";
 import axiosInstance from "../../../../utils/axiosInstance";
 import { useEffect, useState } from "react";
@@ -75,21 +71,21 @@ const Dashboard = () => {
 
   const taskCards = [
     {
-      icon: <FaChartBar />,
+      icon: <LuLayoutList />,
       label: "Tasks To Do",
       value: tasksStatus.toDo,
       backgroundColor: "#e5e6f4",
       iconBackgroundColor: "#cfd1ec",
     },
     {
-      icon: <FaClipboardList />,
+      icon: <LuListTodo />,
       label: "Tasks In Progress",
       value: tasksStatus.inProgress,
       backgroundColor: "#f4f4e5",
       iconBackgroundColor: "#e4e4bc",
     },
     {
-      icon: <FaProjectDiagram />,
+      icon: <LuListChecks />,
       label: "Completed Tasks",
       value: tasksStatus.done,
       backgroundColor: "#FFEBEE",
