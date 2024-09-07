@@ -189,7 +189,7 @@ const Tasks: React.FC = () => {
           <h2 className="">Tasks</h2>
           {user?.group.name === "Manager" && (
             <button
-              className="btn btn-lg btn-warning me-5 btn-add text-white rounded-pill px-4 "
+              className="btn btn-lg btn-warning me-5 btn-add text-white rounded-pill px-3"
               onClick={() => {
                 navigate("/dashboard/add-task");
               }}
