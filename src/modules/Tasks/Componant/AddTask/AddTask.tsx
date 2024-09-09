@@ -30,6 +30,7 @@ export default function AddTask() {
     formState: { errors },
     handleSubmit,
     setValue,
+    reset,
   } = useForm<dataTask>({
     defaultValues: {
       title: task?.title || "",
@@ -45,7 +46,6 @@ export default function AddTask() {
       setValue("title", task.title);
       setValue("description", task.description);
 
-      // Ensure dropdown values reflect properly by setting them correctly
       if (task.employee?.id) {
         setValue("employeeId", task.employee.id.toString());
       }
@@ -68,6 +68,13 @@ export default function AddTask() {
         });
         toast.success("Task added successfully");
       }
+
+      // Clear localStorage after successful submission
+      localStorage.removeItem("taskTitle");
+      localStorage.removeItem("taskDescription");
+      localStorage.removeItem("taskEmployeeId");
+      localStorage.removeItem("taskProjectId");
+
       navigate("/dashboard/tasks");
     } catch (error: any) {
       toast.error(error.response?.data?.message || "Failed to save task");
@@ -99,6 +106,60 @@ export default function AddTask() {
   useEffect(() => {
     addProject();
     getAllUsers();
+  }, []);
+
+  useEffect(() => {
+    const savedTitle = localStorage.getItem("taskTitle") || "";
+    const savedDescription = localStorage.getItem("taskDescription") || "";
+    const savedEmployeeId = localStorage.getItem("taskEmployeeId") || "0";
+    const savedProjectId = localStorage.getItem("taskProjectId") || "0";
+
+    if (!task) {
+      reset({
+        title: savedTitle,
+        description: savedDescription,
+        employeeId: parseInt(savedEmployeeId),
+        projectId: parseInt(savedProjectId),
+      });
+    }
+  }, [reset, task]);
+
+  // Save form data to local storage when leaving the page to prevent loss of data
+  useEffect(() => {
+    const saveFormData = () => {
+      const form = document.querySelector("form") as HTMLFormElement;
+      const formData = new FormData(form);
+
+      localStorage.setItem(
+        "taskTitle",
+        (formData.get("title") as string) || ""
+      );
+      localStorage.setItem(
+        "taskDescription",
+        (formData.get("description") as string) || ""
+      );
+      localStorage.setItem(
+        "taskEmployeeId",
+        (formData.get("employeeId") as string) || "0"
+      );
+      localStorage.setItem(
+        "taskProjectId",
+        (formData.get("projectId") as string) || "0"
+      );
+    };
+
+    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+      const message =
+        "You have unsaved changes. Are you sure you want to leave?";
+      event.returnValue = message; // Standard for most browsers
+      return message; // For older browsers
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
   }, []);
 
   return (

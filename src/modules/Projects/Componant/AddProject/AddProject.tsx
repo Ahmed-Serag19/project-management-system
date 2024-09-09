@@ -5,6 +5,7 @@ import { IoIosArrowBack } from "react-icons/io";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Project_URLs, requestHeader } from "../../../../constants/End_Points";
+import { useEffect } from "react";
 
 type addProjuctInputs = {
   title: string;
@@ -27,27 +28,71 @@ function AddProject() {
   console.log(taskData);
   console.log(type);
 
+  // Function to handle form submission
   const addNewProjuct = async (data: addProjuctInputs) => {
     try {
       const res = await axios({
-        method: type == "edit" ? "PUT" : "POST",
+        method: type === "edit" ? "PUT" : "POST",
         url:
-          type == "edit"
+          type === "edit"
             ? Project_URLs.updateProject(taskData.Project.id)
             : Project_URLs.addNewProject,
         data: data,
         headers: requestHeader,
       });
-      toast.success(
-        `Project ${type == "edit" ? "Edited" : " Added"} Successfully`
-      );
+
+      // Clear localStorage after successful form submission
+      localStorage.removeItem("title");
+      localStorage.removeItem("description");
+
+      // Reset the form after submission
       reset();
+
+      // Navigate to the desired page
       Navigator("/dashboard/projects");
+
+      toast.success(
+        `Project ${type === "edit" ? "Edited" : "Added"} Successfully`
+      );
     } catch (error) {
       toast.error("An unexpected error occurred. Please try again.");
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    // Load form data from localStorage on component mount
+    const savedTitle = localStorage.getItem("title") || "";
+    const savedDescription = localStorage.getItem("description") || "";
+
+    // Pre-fill the form if data exists in localStorage
+    reset({
+      title: savedTitle,
+      description: savedDescription,
+    });
+
+    const saveFormData = (e: BeforeUnloadEvent) => {
+      // Prevent the user from leaving without confirmation
+      e.preventDefault();
+      e.returnValue = ""; // This triggers the browser confirmation dialog
+
+      const form = document.querySelector("form") as HTMLFormElement;
+      const formData = new FormData(form);
+
+      // Save form data to localStorage
+      localStorage.setItem("title", (formData.get("title") as string) || "");
+      localStorage.setItem(
+        "description",
+        (formData.get("description") as string) || ""
+      );
+    };
+
+    window.addEventListener("beforeunload", saveFormData);
+
+    return () => {
+      window.removeEventListener("beforeunload", saveFormData);
+    };
+  }, [reset]);
 
   return (
     <div>
