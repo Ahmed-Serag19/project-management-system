@@ -6,7 +6,7 @@
   box-sizing: border-box;
 }
 
-:root{
+:root {
   --bg-main-dark: black !important;
   --bg-main-light: #fff !important;
 }
@@ -20,8 +20,6 @@
   background-color: var(--bg-main-light);
   color: var(--bg-main-dark);
 }
-
-
 
 a {
   text-decoration: none;
@@ -693,4 +691,6 @@ select option:checked {
   font-size: 15px !important;
 }
 
-/* >>>>>>>Stashed changes */
+.fixed-w {
+  width: 150px;
+}

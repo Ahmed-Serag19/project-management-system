@@ -79,7 +79,7 @@ export default function Projects() {
         pageNumber: pageNumber,
         title: title,
       };
-      const res = await axios.get(`${Project_URLs.getProjectForMang}`, {
+      const res = await axios.get(`${Project_URLs.getProjectForEmployee}`, {
         headers: requestHeader,
         params,
       });
@@ -210,10 +210,10 @@ export default function Projects() {
         <div className="d-flex justify-content-end mt-4">
           <Pagination>
             <Pagination.First
-              onClick={() => getAllProjects(5, totalNumberOfPages[0], "")}
+              onClick={() => getAllProjects(10, totalNumberOfPages[0], "")}
             />
             <Pagination.Prev
-              onClick={() => getAllProjects(5, pageNumber - 1, "")}
+              onClick={() => getAllProjects(10, pageNumber - 1, "")}
             />
 
             {totalNumberOfPages?.map((num: number) => {
@@ -221,7 +221,7 @@ export default function Projects() {
                 <Pagination.Item
                   active={num === pageNumber}
                   key={num}
-                  onClick={() => getAllProjects(5, num, "")}
+                  onClick={() => getAllProjects(10, num, "")}
                 >
                   {num}
                 </Pagination.Item>
@@ -229,12 +229,12 @@ export default function Projects() {
             })}
 
             <Pagination.Next
-              onClick={() => getAllProjects(5, pageNumber + 1, "")}
+              onClick={() => getAllProjects(10, pageNumber + 1, "")}
             />
             <Pagination.Last
               onClick={() =>
                 getAllProjects(
-                  5,
+                  10,
                   totalNumberOfPages[totalNumberOfPages.length - 1],
                   ""
                 )

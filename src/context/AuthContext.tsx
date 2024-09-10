@@ -7,6 +7,8 @@ export interface AuthContextType {
   user: DecodedUser | null;
   saveToken: (token: string) => void;
   clearToken: () => void;
+  toggleTheme: () => void;
+  theme: string;
 }
 
 interface Group {
@@ -37,6 +39,11 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   const { getCurrentUser } = User_URls;
   const [token, setToken] = useState<string | null>(null);
   const [user, setUser] = useState<DecodedUser | null>(null);
+  const [theme, setTheme] = useState("light");
+
+  const toggleTheme = () => {
+    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+  };
 
   const saveToken = async (token: string) => {
     setToken(token);
@@ -68,9 +75,13 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
       saveToken(storedToken);
     }
   }, []);
-
+  useEffect(() => {
+    document.body.className = theme; // Applies the theme class (light or dark)
+  }, [theme]);
   return (
-    <AuthContext.Provider value={{ token, user, saveToken, clearToken }}>
+    <AuthContext.Provider
+      value={{ token, user, saveToken, clearToken, toggleTheme, theme }}
+    >
       {children}
     </AuthContext.Provider>
   );

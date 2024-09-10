@@ -262,10 +262,10 @@ const Tasks: React.FC = () => {
                 <tbody>
                   {tasks.map((task) => (
                     <tr key={task.id} className={loading ? "opacity-50" : ""}>
-                      <td>{task.title}</td>
-                      <td>{task.status}</td>
-                      <td>{task.employee.userName}</td>
-                      <td>{task.project.title}</td>
+                      <td>{task?.title}</td>
+                      <td>{task?.status}</td>
+                      <td>{task?.employee?.userName}</td>
+                      <td>{task?.project?.title}</td>
                       <td>
                         {new Date(task.creationDate).toLocaleDateString()}
                       </td>

@@ -13,7 +13,6 @@ const Home = () => {
 
   const { user } = authContext as AuthContextType;
 
-  // Simulate loading user data
   useEffect(() => {
     if (user) {
       setTimeout(() => {
@@ -39,11 +38,9 @@ const Home = () => {
           </h1>
           <h2>You can add project and assign tasks to your team</h2>
         </div>
-        {user?.group.name === "Manager" && (
-          <div className="home-content">
-            <Dashboard />
-          </div>
-        )}
+        <div className="home-content">
+          <Dashboard />
+        </div>
       </main>
     </section>
   );
