@@ -15,19 +15,18 @@ import ChangePassword from "./modules/Auth/components/ChangePassword/ChangePassw
 import VerifyEmail from "./modules/Auth/components/VerifyEmail/VerifyEmail";
 import AddProject from "./modules/Projects/Componant/AddProject/AddProject";
 import AddTask from "./modules/Tasks/Componant/AddTask/AddTask";
-import { useState } from "react";
+import { useContext } from "react";
 import ProtectedRoute from "./modules/Shared/components/ProtectedRoute/ProtectedRoute";
+import { AuthContext } from "./context/AuthContext";
 
 function App() {
-  const [mode, setMode] = useState("light");
-
-  const toggle = () => {
-    if (mode === "light") {
-      setMode("dark");
-    } else {
-      setMode("light");
-    }
-  };
+  const authContext = useContext(AuthContext);
+  if (!authContext) {
+    throw new Error(
+      "AuthContext is not available. Make sure to wrap your app with AuthContextProvider."
+    );
+  }
+  const { theme, toggleTheme } = authContext;
 
   const routes = createHashRouter([
     {
@@ -59,7 +58,7 @@ function App() {
       path: "/dashboard",
       element: (
         <ProtectedRoute>
-          <MasterLayout toggle={toggle} mode={mode} />
+          <MasterLayout toggle={toggleTheme} mode={theme} />
         </ProtectedRoute>
       ),
 

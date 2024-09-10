@@ -6,7 +6,7 @@
   box-sizing: border-box;
 }
 
-:root{
+:root {
   --bg-main-dark: black !important;
   --bg-main-light: #fff !important;
 }
@@ -20,8 +20,6 @@
   background-color: var(--bg-main-light);
   color: var(--bg-main-dark);
 }
-
-
 
 a {
   text-decoration: none;
@@ -248,6 +246,9 @@ a {
 
 .bg-sidebar {
   background-color: #0e382f !important;
+  position: sticky !important;
+  top: 0;
+  left: 0;
   font-size: large;
 }
 
@@ -693,4 +694,10 @@ select option:checked {
   font-size: 15px !important;
 }
 
-/* >>>>>>>Stashed changes */
+.fixed-w {
+  width: 150px;
+}
+.current-page {
+  background-color: #343a40 !important;
+  color: white !important;
+}

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import { HiChevronUpDown } from "react-icons/hi2";
@@ -16,6 +16,8 @@ import { toast } from "react-toastify";
 import Pagination from "react-bootstrap/Pagination";
 import PopupModal from "../../Shared/components/PopupModal/PopupModal";
 import ViewProject from "./ViewProject/ViewProject";
+import { AuthContext, AuthContextType } from "../../../context/AuthContext";
+import axiosInstance from "../../../utils/axiosInstance";
 
 interface Project {
   id: number;
@@ -32,6 +34,8 @@ export default function Projects() {
   const [showModal, setShowModal] = useState(false);
   const [selectedTaskId, setSelectedTaskId] = useState<number | null>(null);
   const [deleting, setDeleting] = useState<boolean>(false);
+
+  const { user } = useContext(AuthContext) as AuthContextType;
 
   const closeDeleteModal = (): void => {
     setShowModal(false);
@@ -75,14 +79,22 @@ export default function Projects() {
   ) => {
     try {
       const params = {
-        pageSize: pageSize,
-        pageNumber: pageNumber,
-        title: title,
+        pageSize,
+        pageNumber,
+        title,
       };
-      const res = await axios.get(`${Project_URLs.getProjectForMang}`, {
+
+      // Determine which API to call based on the user's group
+      const apiEndpoint =
+        user?.group.name === "Manager"
+          ? Project_URLs.getProjectForMang
+          : Project_URLs.getProjectForEmployee;
+
+      const res = await axiosInstance.get(apiEndpoint, {
         headers: requestHeader,
         params,
       });
+
       console.log(res?.data.data);
 
       setTotalNumberOfPages(
@@ -100,7 +112,7 @@ export default function Projects() {
 
   useEffect(() => {
     getAllProjects(10, 1, "");
-  }, []);
+  }, [user]); // Re-run when the user changes to ensure the right API is used
 
   return (
     <div>
@@ -210,10 +222,10 @@ export default function Projects() {
         <div className="d-flex justify-content-end mt-4">
           <Pagination>
             <Pagination.First
-              onClick={() => getAllProjects(5, totalNumberOfPages[0], "")}
+              onClick={() => getAllProjects(10, totalNumberOfPages[0], "")}
             />
             <Pagination.Prev
-              onClick={() => getAllProjects(5, pageNumber - 1, "")}
+              onClick={() => getAllProjects(10, pageNumber - 1, "")}
             />
 
             {totalNumberOfPages?.map((num: number) => {
@@ -221,7 +233,7 @@ export default function Projects() {
                 <Pagination.Item
                   active={num === pageNumber}
                   key={num}
-                  onClick={() => getAllProjects(5, num, "")}
+                  onClick={() => getAllProjects(10, num, "")}
                 >
                   {num}
                 </Pagination.Item>
@@ -229,12 +241,12 @@ export default function Projects() {
             })}
 
             <Pagination.Next
-              onClick={() => getAllProjects(5, pageNumber + 1, "")}
+              onClick={() => getAllProjects(10, pageNumber + 1, "")}
             />
             <Pagination.Last
               onClick={() =>
                 getAllProjects(
-                  5,
+                  10,
                   totalNumberOfPages[totalNumberOfPages.length - 1],
                   ""
                 )

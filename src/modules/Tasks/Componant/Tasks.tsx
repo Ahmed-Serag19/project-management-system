@@ -147,7 +147,7 @@ const Tasks: React.FC = () => {
               key={page}
               onClick={() => fetchTasks(page)}
               className={`page-item ${
-                page === pageNumber ? "text-white text-primary" : ""
+                page === pageNumber ? "current-page bg-dark text-white" : ""
               }`}
             >
               <a className="page-link">{page}</a>
@@ -262,10 +262,10 @@ const Tasks: React.FC = () => {
                 <tbody>
                   {tasks.map((task) => (
                     <tr key={task.id} className={loading ? "opacity-50" : ""}>
-                      <td>{task.title}</td>
-                      <td>{task.status}</td>
-                      <td>{task.employee.userName}</td>
-                      <td>{task.project.title}</td>
+                      <td>{task?.title}</td>
+                      <td>{task?.status}</td>
+                      <td>{task?.employee?.userName}</td>
+                      <td>{task?.project?.title}</td>
                       <td>
                         {new Date(task.creationDate).toLocaleDateString()}
                       </td>
