@@ -246,6 +246,9 @@ a {
 
 .bg-sidebar {
   background-color: #0e382f !important;
+  position: sticky !important;
+  top: 0;
+  left: 0;
   font-size: large;
 }
 
@@ -693,4 +696,8 @@ select option:checked {
 
 .fixed-w {
   width: 150px;
+}
+.current-page {
+  background-color: #343a40 !important;
+  color: white !important;
 }

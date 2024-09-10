@@ -43,7 +43,7 @@ const SidebarComponent: React.FC = () => {
       setLoading(false);
       setShowModal(false);
       navigate("/auth/login");
-    }, 500); // Simulate a delay, if needed
+    }, 500);
   };
 
   return (

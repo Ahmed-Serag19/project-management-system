@@ -147,7 +147,7 @@ const Tasks: React.FC = () => {
               key={page}
               onClick={() => fetchTasks(page)}
               className={`page-item ${
-                page === pageNumber ? "text-white text-primary" : ""
+                page === pageNumber ? "current-page bg-dark text-white" : ""
               }`}
             >
               <a className="page-link">{page}</a>
