@@ -31,7 +31,7 @@ function AddProject() {
   // Function to handle form submission
   const addNewProjuct = async (data: addProjuctInputs) => {
     try {
-      const res = await axios({
+      await axios({
         method: type === "edit" ? "PUT" : "POST",
         url:
           type === "edit"

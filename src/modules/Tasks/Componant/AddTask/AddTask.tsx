@@ -149,6 +149,7 @@ export default function AddTask() {
     };
 
     const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+      saveFormData(); // Call saveFormData before leaving
       const message =
         "You have unsaved changes. Are you sure you want to leave?";
       event.returnValue = message; // Standard for most browsers

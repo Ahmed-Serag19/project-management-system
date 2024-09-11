@@ -1,7 +1,7 @@
 import axios from "axios";
-import { range } from "lodash";
 import React, { useEffect, useState } from "react";
 import { Task_URLs } from "../../../../constants/End_Points";
+import { toast } from "react-toastify";
 type UserTask = {
   id: string;
   title: string;
@@ -18,13 +18,14 @@ export default function TaskUser() {
       let response = await axios.get<{ data: UserTasks }>(
         Task_URLs.getAllAssigned,
         {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-        params:{
-            pageSize:100,
-            pageNumber:1
-        }}
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          params: {
+            pageSize: 100,
+            pageNumber: 1,
+          },
+        }
       );
       setTasks(response.data.data);
     } catch (error) {}
@@ -70,7 +71,7 @@ const Colum = ({
   const changeTaskStatus = React.useCallback(
     async ({ taskId, newStatus }: { taskId: string; newStatus: string }) => {
       try {
-        let response = await axios.put(
+        await axios.put(
           Task_URLs.changeStatus(taskId),
           {
             status: newStatus,
@@ -81,6 +82,7 @@ const Colum = ({
             },
           }
         );
+        toast.success("Task status updated successfully");
         refetchusers();
       } catch (error) {}
     },
@@ -96,26 +98,25 @@ const Colum = ({
           e.preventDefault();
           const taskId = e.dataTransfer.getData("taskId");
           const previousStatus = e.dataTransfer.getData("previousStatus");
-          if (previousStatus== title) return
-            
-          
+          if (previousStatus == title) return;
+
           changeTaskStatus({ taskId, newStatus: title });
         }}
         onDragOver={(e) => {
           e.preventDefault();
         }}
       >
-        {tUser.map(({ id, title:titleCard }) => (
+        {tUser.map(({ id, title: titleCard }) => (
           <div
             draggable={true}
             onDragStart={(e) => {
               e.dataTransfer.setData("taskId", id);
               e.dataTransfer.setData("previousStatus", title);
-              console.log("start")
+              console.log("start");
             }}
-            onDragEnd={() => {console.log("end")}
-          
-        }
+            onDragEnd={() => {
+              console.log("end");
+            }}
             className="task rounded-2 text-white "
           >
             <p>{titleCard}</p>
