@@ -4,13 +4,15 @@ import { Base_Img_Url, User_URls } from "../../../../constants/End_Points";
 import ImgNavbar from "../../../../assets/nav-icon.png";
 import Alret from "../../../../assets/alret.png";
 import User from "../../../../assets/User.png";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Dropdown } from "react-bootstrap";
 import { MdDarkMode } from "react-icons/md";
 import { CiLight } from "react-icons/ci";
 
-export default function Navbar({toggle}) {
-  
+interface NavbarProps {
+  toggle: () => void;
+}
+export default function Navbar({ toggle }: NavbarProps) {
   const navigate = useNavigate();
   interface user {
     imagePath: string;
@@ -56,76 +58,7 @@ export default function Navbar({toggle}) {
         </div>
 
         <div className="col-md-2 navbar-right d-flex bg-white  mt-2">
-          {/* <nav className="navbar navbar-expand-lg navbar-light bg-white">
-            <button
-              className="navbar-toggler mb-2"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#navbarNavDropdown"
-              aria-controls="navbarNavDropdown"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <span className="navbar-toggler-icon"></span>
-            </button>
-            <div className="collapse navbar-collapse" id="navbarNavDropdown">
-              <ul className="navbar-nav">
-                <li className="nav-item ">
-                  {UserData?.imagePath !== null ? (
-                    <img
-                      src={`${Base_Img_Url}/${UserData?.imagePath}`}
-                      alt=""
-                      className="rounded-circle img-user  mx-2"
-                    />
-                  ) : (
-                    <img
-                      src={User}
-                      alt=""
-                      className="rounded-circle img-user border mx-2"
-                    />
-                  )}
-                </li>
-                <li className="nav-item">
-                  <p className="mb-0 pb-0">{UserData?.userName}</p>
-                  <p className=" my-0 py-0 light-text">{UserData?.email}</p>
-                </li>
-
-                <li className="nav-item dropdown">
-                  <a
-                    className="nav-link dropdown-toggle"
-                    id="navbarDropdownMenuLink"
-                    data-bs-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  ></a>
-
-                  <div
-                    className="dropdown-menu p-2"
-                    aria-labelledby="navbarDropdownMenuLink"
-                  >
-                    <Link
-                      className="dropdown-item fw-bold"
-                      to={"/auth/change-password"}
-                    >
-                      <i className="fa-solid fa-unlock"></i> ChangePassword
-                    </Link>
-
-                    <Link
-                      className="dropdown-item fw-bold"
-                      to={"/auth/login"}
-                      onClick={() => {
-                        localStorage.removeItem("token");
-                      }}
-                    >
-                      <i className="fa-solid fa-door-open"></i> Logout
-                    </Link>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </nav> */}
-
-           <div>
+          <div>
             {UserData?.imagePath !== null ? (
               <img
                 src={`${Base_Img_Url}/${UserData?.imagePath}`}
@@ -148,25 +81,27 @@ export default function Navbar({toggle}) {
 
           <Dropdown>
             <Dropdown.Toggle
-            className="nav-link toggle bg-white"
+              className="nav-link toggle bg-white"
               variant="success"
               id="dropdown-basic"
             ></Dropdown.Toggle>
 
-            <Dropdown.Menu >
-              <Dropdown.Item className=" fw-bold"
+            <Dropdown.Menu>
+              <Dropdown.Item
+                className=" fw-bold"
                 onClick={() => {
-                  
                   navigate("/auth/change-password");
-                }}>
-                    <i className="fa-solid fa-unlock"></i> ChangePassword
-
+                }}
+              >
+                <i className="fa-solid fa-unlock"></i> ChangePassword
               </Dropdown.Item>
-              <Dropdown.Item className=" fw-bold"
-                onClick={() => { 
-                  toggle()
-                }}>
-                   <MdDarkMode /> dark / <CiLight /> light 
+              <Dropdown.Item
+                className=" fw-bold"
+                onClick={() => {
+                  toggle();
+                }}
+              >
+                <MdDarkMode /> dark / <CiLight /> light
               </Dropdown.Item>
               <Dropdown.Item
                 className=" fw-bold"
@@ -175,11 +110,10 @@ export default function Navbar({toggle}) {
                   navigate("/auth/login");
                 }}
               >
-              <i className="fa-solid fa-door-open"></i> Logout
+                <i className="fa-solid fa-door-open"></i> Logout
               </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
- 
         </div>
       </div>
     </div>
