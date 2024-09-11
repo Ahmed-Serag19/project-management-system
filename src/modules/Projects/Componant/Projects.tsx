@@ -56,10 +56,10 @@ export default function Projects() {
         headers: requestHeader,
       });
       closeDeleteModal();
-      toast.success("Task deleted successfully");
+      toast.success("Project deleted successfully");
       getAllProjects(10, 1, "");
     } catch (error) {
-      toast.error("Failed to delete task");
+      toast.error("Failed to delete project");
       closeDeleteModal();
       console.log(error);
     } finally {
