@@ -70,6 +70,7 @@ Admins can manage users in the system:
 - **React**
 - **Vite**
 - **Axios**
+- **TypeScript**
 - **Bootstrap**
 - **React Bootstrap**
 - **React Router DOM**
