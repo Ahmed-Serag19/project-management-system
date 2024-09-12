@@ -1,142 +1,84 @@
-Yes, this looks great on a README file! Here's a revised version with some formatting improvements:
+# Project Management Application
 
-# Project Management System
+## Introduction
 
-Welcome to the Project Management System repository! This README provides a guide for collaborators on how to use Git for contributing to this project. **Please note that direct pushes to the `master` branch are not allowed. All changes must go through a pull request and be approved before merging into `master`.**
+The **Project Management Application** is a comprehensive tool designed to streamline project management and collaboration. It is divided into two main sections: **Admin** and **User**. Each section offers distinct features and functionalities to help manage projects, tasks, and users efficiently.
 
-## Table of Contents
+---
 
-- [Cloning the Repository](#cloning-the-repository)
-- [Setting Up the Remote](#setting-up-the-remote)
-- [Creating a New Branch](#creating-a-new-branch)
-- [Making Changes and Committing](#making-changes-and-committing)
-- [Pushing Changes to Your Branch](#pushing-changes-to-your-branch)
-- [Pulling the Latest Changes from Remote](#pulling-the-latest-changes-from-remote)
-- [Submitting a Pull Request](#submitting-a-pull-request)
-- [Merging Your Pull Request](#merging-your-pull-request)
+## 1. Admin Panel
 
-## Cloning the Repository
+### Auth Module
+- Admin users can log in and manage the application.
+  
+### Dashboard
+The admin dashboard provides an overview of various activities and statistics:
+- **Task Status Charts**: Visual representation of tasks based on their status (To-Do, In-Progress, Done).
+- **User Status Charts**: Visual representation of user activity (Active, Not Active).
+  
+### Project Management (CRUD)
+Admins have full control over managing projects:
+- **Create, Read, Update, Delete (CRUD) projects**.
+- For each project, admins can set:
+  - **Title**: Name of the project.
+  - **Description**: A brief explanation of the project.
+  - **Users List**: Dropdown multi-select to assign users to the project.
+  - **Tasks List**: Dropdown multi-select to assign tasks related to the project.
 
-To start working on this project, first, clone the repository to your local machine.
+### Task Management (CRUD)
+Manage individual tasks within projects:
+- **Create, Read, Update, Delete (CRUD) tasks**.
+- Each task includes:
+  - **Title**: Name of the task.
+  - **Description**: Details of the task.
+  - **Status**: Track progress (To-Do, In-Progress, Done).
 
-```bash
-git clone https://github.com/Ahmed-Serag19/project-management-system.git
-```
+### User Management
+Admins can manage users in the system:
+- **List Users**: View the list of all users in the system.
+- **Activate/Deactivate Users**: Toggle user activity status between Active and Not Active.
 
-Navigate into the project directory:
+---
 
-```bash
-cd project-management-system
-```
+## 2. User Panel
 
-## Setting Up the Remote
+### Auth Module
+- Users can log in to the application and manage their own projects and tasks.
 
-Ensure that your remote repository is set up correctly. This should be done automatically when you clone, but you can verify or add it using the following commands.
+### User Profile
+- **View/Edit Profile**: Users can view and update their personal profile information.
 
-To check the current remote:
+### Project List (History)
+- Users can view a history of all the projects they are assigned to.
 
-```bash
-git remote -v
-```
+### Task List
+- Users can view all tasks assigned to them, divided into three columns based on the status of the task:
+  1. **To-Do**
+  2. **In-Progress**
+  3. **Done**
 
-If the remote isn't set up or you need to add a new remote:
+---
 
-```bash
-git remote add origin https://github.com/Ahmed-Serag19/project-management-system.git
-```
+## Additional Features
 
-## Creating a New Branch
+- **Light/Dark Mode**: Toggle between light and dark themes for a customized user experience.
+- **Drag and Drop**: Easily move tasks between different statuses (To-Do, In-Progress, Done) using drag-and-drop functionality.
+- **Social Media Login**: Users can log in using their social media accounts for quicker access.
 
-Since direct pushes to master are not allowed, create a new branch to work on your feature or bug fix. Use a descriptive name for the branch:
+---
 
-```bash
-git checkout -b your-branch-name
-```
+## Getting Started
 
-Example:
+### Prerequisites
+- Ensure that you have the necessary dependencies and database setup.
 
-```bash
-git checkout -b feature-new-dashboard
-```
-
-## Making Changes and Committing
-
-After making changes to the code, stage and commit them with a message describing what you've done:
-
-```bash
-git add .
-git commit -m "Description of what you did"
-```
-
-## Pushing Changes to Your Branch
-
-Push your branch to the remote repository. This will make your branch available for creating a pull request:
-
-```bash
-git push origin your-branch-name
-```
-
-Example:
-
-```bash
-git push origin feature-new-dashboard
-```
-
-## Pulling the Latest Changes from Remote
-
-Before submitting a pull request, make sure your branch is up-to-date with the latest changes from master. First, pull the latest changes from master:
-
-```bash
-git checkout master
-git pull origin master
-```
-
-Then, rebase your branch onto master:
-
-```bash
-git checkout your-branch-name
-git rebase master
-```
-
-Resolve any conflicts if they arise during the rebase process.
-
-## Submitting a Pull Request
-
-Once your branch is up-to-date and ready for review, you need to create a pull request to propose merging your changes into master.
-
-Push your branch to GitHub if you haven't already:
-
-```bash
-git push origin your-branch-name
-```
-
-Go to the repository on GitHub and click on the "Compare & pull request" button next to your branch.
-
-Add a title and description to the pull request (PR), explaining the changes you've made.
-
-Submit the pull request for review.
-
-## Merging Your Pull Request
-
-Only after your pull request has been reviewed and approved by a project maintainer (which could be yourself or another authorized person) will it be merged into master.
-
-Wait for the approval of your pull request. If any changes are requested during the review, make the necessary adjustments and push them to your branch.
-
-Once approved, the project maintainer will merge your branch into master.
-
-After the merge, ensure your local master branch is up-to-date:
-
-```bash
-git checkout master
-git pull origin master
-```
-
-By following these instructions, you will ensure that all changes are properly reviewed and integrated into the master branch, maintaining the integrity and stability of the project.
-
-### Summary of Changes
-
-- **No Direct Pushes to Master**: The README now makes it clear that collaborators cannot push directly to the `master` branch. Instead, they must create a pull request.
-- **Emphasis on Pull Requests**: Instructions have been added to guide collaborators through the process of submitting a pull request and the subsequent steps for merging after approval.
-- **Maintainer's Role**: It’s clear that only a project maintainer can merge the pull requests into `master`, ensuring that you have control over what gets merged.
-
-This approach will help maintain a structured workflow and ensure that all changes are reviewed before being integrated into the main codebase.
+### Installation
+1. Clone the repository.
+   ```bash
+   git clone https://github.com/username/project-management-app.git
+2. Clone the repository.
+   ```bash
+   npm install
+3. Clone the repository.
+   ```bash
+   npm start
