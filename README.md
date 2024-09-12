@@ -63,8 +63,22 @@ Admins can manage users in the system:
 
 - **Light/Dark Mode**: Toggle between light and dark themes for a customized user experience.
 - **Drag and Drop**: Easily move tasks between different statuses (To-Do, In-Progress, Done) using drag-and-drop functionality.
-- **Social Media Login**: Users can log in using their social media accounts for quicker access.
+---
 
+## Technologies Used 
+
+- **React**
+- **Vite**
+- **Axios**
+- **Bootstrap**
+- **React Bootstrap**
+- **React Router DOM**
+- **React Hook Form**
+- **React Sidebar Pro**
+- **React Toastify**
+- **react-icons**
+- **Chart.js**
+- **lodash**
 ---
 
 ## Getting Started
