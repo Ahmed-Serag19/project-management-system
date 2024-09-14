@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Task_URLs } from "../../../../constants/End_Points";
 import { toast } from "react-toastify";
+import NoData from "../../../Shared/components/NoData/NoData";
 type UserTask = {
   id: string;
   title: string;
@@ -38,7 +39,7 @@ export default function TaskUser() {
   return (
     <div>
       <div>
-        <div className="row mx-2 my-5 pt-3 gx-2">
+        {tasks.length>0 ? <div className="row mx-2 my-5 pt-3 gx-2">
           <Colum
             refetchusers={getUserTask}
             title={"ToDo"}
@@ -55,6 +56,9 @@ export default function TaskUser() {
             tUser={tasks.filter((task) => task.status == "Done")}
           />
         </div>
+        
+        : <NoData/>}
+
       </div>
     </div>
   );

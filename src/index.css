@@ -701,3 +701,8 @@ select option:checked {
   background-color: #343a40 !important;
   color: white !important;
 }
+.active>.page-link{
+  background-color: transparent  !important;
+  border-color: #dee2e6 !important;
+ 
+}

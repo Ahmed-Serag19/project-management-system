@@ -119,7 +119,7 @@ export default function Projects() {
       <div className="bg-white mt-1 d-flex justify-content-between align-items-center">
         <h2 className="title-components ps-5 py-4">Projects</h2>
         <button
-          className="btn bg-main rounded-5 text-white px-4 me-4"
+          className="btn btn-lg btn-warning me-5 btn-add text-white rounded-pill px-3"
           onClick={() => navigate("/dashboard/add-project")}
         >
           + Add New Project
@@ -139,121 +139,130 @@ export default function Projects() {
             onChange={(e) => getSearchValue(e)}
           />
         </InputGroup>
-
+        {projectList.length>0 ?
         <div>
-          <table className="table">
-            <thead>
-              <tr className="text-white">
-                <th>
-                  ID <HiChevronUpDown />
-                </th>
-                <th>
-                  Title <HiChevronUpDown />
-                </th>
-                <th>
-                  No Of Tasks <HiChevronUpDown />
-                </th>
-                <th>
-                  Description <HiChevronUpDown />
-                </th>
-                <th></th>
-              </tr>
-            </thead>
 
-            <tbody>
-              {projectList.length > 0 ? (
-                projectList.map((Project) => {
-                  return (
-                    <tr key={Project.id}>
-                      <td>{Project.id}</td>
-                      <td>{Project.title}</td>
-                      <td>{Project.task.length}</td>
-                      <td>{Project.description}</td>
-                      <td>
-                        <Dropdown>
-                          <Dropdown.Toggle as={CustomToggle} />
-                          <Dropdown.Menu>
-                            <Dropdown.Item href="#">
-                              <FaEye />
-                              <span className="d-inline-block ms-2">
-                                <ViewProject
-                                  projectTitle={Project.title}
-                                  projectDescription={Project.description}
-                                  projectTasks={Project.task.length}
-                                />
-                              </span>
-                            </Dropdown.Item>
+          
+        <div>
 
-                            <Dropdown.Item href="#">
-                              <Link
-                                to={`/dashboard/add-project/${Project.id}`}
-                                className="text-black"
-                                state={{ taskData: { Project }, type: "edit" }}
-                              >
-                                <CiEdit />
-                                <span className="d-inline-block ms-2">
-                                  Edit
-                                </span>
-                              </Link>
-                            </Dropdown.Item>
+<table className="table">
+  <thead>
+    <tr className="text-white">
+      <th>
+        ID <HiChevronUpDown />
+      </th>
+      <th>
+        Title <HiChevronUpDown />
+      </th>
+      <th>
+        No Of Tasks <HiChevronUpDown />
+      </th>
+      <th>
+        Description <HiChevronUpDown />
+      </th>
+      <th></th>
+    </tr>
+  </thead>
 
-                            <Dropdown.Item
-                              href="#"
-                              onClick={() => openDeleteModal(Project.id)}
-                            >
-                              <MdDelete />
-                              <span className="d-inline-block ms-2">
-                                Delete
-                              </span>
-                            </Dropdown.Item>
-                          </Dropdown.Menu>
-                        </Dropdown>
-                      </td>
-                    </tr>
-                  );
-                })
-              ) : (
-                <NoData />
-              )}
-            </tbody>
-          </table>
-        </div>
+  <tbody>
+    {projectList.map((Project) =>(   <tr key={Project.id}>
+        <td>{Project.id}</td>
+        <td>{Project.title}</td>
+        <td>{Project.task.length}</td>
+        <td>{Project.description}</td>
+        <td>
+          <Dropdown>
+            <Dropdown.Toggle as={CustomToggle} />
+            <Dropdown.Menu>
+              <Dropdown.Item href="#">
+                <FaEye />
+                <span className="d-inline-block ms-2">
+                  <ViewProject
+                    projectTitle={Project.title}
+                    projectDescription={Project.description}
+                    projectTasks={Project.task.length}
+                  />
+                </span>
+              </Dropdown.Item>
 
-        <div className="d-flex justify-content-end mt-4">
-          <Pagination>
-            <Pagination.First
-              onClick={() => getAllProjects(10, totalNumberOfPages[0], "")}
-            />
-            <Pagination.Prev
-              onClick={() => getAllProjects(10, pageNumber - 1, "")}
-            />
-
-            {totalNumberOfPages?.map((num: number) => {
-              return (
-                <Pagination.Item
-                  active={num === pageNumber}
-                  key={num}
-                  onClick={() => getAllProjects(10, num, "")}
+              <Dropdown.Item href="#">
+                <Link
+                  to={`/dashboard/add-project/${Project.id}`}
+                  className="text-black"
+                  state={{ taskData: { Project }, type: "edit" }}
                 >
-                  {num}
-                </Pagination.Item>
-              );
-            })}
+                  <CiEdit />
+                  <span className="d-inline-block ms-2">
+                    Edit
+                  </span>
+                </Link>
+              </Dropdown.Item>
 
-            <Pagination.Next
-              onClick={() => getAllProjects(10, pageNumber + 1, "")}
-            />
-            <Pagination.Last
-              onClick={() =>
-                getAllProjects(
-                  10,
-                  totalNumberOfPages[totalNumberOfPages.length - 1],
-                  ""
-                )
-              }
-            />
-          </Pagination>
+              <Dropdown.Item
+                href="#"
+                onClick={() => openDeleteModal(Project.id)}
+              >
+                <MdDelete />
+                <span className="d-inline-block ms-2">
+                  Delete
+                </span>
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        </td>
+      </tr>
+
+      ) )}
+
+  </tbody>
+</table>
+</div>
+
+<div className="d-flex justify-content-end mt-4">
+<Pagination>
+  <Pagination.First
+    onClick={() => getAllProjects(10, totalNumberOfPages[0], "")}
+  />
+  <Pagination.Prev
+    onClick={() => getAllProjects(10, pageNumber - 1, "")}
+  />
+
+  {totalNumberOfPages?.map((num: number) => {
+    return (
+      <Pagination.Item
+        active={num === pageNumber}
+        key={num}
+        onClick={() => getAllProjects(10, num, "")}
+      >
+        {num}
+      </Pagination.Item>
+    );
+  })}
+
+  <Pagination.Next
+    onClick={() => getAllProjects(10, pageNumber + 1, "")}
+  />
+  <Pagination.Last
+    onClick={() =>
+      getAllProjects(
+        10,
+        totalNumberOfPages[totalNumberOfPages.length - 1],
+        ""
+      )
+    }
+  />
+</Pagination>
+</div>
+
+
         </div>
+
+
+
+        :<NoData/>}
+
+
+
 
         <PopupModal
           buttonText="Delete"
