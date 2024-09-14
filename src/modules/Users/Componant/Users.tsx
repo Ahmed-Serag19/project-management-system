@@ -95,7 +95,7 @@ export default function Users() {
             </div>
           </div>
 
-          <div className=".col-md-2 pe-2">
+          {/* <div className=".col-md-2 pe-2">
             <select
               onChange={getstatusValue}
               className=" text-black border  rounded-pill py-2 px-2 "
@@ -104,7 +104,7 @@ export default function Users() {
               <option value="true">Active</option>
               <option value="false">Not Active</option>
             </select>
-          </div>
+          </div> */}
         </div>
         {userList.length > 0 ? (
           <div>

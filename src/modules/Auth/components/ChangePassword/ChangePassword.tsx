@@ -40,7 +40,7 @@ const ChangePassword = () => {
     try {
       const res = await axios.put<{ message: string }>(User_URls.ChangePassword, data, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
       toast.success(res.data.message);
-      navigate('/dashboard');
+      navigate('/auth/login');
     } catch (error) {
       if (axios.isAxiosError(error)) {
         if (error.response?.data?.message) toast.error(error.response?.data?.message);
